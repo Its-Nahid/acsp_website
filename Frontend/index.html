@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Animal Care Service Platform</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#f98c06",
+            "background-light": "#f6f8f6",
+            "background-dark": "#112116",
+            "accent-blue": "#e0f2fe",
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"]
+          },
+          borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+
+  <link href="css/style.css" rel="stylesheet" />
+</head>
+
+<body
+  class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-300">
+
+  <header
+    class="sticky top-0 z-50 w-full border-b border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
+    <div class="max-w-[1440px] mx-auto px-4 md:px-10 py-4 flex items-center justify-between gap-4">
+
+      <div class="flex items-center gap-2 group cursor-pointer">
+        <div class="p-2 bg-primary rounded-full text-white">
+          <span class="material-symbols-outlined text-2xl">pets</span>
+        </div>
+        <h1 class="text-xl font-black tracking-tight text-slate-900 dark:text-white">Fluffy Tail</h1>
+      </div>
+ 
+      <a class="hover:text-primary transition-colors" href="login.html">User</a>
+      <a class="hover:text-primary transition-colors" href="drectory.html">NGO</a>
+      <a class="hover:text-primary transition-colors" href="#">Treatment</a>
+      <a class="hover:text-primary transition-colors" href="a-help.html">Animal</a>
+      <a class="hover:text-primary transition-colors" href="dnation.html">Donation</a>
+      <a class="hover:text-primary transition-colors" href="#">Adoption</a>
+      <a class="hover:text-primary transition-colors" href="report.html">Rescue</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="login.html"
+          class="hidden sm:flex px-6 py-2 rounded-full font-bold text-sm bg-primary/10 text-primary hover:bg-primary/20 transition-all">
+          Login
+        </a>
+        <a href="signup.html"
+          class="px-6 py-2 rounded-full font-bold text-sm bg-primary text-white hover:shadow-lg hover:shadow-primary/30 transition-all">
+          Register
+        </a>
+        <div class="size-10 rounded-full border-2 border-primary/20 bg-cover bg-center"
+          data-alt="User profile placeholder image circular"
+          style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAV6im3eAWUIlkahhQMyHufAUCPiHuCp_nWNCT0jwpbq2yDy_NVPkhRsKOO4ANJxYaARf3YNY1UNPeGaWUvIO11vPCPXqCp8jLThg8BH8aCF855-cNox98589K1EqTZeOa5VDc2USvf3X8RNj3EK0iN0XUW15JIF2Q1XgNezO8ktqBY9hdA7bH8sMu8y6bGsJSr6O9ZVX_5SHbmA45pQoQypSzez6w5fvpimIhWWSTs6AU82M4w6IMPzElQGO0DnBwn5XEQwmSikvcH')">
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="max-w-[1440px] mx-auto">
+
+    <section class="px-4 md:px-10 py-12 md:py-20">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="flex flex-col gap-8">
+          <div
+            class="10 text-primary font-bold text-xs uppercase tracking-widest">
+          </div>
+          <h1 class="text-5xl md:text-7xl font-black leading-tight text-slate-900 dark:text-white tracking-tighter">
+            Care. Treat.<br />Rescue. Adopt.
+          </h1>
+          <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed">
+            The ultimate digital platform connecting rescuers, NGOs, and animal lovers across Bangladesh to save lives.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="report.html"
+              class="flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-white font-bold text-lg hover:scale-105 transition-transform shadow-xl shadow-primary/20">
+              <span class="material-symbols-outlined">report</span>
+              Report an Animal
+            </a>
+            <a href="ai-help.html"
+              class="flex items-center gap-2 px-8 py-4 rounded-full bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 font-bold text-lg hover:bg-slate-50 transition-colors">
+              <span class="material-symbols-outlined">medical_services</span>
+              Get Treatment
+            </a>
+          </div>
+        </div>
+        <div class="relative">
+          <div class="absolute -top-10 -left-10 size-64 bg-primary/20 rounded-full blur-3xl opacity-50"></div>
+          <div class="absolute -bottom-10 -right-10 size-64 bg-blue-400/20 rounded-full blur-3xl opacity-50"></div>
+          <div class="relative h-[400px] md:h-[550px] w-full rounded-xl overflow-hidden shadow-2xl">
+            <img alt="Friendly golden retriever dog in outdoor setting" class="h-full w-full object-cover"
+              data-alt="Happy golden retriever smiling in a sunny park"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPKHEwJQnU9-Crlem1Ll2DgjORr8umWVKyaAZPwKUn8AqfVEfsOJc6DszyNZYa_BUHWPVREtx23RyjkPRQmp8laEsNnk2vQAv9tT0YDSvKa04uZjpPQ0b0bVGHmHOWScEtwi7Du7vsCgK5akk5WqKIMcHwzjwBO75pdvvwgXNdtjcEa8ngJrxpzDIFzddsmu5O8fuXU0bzCiS-1rcOFtYRN48T2b_lzapzt2HH_KEjr4d6PrvQ8SlU0iVrC_MisBl2rotBfYijXqV2" />
+            <div
+              class="absolute bottom-6 left-6 right-6 p-6 bg-white/10 backdrop-blur-md rounded-lg border border-white/20">
+              <p class="text-white font-bold italic text-lg">"Our Goal is to give Animal a safe place"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 md:px-10 py-12">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+        <div
+          class="p-8 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center gap-2 group hover:border-primary transition-colors">
+          <span class="material-symbols-outlined text-primary text-4xl mb-2">favorite</span>
+          <span class="text-3xl font-black text-slate-900 dark:text-white">00</span>
+          <span class="text-sm font-medium text-slate-500 uppercase tracking-widest">Animals Saved</span>
+        </div>
+        <div
+          class="p-8 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center gap-2 group hover:border-primary transition-colors">
+          <span class="material-symbols-outlined text-primary text-4xl mb-2">apartment</span>
+          <span class="text-3xl font-black text-slate-900 dark:text-white">00</span>
+          <span class="text-sm font-medium text-slate-500 uppercase tracking-widest">Active NGOs</span>
+        </div>
+        <div
+          class="p-8 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center gap-2 group hover:border-primary transition-colors">
+          <span class="material-symbols-outlined text-primary text-4xl mb-2">stroller</span>
+          <span class="text-3xl font-black text-slate-900 dark:text-white">00</span>
+          <span class="text-sm font-medium text-slate-500 uppercase tracking-widest">Adoptions</span>
+        </div>
+        <div
+          class="p-8 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center gap-2 group hover:border-primary transition-colors">
+          <span class="material-symbols-outlined text-primary text-4xl mb-2">volunteer_activism</span>
+          <span class="text-3xl font-black text-slate-900 dark:text-white">00</span>
+          <span class="text-sm font-medium text-slate-500 uppercase tracking-widest">Donated (BDT)</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 md:px-10 py-12">
+      <div
+        class="w-full rounded-xl bg-slate-900 dark:bg-primary/5 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-primary/20 skew-x-12 translate-x-12"></div>
+        <div class="relative z-10 text-center md:text-left">
+          <h2 class="text-3xl md:text-4xl font-black text-white mb-4">Every Taka counts for a life.</h2>
+          <p class="text-slate-300 max-w-md">Your contributions help us provide immediate medical care and food for
+            injured street animals.</p>
+        </div>
+        <a href="donation.html"
+          class="relative z-10 px-10 py-4 rounded-full bg-primary text-white font-bold text-xl hover:scale-105 transition-all flex items-center gap-3">
+          <span class="material-symbols-outlined">volunteer_activism</span>
+          Donate Now
+        </a>
+      </div>
+    </section>
+    
+    <footer
+      class="bg-white dark:bg-background-dark py-12 px-4 md:px-10 border-t border-slate-100 dark:border-slate-800">
+      <div class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div class="flex flex-col gap-4">
+          <div class="flex items-center gap-2">
+            <div class="p-1.5 bg-primary rounded-full text-white">
+              <span class="material-symbols-outlined text-xl">pets</span>
+            </div>
+            <h2 class="text-lg font-black">ACSP</h2>
+          </div>
+          <p class="text-slate-500 text-sm leading-relaxed">
+            Bangladesh's new platform for animal welfare, rescue coordination, and sustainable adoption solutions.
+          </p>
+          <div class="flex gap-4 mt-2">
+            <a class="p-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:text-primary transition-colors"
+              href="#"><span class="material-symbols-outlined">public</span></a>
+            <a class="p-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:text-primary transition-colors"
+              href="#"><span class="material-symbols-outlined">share</span></a>
+            <a class="p-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:text-primary transition-colors"
+              href="#"><span class="material-symbols-outlined">mail</span></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-bold mb-6">Quick Links</h4>
+          <ul class="flex flex-col gap-4 text-sm text-slate-500 dark:text-slate-400">
+            <li><a class="hover:text-primary transition-colors" href="#">NGO Partnership</a></li>
+            <li><a class="hover:text-primary transition-colors" href="#">Rescue Guides</a></li>
+            <li><a class="hover:text-primary transition-colors" href="#">Donate Supplies</a></li>
+            <li><a class="hover:text-primary transition-colors" href="#">Success Stories</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-6">Categories</h4>
+          <ul class="flex flex-col gap-4 text-sm text-slate-500 dark:text-slate-400">
+            <li><a class="hover:text-primary transition-colors" href="#">Medical Treatment</a></li>
+            <li><a class="hover:text-primary transition-colors" href="#">Emergency Rescue</a></li>
+            <li><a class="hover:text-primary transition-colors" href="#">Lost &amp; Found</a></li>
+            <li><a class="hover:text-primary transition-colors" href="#">Volunteer Program</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-6">Contact Us</h4>
+          <ul class="flex flex-col gap-4 text-sm text-slate-500 dark:text-slate-400">
+            <li class="flex items-center gap-2"><span
+                class="material-symbols-outlined text-primary text-sm">location_on</span> Natore, Bangladesh</li>
+            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">call</span>
+              +880 1828654109</li>
+            <li class="flex items-center gap-2"><span
+                class="material-symbols-outlined text-primary text-sm">email</span>
+              support@fluffy.Tail-bd.org</li>
+          </ul>
+        </div>
+      </div>
+      <div
+        class="max-w-[1440px] mx-auto mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 text-center text-xs text-slate-400">
+        © 2024 Animal Care Service Platform (ACSP). All rights reserved. Built for compassion.
+      </div>
+    </footer>
+
+    <button
+      class="fixed bottom-8 right-8 size-16 rounded-full bg-red-500 text-white shadow-2xl flex items-center justify-center hover:scale-110 transition-transform z-50 animate-pulse">
+      <span class="material-symbols-outlined text-3xl">emergency</span>
+    </button>
+    <script src="script.js"></script>
+</body>
+
+</html>

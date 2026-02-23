@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Sign Up | ACSP Community</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f98c06",
+                        "background-light": "#fef9f2",
+                        "background-dark": "#112116",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display">
+    <main class="flex-1 flex items-center justify-center p-6 md:p-12">
+        <div 
+        class="max-w-[960px] w-full bg-white/50 dark:bg-[#2d1e0a]/50 backdrop-blur-sm rounded-xl overflow-hidden flex flex-col md:flex-row border border-[#f7e8d5] dark:border-[#3a2812] shadow-sm">
+            <!-- Left Side: Visual/Context -->
+            <div class="md:w-5/12 bg-primary/5 p-10 flex flex-col justify-between border-r border-primary/10">
+                <div>
+                    <span
+                        class="inline-block px-3 py-1 rounded-full bg-primary text-white text-xs font-bold uppercase tracking-widest mb-4">Join
+                        Us</span>
+                    <h1 class="text-4xl font-black text-background-dark leading-tight mb-4">Help us make a pawsitive
+                        impact.</h1>
+                    <p class="text-background-dark/60 text-lg leading-relaxed">Join thousands of animal lovers,
+                        shelters, and professionals dedicated to animal welfare worldwide.</p>
+                </div>
+                <div class="mt-12 space-y-6">
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary shrink-0">
+                            <span class="material-symbols-outlined">favorite</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-background-dark">Community Driven</h4>
+                            <p class="text-sm text-background-dark/50">Connect with local shelters and NGOs instantly.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary shrink-0">
+                            <span class="material-symbols-outlined">verified_user</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-background-dark">Trusted Network</h4>
+                            <p class="text-sm text-background-dark/50">Verified veterinarians and certified shelter
+                                owners.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-12 rounded-xl bg-white p-4 shadow-sm border border-primary/10">
+                    <p class="text-sm italic text-background-dark/70">"ACSP helped me find a home for over 50 rescued
+                        pets this year alone."</p>
+                    <div class="flex items-center gap-3 mt-3">
+                        <div class="size-8 rounded-full bg-gray-200 overflow-hidden">
+                            <img class="w-full h-full object-cover"
+                                data-alt="User testimonial avatar of a smiling woman"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTonv7MGzeiOLRxAYf5qCMZaU-P4pvQyVWSmOogzBIpVEpEwr95W3EUgUdKNZZbUD-_KtedZwEYdh6J28pm1YHyUr8lv4rAvh2CmVHmYNWzYA6pz2o3IiuTtLCjtgKUux3z6tNzbPC14bk-WjrBrUmnt1UPzJq1l7EcTBZjB-HvCHZWPa4tUnIDeVkM7xahbnaXodgghIXgdJ4XYNAhii2kRiWrwKGzV1xwZmQTVU2-guTVcTVpzHp8dbw6vs0qGu4DTyzKcI9Erwu" />
+                        </div>
+                        <span class="text-xs font-bold text-background-dark">Sarah Jenkins, Shelter Owner</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Right Side: Sign Up Form -->
+            <div class="md:w-7/12 p-8 md:p-12">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-background-dark">Create Account</h2>
+                    <p class="text-background-dark/50">Step 1: Choose your role and enter details</p>
+                </div>
+                <form id="signupForm" class="space-y-6" action="signup">
+                    <!-- Role Selection -->
+                    <div class="space-y-3">
+                        <p class="text-sm font-bold text-background-dark flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-lg">person_search</span>
+                            I am a...
+                        </p>
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                            <!-- Role: General -->
+                            <label class="relative cursor-pointer group">
+                                <input checked="" class="peer sr-only" name="role" type="radio" value="general" />
+                                <div
+                                    class="role-card flex flex-col items-center justify-center p-3 rounded-lg border-2 border-transparent bg-background-light peer-checked:border-primary peer-checked:bg-primary/5 transition-all h-full text-center">
+                                    <span
+                                        class="material-symbols-outlined text-background-dark/40 group-hover:text-primary peer-checked:text-primary mb-2">person</span>
+                                    <span class="text-[10px] md:text-xs font-bold text-background-dark">General
+                                        People</span>
+                                </div>
+                            </label>
+                            <!-- Role: Shelter -->
+                            <label class="relative cursor-pointer group">
+                                <input class="peer sr-only" name="role" type="radio" value="shelter" />
+                                <div
+                                    class="role-card flex flex-col items-center justify-center p-3 rounded-lg border-2 border-transparent bg-background-light peer-checked:border-primary peer-checked:bg-primary/5 transition-all h-full text-center">
+                                    <span
+                                        class="material-symbols-outlined text-background-dark/40 group-hover:text-primary peer-checked:text-primary mb-2">home_health</span>
+                                    <span class="text-[10px] md:text-xs font-bold text-background-dark">Shelter
+                                        Owner</span>
+                                </div>
+                            </label>
+                            <!-- Role: NGO -->
+                            <label class="relative cursor-pointer group">
+                                <input class="peer sr-only" name="role" type="radio" value="ngo" />
+                                <div
+                                    class="role-card flex flex-col items-center justify-center p-3 rounded-lg border-2 border-transparent bg-background-light peer-checked:border-primary peer-checked:bg-primary/5 transition-all h-full text-center">
+                                    <span
+                                        class="material-symbols-outlined text-background-dark/40 group-hover:text-primary peer-checked:text-primary mb-2">corporate_fare</span>
+                                    <span class="text-[10px] md:text-xs font-bold text-background-dark">NGO Admin</span>
+                                </div>
+                            </label>
+                            <!-- Role: Vet -->
+                            <label class="relative cursor-pointer group">
+                                <input class="peer sr-only" name="role" type="radio" value="vet" />
+                                <div
+                                    class="role-card flex flex-col items-center justify-center p-3 rounded-lg border-2 border-transparent bg-background-light peer-checked:border-primary peer-checked:bg-primary/5 transition-all h-full text-center">
+                                    <span
+                                        class="material-symbols-outlined text-background-dark/40 group-hover:text-primary peer-checked:text-primary mb-2">stethoscope</span>
+                                    <span
+                                        class="text-[10px] md:text-xs font-bold text-background-dark">Veterinarian</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Input Fields -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-bold text-background-dark mb-1 ml-1">Full Name</label>
+                            <div class="relative">
+                                <span
+                                    class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-background-dark/30">badge</span>
+                                <input
+                                    id="signupName"
+                                    class="w-full pl-12 pr-4 py-3.5 bg-background-light border-transparent rounded-lg focus:ring-primary focus:border-primary text-background-dark placeholder:text-background-dark/30 transition-all"
+                                    placeholder="John Doe" type="text" />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-background-dark mb-1 ml-1">Email Address</label>
+                            <div class="relative">
+                                <span
+                                    class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-background-dark/30">mail</span>
+                                <input
+                                    id ="signupEmail"
+                                    class="w-full pl-12 pr-4 py-3.5 bg-background-light border-transparent rounded-lg focus:ring-primary focus:border-primary text-background-dark placeholder:text-background-dark/30 transition-all"
+                                    placeholder="john@example.com" type="email" />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-background-dark mb-1 ml-1">Password</label>
+                            <div class="relative">
+                                <span
+                                    class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-background-dark/30">lock</span>
+                                <input
+                                    id="signupPassword"
+                                    class="w-full pl-12 pr-12 py-3.5 bg-background-light border-transparent rounded-lg focus:ring-primary focus:border-primary text-background-dark placeholder:text-background-dark/30 transition-all"
+                                    placeholder="••••••••" type="password" />
+                                <button
+                                    class="absolute right-4 top-1/2 -translate-y-1/2 text-background-dark/30 hover:text-primary"
+                                    type="button">
+                                    <span class="material-symbols-outlined text-lg">visibility</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input class="rounded border-gray-300 text-primary focus:ring-primary" id="terms"
+                            type="checkbox" />
+                        <label class="text-xs text-background-dark/60" for="terms">I agree to the <a
+                                class="text-primary font-bold hover:underline" href="#">Terms of Service</a> and <a
+                                class="text-primary font-bold hover:underline" href="#">Privacy Policy</a></label>
+                    </div>
+                    <button
+                        class="w-full bg-primary hover:bg-primary/90 text-white font-black py-4 rounded-full shadow-lg shadow-primary/20 transition-all transform hover:scale-[1.01] active:scale-95 text-lg"
+                        type="submit">
+                        Create Account
+                    </button>
+                </form>
+                <div class="mt-8 text-center">
+                    <p class="text-sm text-background-dark/50">
+                        Already have an account?
+                        <a class="text-primary font-bold hover:underline" href="login.html">Log In</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Footer Simple -->
+    <footer class="py-6 text-center">
+        <p class="text-xs text-background-dark/30">© 2024 ACSP - Animal Care &amp; Support Platform. All rights
+            reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
