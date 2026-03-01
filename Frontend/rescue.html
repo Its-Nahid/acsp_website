@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>All Rescue Requests - RescueNet</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f59313",
+                        "background-light": "#ffffff",
+                        "background-dark": "#121212",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }</script>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+    <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+        <div class="layout-container flex h-full grow flex-col">
+            <!-- Navigation Header -->
+            <div id="navbar-placeholder"></div>
+            <main class="px-4 sm:px-10 lg:px-40 flex flex-1 justify-center py-8">
+                <div class="layout-content-container flex flex-col max-w-[1200px] flex-1">
+                    <!-- Page Heading -->
+                    <div class="flex flex-wrap justify-between items-end gap-4 mb-8">
+                        <div class="flex flex-col gap-2">
+                            <h1 class="text-slate-900 dark:text-white text-4xl font-black leading-tight tracking-tight">
+                                All Rescue Requests</h1>
+                            <p class="text-slate-500 dark:text-slate-400 text-base">Monitor and respond to active animal
+                                rescue cases across the network.</p>
+                        </div>
+                        <a href="report.html"
+                            class="flex items-center justify-center gap-2 rounded-xl h-12 px-6 bg-primary text-white text-sm font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 rounded-full">
+                            <span class="material-symbols-outlined text-sm">add_circle</span>
+                            <span>Submit New Request</span>
+                        </a>
+                    </div>
+                    <!-- Filters & Tabs -->
+                    <div class="flex flex-col gap-6 mb-8">
+                        <div
+                            class="flex border-b border-slate-200 dark:border-slate-800 gap-8 overflow-x-auto no-scrollbar">
+                            <a class="flex flex-col items-center justify-center border-b-2 border-primary text-primary pb-3 pt-2 whitespace-nowrap"
+                                href="#">
+                                <span class="text-sm font-bold">All Requests (128)</span>
+                            </a>
+                            <a class="flex flex-col items-center justify-center border-b-2 border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 pb-3 pt-2 whitespace-nowrap"
+                                href="#">
+                                <span class="text-sm font-bold">Pending</span>
+                            </a>
+                            <a class="flex flex-col items-center justify-center border-b-2 border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 pb-3 pt-2 whitespace-nowrap"
+                                href="#">
+                                <span class="text-sm font-bold">In Progress</span>
+                            </a>
+                            <a class="flex flex-col items-center justify-center border-b-2 border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 pb-3 pt-2 whitespace-nowrap"
+                                href="#">
+                                <span class="text-sm font-bold">Resolved</span>
+                            </a>
+                        </div>
+                        <div class="flex flex-wrap gap-3">
+                            <button
+                                class="flex h-10 items-center justify-center gap-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 text-slate-700 dark:text-slate-300 hover:border-primary transition-colors rounded-full">
+                                <span class="text-sm font-medium">Newest First</span>
+                                <span class="material-symbols-outlined text-lg">expand_more</span>
+                            </button>
+                            <button
+                                class="flex h-10 items-center justify-center gap-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 text-slate-700 dark:text-slate-300 hover:border-primary transition-colors rounded-full">
+                                <span class="material-symbols-outlined text-lg text-primary">filter_alt</span>
+                                <span class="text-sm font-medium">Animal Type</span>
+                                <span class="material-symbols-outlined text-lg">expand_more</span>
+                            </button>
+                            <button
+                                class="flex h-10 items-center justify-center gap-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 text-slate-700 dark:text-slate-300 hover:border-primary transition-colors rounded-full">
+                                <span class="text-sm font-medium">Location</span>
+                                <span class="material-symbols-outlined text-lg">expand_more</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Responsive Grid of Cards -->
+                    <div id="reportsGrid"
+                        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 justify-items-center min-h-[400px]">
+                        <!-- Reports will be injected here -->
+                    </div>
+
+                    <!-- Pagination -->
+                    <div id="pagination" class="flex justify-center items-center gap-2 py-12">
+                        <!-- Pagination buttons will be injected here -->
+                    </div>
+                </div>
+            </main>
+            <!-- Site Footer -->
+            <div id="footer-placeholder"></div>
+        </div>
+    </div>
+    <script src="components.js"></script>
+    <script>
+        let currentPage = 1;
+        const reportsGrid = document.getElementById('reportsGrid');
+        const pagination = document.getElementById('pagination');
+
+        async function fetchReports(page = 1) {
+            try {
+                reportsGrid.innerHTML = '<div class="col-span-full py-20 text-center"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div></div>';
+
+                console.log('Fetching reports from backend...');
+                const response = await fetch(`http://localhost:5000/reports?page=${page}`);
+                const data = await response.json();
+                console.log('Received data:', data);
+
+                if (!data.reports || data.reports.length === 0) {
+                    reportsGrid.innerHTML = `
+                        <div class="col-span-full py-20 text-center">
+                            <span class="material-symbols-outlined text-6xl text-slate-300 mb-4">report_off</span>
+                            <h3 class="text-xl font-bold text-slate-400">No Rescue Reports Yet</h3>
+                            <p class="text-slate-400 mt-2">Check back later or submit a new request.</p>
+                        </div>`;
+                    pagination.innerHTML = '';
+                    return;
+                }
+
+                renderReports(data.reports);
+                renderPagination(data.totalPages, data.currentPage);
+
+                // Update total count if needed
+                const totalText = document.querySelector('a.text-primary span.text-sm');
+                if (totalText) totalText.textContent = `All Requests (${data.totalReports})`;
+
+            } catch (error) {
+                console.error('Error:', error);
+                reportsGrid.innerHTML = '<div class="col-span-full py-20 text-center text-red-500">Failed to load reports. Is the backend running?</div>';
+            }
+        }
+
+        function renderReports(reports) {
+            reportsGrid.innerHTML = reports.map(report => {
+                const imageUrl = report.photos && report.photos.length > 0
+                    ? `http://localhost:5000/${report.photos[0]}`
+                    : 'https://via.placeholder.com/400x300?text=No+Photo';
+
+                const urgencyVal = (report.urgency || 'low').toLowerCase();
+                const urgencyClass = {
+                    'low': 'bg-blue-400',
+                    'medium': 'bg-orange-400',
+                    'high': 'bg-red-500',
+                    'urgent': 'bg-red-600 animate-pulse'
+                }[urgencyVal] || 'bg-slate-400';
+
+                return `
+                <div class="flex flex-col bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-md transition-shadow w-full max-w-[360px]">
+                    <div class="relative w-full h-[300px] bg-slate-100">
+                        <img class="w-full h-full object-cover" src="${imageUrl}" onerror="this.src='https://via.placeholder.com/300x300?text=Image+Not+Found'"/>
+                        <div class="absolute top-3 left-3">
+                            <span class="${urgencyClass} text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">${report.urgency || 'Low'}</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1 gap-4">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-orange-50 text-primary text-[11px] font-bold px-3 py-1 rounded-full border border-orange-100">${report.animalType || 'N/A'}</span>
+                            <span class="bg-slate-50 text-slate-600 text-[11px] font-bold px-3 py-1 rounded-full border border-slate-100">${report.category || 'N/A'}</span>
+                        </div>
+                        <div>
+                            <h3 class="text-slate-900 text-lg font-bold mb-1">${report.caseSummary || 'No Summary'}</h3>
+                            <p class="text-slate-500 text-sm line-clamp-2">${report.description || 'No Description'}</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 p-4 rounded-2xl bg-slate-50/50 border border-slate-100">
+                            <div class="flex flex-col gap-0.5">
+                                <span class="text-[10px] uppercase text-slate-400 font-bold tracking-tight">Reporter</span>
+                                <span class="text-xs font-bold text-slate-900">${report.fullName || 'Anonymous'}</span>
+                            </div>
+                            <div class="flex flex-col gap-0.5">
+                                <span class="text-[10px] uppercase text-slate-400 font-bold tracking-tight">Phone</span>
+                                <span class="text-xs font-bold text-slate-900">${report.phone || 'N/A'}</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2 px-1">
+                            <div class="flex items-center gap-2 text-slate-600 text-xs">
+                                <span class="material-symbols-outlined text-sm text-primary">location_on</span>
+                                <span class="truncate">${report.location || 'Unknown Location'}</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-slate-400 text-[11px]">
+                                <span class="material-symbols-outlined text-sm">schedule</span>
+                                <span>Submitted ${formatDate(report.createdAt)}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function renderPagination(totalPages, currentPage) {
+            let html = '';
+
+            // Previous Button
+            html += `
+                <button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} 
+                    class="flex items-center justify-center size-10 rounded-lg bg-white border border-slate-200 text-slate-500 hover:border-primary hover:text-primary transition-all disabled:opacity-30 disabled:hover:text-slate-500 disabled:hover:border-slate-200">
+                    <span class="material-symbols-outlined">chevron_left</span>
+                </button>`;
+
+            // Page Numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === currentPage) {
+                    html += `<button class="flex items-center justify-center size-10 rounded-lg bg-primary text-white font-bold rounded-full">${i}</button>`;
+                } else {
+                    html += `<button onclick="changePage(${i})" class="flex items-center justify-center size-10 rounded-lg bg-white border border-slate-200 text-slate-500 hover:border-primary hover:text-primary transition-all rounded-full">${i}</button>`;
+                }
+            }
+
+            // Next Button
+            html += `
+                <button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} 
+                    class="flex items-center justify-center size-10 rounded-lg bg-white border border-slate-200 text-slate-500 hover:border-primary hover:text-primary transition-all disabled:opacity-30 disabled:hover:text-slate-500 disabled:hover:border-slate-200">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </button>`;
+
+            pagination.innerHTML = html;
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            fetchReports(page);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffInMinutes = Math.floor((now - date) / (1000 * 60));
+
+            if (diffInMinutes < 1) return 'just now';
+            if (diffInMinutes < 60) return `${diffInMinutes} minutes ago`;
+
+            const diffInHours = Math.floor(diffInMinutes / 60);
+            if (diffInHours < 24) return `${diffInHours} hours ago`;
+
+            return date.toLocaleDateString();
+        }
+
+        // Initial Load
+        document.addEventListener('DOMContentLoaded', () => fetchReports(1));
+    </script>
+</body>
+
+</html>
