@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     }
 
+    // RESCUE REPORT FORM
     const rescueForm = document.getElementById('rescueForm');
     if (rescueForm) {
         rescueForm.addEventListener('submit', async (e) => {

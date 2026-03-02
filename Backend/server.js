@@ -1,4 +1,4 @@
-// 1️⃣ Import packages
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -10,25 +10,25 @@ const path = require("path");
 const User = require("./models/user");
 const RescueReport = require("./models/RescueReport");
 
-// 2️⃣ Initialize Express
+// Initialize Express
 const app = express();
 
-// 3️⃣ Middleware
+// Middleware
 app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static('uploads')); // serve uploaded photos
 
-// 4️⃣ Connect MongoDB
+//Connect MongoDB
 mongoose.connect("mongodb://localhost:27017/acspAuth")
     .then(() => console.log("MongoDB Connected"))
     .catch(err => console.log(err));
 
-// 5️⃣ Test route
+//Test route
 app.get("/", (req, res) => {
     res.send("Backend running");
 });
 
-// 6️⃣ User Authentication Routes
+// User Authentication Routes
 
 // REGISTER
 app.post("/signup", async (req, res) => {
