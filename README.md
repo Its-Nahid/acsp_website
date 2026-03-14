@@ -49,4 +49,4 @@ Currently implemented features and project structure for the Animal Care and Sup
    - Start the server: `node server.js` (Server runs on port 5000).
 2. **Frontend**:
    - Open `Frontend/index.html` in a web browser.
-   - Ensure the backend is running for auth and reporting features to work.
+   - Ensure the backend is running for auth and reporting features to work
