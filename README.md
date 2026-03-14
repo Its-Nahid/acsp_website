@@ -74,30 +74,22 @@ ACSP enables users to report animals in need, upload photos, and interact with a
    - Open `Frontend/index.html` in a web browser.
    - Ensure the backend is running for auth and reporting features to work
 
+---
 
-🐛 Known Issues
+## 🐛 Known Issues
+- Forgot-password feature not yet implemented.
+- Some frontend navigation links point to placeholder pages.
+- File upload limit per report is capped at 5 images.
 
-Forgot-password feature not yet implemented.
+## 🧠 What I Learned
+- **Full-stack integration:** Connecting Node.js backend with MongoDB and a dynamic frontend.
+- **Authentication & Security:** Implementing JWT-based sessions and secure password storage.
+- **File uploads:** Handling images with `multer` and storing them reliably in the backend.
+- **Frontend-Backend interaction:** Using `fetch` API for asynchronous form submissions.
+- **Modern UI design:** Utilizing Tailwind CSS for responsive and clean design patterns.
 
-Some frontend navigation links point to placeholder pages.
+## 👨‍💻 Author
+**Nahid**  
+GitHub: [https://github.com/Its-Nahid](https://github.com/Its-Nahid)
 
-File upload limit per report is capped at 5 images.
-
-🧠 What I Learned
-
-Full-stack integration: Connecting Node.js backend with MongoDB and a dynamic frontend.
-
-Authentication & Security: Implementing JWT-based sessions and secure password storage.
-
-File uploads: Handling images with multer and storing them reliably in the backend.
-
-Frontend-Backend interaction: Using fetch API for asynchronous form submissions.
-
-Modern UI design: Utilizing Tailwind CSS for responsive and clean design patterns.
-
-👨‍💻 Author
-
-Nahid
-GitHub: https://github.com/Its-Nahid
-
-⭐ If you find this project useful, consider starring the repository to support development.
+⭐ If you find this project useful, consider **starring the repository** to support development.
