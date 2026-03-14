@@ -78,10 +78,12 @@ ACSP enables users to report animals in need, upload photos, and interact with a
 🐛 Known Issues
 
 Forgot-password feature not yet implemented.
-Email Verification with code not implemented.
 
+Some frontend navigation links point to placeholder pages.
 
-🧠 What We Learned
+File upload limit per report is capped at 5 images.
+
+🧠 What I Learned
 
 Full-stack integration: Connecting Node.js backend with MongoDB and a dynamic frontend.
 
@@ -92,7 +94,6 @@ File uploads: Handling images with multer and storing them reliably in the backe
 Frontend-Backend interaction: Using fetch API for asynchronous form submissions.
 
 Modern UI design: Utilizing Tailwind CSS for responsive and clean design patterns.
-
 
 👨‍💻 Author
 
