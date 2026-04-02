@@ -39,42 +39,7 @@
 <body
   class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-300">
   <!-- Top Navigation Bar -->
-  <header
-    class="sticky top-0 z-50 w-full border-b border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
-    <div class="max-w-[1440px] mx-auto px-4 md:px-10 py-4 flex items-center justify-between gap-4">
-      <!-- Logo -->
-      <div class="flex items-center gap-2 group cursor-pointer">
-        <div class="p-2 bg-primary rounded-full text-white">
-          <span class="material-symbols-outlined text-2xl">pets</span>
-        </div>
-        <h1 class="text-xl font-black tracking-tight text-slate-900 dark:text-white">Fluffy Tail</h1>
-      </div>
-      <!-- Main Navigation -->
-      <a class="hover:text-primary transition-colors" href="login.html">User</a>
-      <a class="hover:text-primary transition-colors" href="drectory.html">NGO</a>
-      <a class="hover:text-primary transition-colors" href="#">Treatment</a>
-      <a class="hover:text-primary transition-colors" href="a-help.html">Animal</a>
-      <a class="hover:text-primary transition-colors" href="dnation.html">Donation</a>
-      <a class="hover:text-primary transition-colors" href="#">Adoption</a>
-      <a class="hover:text-primary transition-colors" href="report.html">Rescue</a>
-      </nav>
-      <!-- Auth Buttons -->
-      <div class="flex items-center gap-3">
-        <a href="login.html"
-          class="hidden sm:flex px-6 py-2 rounded-full font-bold text-sm bg-primary/10 text-primary hover:bg-primary/20 transition-all">
-          Login
-        </a>
-        <a href="signup.html"
-          class="px-6 py-2 rounded-full font-bold text-sm bg-primary text-white hover:shadow-lg hover:shadow-primary/30 transition-all">
-          Register
-        </a>
-        <div class="size-10 rounded-full border-2 border-primary/20 bg-cover bg-center"
-          data-alt="User profile placeholder image circular"
-          style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAV6im3eAWUIlkahhQMyHufAUCPiHuCp_nWNCT0jwpbq2yDy_NVPkhRsKOO4ANJxYaARf3YNY1UNPeGaWUvIO11vPCPXqCp8jLThg8BH8aCF855-cNox98589K1EqTZeOa5VDc2USvf3X8RNj3EK0iN0XUW15JIF2Q1XgNezO8ktqBY9hdA7bH8sMu8y6bGsJSr6O9ZVX_5SHbmA45pQoQypSzez6w5fvpimIhWWSTs6AU82M4w6IMPzElQGO0DnBwn5XEQwmSikvcH')">
-        </div>
-      </div>
-    </div>
-  </header>
+  <div id="navbar-placeholder"></div>
   <main class="max-w-[1440px] mx-auto">
     <!-- Hero Section -->
     <section class="px-4 md:px-10 py-12 md:py-20">
@@ -277,67 +242,13 @@
     </section>
   </main>
   <!-- Footer -->
-  <footer class="bg-white dark:bg-background-dark py-12 px-4 md:px-10 border-t border-slate-100 dark:border-slate-800">
-    <div class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-      <div class="flex flex-col gap-4">
-        <div class="flex items-center gap-2">
-          <div class="p-1.5 bg-primary rounded-full text-white">
-            <span class="material-symbols-outlined text-xl">pets</span>
-          </div>
-          <h2 class="text-lg font-black">ACSP</h2>
-        </div>
-        <p class="text-slate-500 text-sm leading-relaxed">
-          Bangladesh's leading platform for animal welfare, rescue coordination, and sustainable adoption solutions.
-        </p>
-        <div class="flex gap-4 mt-2">
-          <a class="p-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:text-primary transition-colors" href="#"><span
-              class="material-symbols-outlined">public</span></a>
-          <a class="p-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:text-primary transition-colors" href="#"><span
-              class="material-symbols-outlined">share</span></a>
-          <a class="p-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:text-primary transition-colors" href="#"><span
-              class="material-symbols-outlined">mail</span></a>
-        </div>
-      </div>
-      <div>
-        <h4 class="font-bold mb-6">Quick Links</h4>
-        <ul class="flex flex-col gap-4 text-sm text-slate-500 dark:text-slate-400">
-          <li><a class="hover:text-primary transition-colors" href="#">NGO Partnership</a></li>
-          <li><a class="hover:text-primary transition-colors" href="#">Rescue Guides</a></li>
-          <li><a class="hover:text-primary transition-colors" href="#">Donate Supplies</a></li>
-          <li><a class="hover:text-primary transition-colors" href="#">Success Stories</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-bold mb-6">Categories</h4>
-        <ul class="flex flex-col gap-4 text-sm text-slate-500 dark:text-slate-400">
-          <li><a class="hover:text-primary transition-colors" href="#">Medical Treatment</a></li>
-          <li><a class="hover:text-primary transition-colors" href="#">Emergency Rescue</a></li>
-          <li><a class="hover:text-primary transition-colors" href="#">Lost &amp; Found</a></li>
-          <li><a class="hover:text-primary transition-colors" href="#">Volunteer Program</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-bold mb-6">Contact Us</h4>
-        <ul class="flex flex-col gap-4 text-sm text-slate-500 dark:text-slate-400">
-          <li class="flex items-center gap-2"><span
-              class="material-symbols-outlined text-primary text-sm">location_on</span> Dhaka, Bangladesh</li>
-          <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">call</span>
-            +880 1234 567890</li>
-          <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">email</span>
-            support@acsp-bd.org</li>
-        </ul>
-      </div>
-    </div>
-    <div
-      class="max-w-[1440px] mx-auto mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 text-center text-xs text-slate-400">
-      © 2024 Animal Care Service Platform (ACSP). All rights reserved. Built for compassion.
-    </div>
-  </footer>
+  <div id="footer-placeholder"></div>
   <!-- Floating Action Button -->
   <button
     class="fixed bottom-8 right-8 size-16 rounded-full bg-red-500 text-white shadow-2xl flex items-center justify-center hover:scale-110 transition-transform z-50 animate-pulse">
     <span class="material-symbols-outlined text-3xl">emergency</span>
   </button>
+  <script src="components.js"></script>
   <script src="script.js"></script>
 </body>
 
