@@ -9,6 +9,8 @@ const path = require("path");
 
 const User = require("./models/user");
 const RescueReport = require("./models/RescueReport");
+const Donation = require("./models/Donation");
+const SSLCommerzPayment = require("sslcommerz-lts");
 
 // Initialize Express
 const app = express();
@@ -16,6 +18,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads')); // serve uploaded photos
 
 //Connect MongoDB
@@ -126,6 +129,94 @@ app.get('/reports', async (req, res) => {
     }
 });
 
-// 9️⃣ Start server
+// 9️⃣ SSL COMMERZ INTEGRATION
+const store_id = "fluff69d2431081877";
+const store_passwd = "fluff69d2431081877@ssl";
+const is_live = false;
+
+app.post("/api/donate/init", async (req, res) => {
+    const { amount, donorName, phone, location, cause } = req.body;
+    const tran_id = "REF" + Date.now();
+
+    const data = {
+        total_amount: amount || 2000,
+        currency: "BDT",
+        tran_id: tran_id, // unique for each payment
+        
+        success_url: `http://localhost:5000/api/donate/success`,
+        fail_url: `http://localhost:5000/api/donate/fail`,
+        cancel_url: `http://localhost:5000/api/donate/cancel`,
+        ipn_url: `http://localhost:5000/api/donate/ipn`,
+        
+        shipping_method: "No",
+        product_name: cause || "Donation",
+        product_category: "Charity",
+        product_profile: "general",
+
+        cus_name: donorName || "Donor",
+        cus_email: "donor@example.com", // Assuming email is optional for now or add to form later
+        cus_add1: location || "Bangladesh",
+        cus_city: "Dhaka",
+        cus_country: "Bangladesh",
+        cus_phone: phone || "01711111111",
+    };
+
+    try {
+        const donation = new Donation({
+            amount: data.total_amount,
+            transactionId: tran_id,
+            donorName: data.cus_name,
+            phone: data.cus_phone,
+            location: location || "",
+            cause: cause || "General Fund"
+        });
+        await donation.save();
+
+        const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live);
+        sslcz.init(data).then(apiResponse => {
+            let GatewayPageURL = apiResponse.GatewayPageURL;
+            res.json({ url: GatewayPageURL });
+        });
+    } catch(err) {
+        console.error("Init Error", err);
+        res.status(500).json({ message: "Failed to init payment" });
+    }
+});
+
+app.post("/api/donate/success", async (req, res) => {
+    try {
+        const val_id = req.body.val_id;
+        const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live);
+        
+        // Note: validation returns result as an object
+        const response = await sslcz.validate({ val_id });
+        
+        if (response && (response.status === 'VALID' || response.status === 'VALIDATED')) {
+            await Donation.findOneAndUpdate(
+                { transactionId: req.body.tran_id }, 
+                { status: 'VALID', valId: val_id, paymentMethod: response.card_type }
+            );
+            // Replace with your frontend URL port (assuming 5500 Live Server defaults)
+            res.redirect("http://localhost:5500/success.html");
+        } else {
+            await Donation.findOneAndUpdate({ transactionId: req.body.tran_id }, { status: 'FAILED' });
+            res.redirect("http://localhost:5500/fail.html");
+        }
+    } catch (e) {
+        res.redirect("http://localhost:5500/fail.html");
+    }
+});
+
+app.post("/api/donate/fail", async (req, res) => {
+    await Donation.findOneAndUpdate({ transactionId: req.body.tran_id }, { status: 'FAILED' });
+    res.redirect("http://localhost:5500/fail.html");
+});
+
+app.post("/api/donate/cancel", async (req, res) => {
+    await Donation.findOneAndUpdate({ transactionId: req.body.tran_id }, { status: 'CANCELLED' });
+    res.redirect("http://localhost:5500/cancel.html");
+});
+
+// Start server
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

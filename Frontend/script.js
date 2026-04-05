@@ -176,4 +176,94 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.classList.remove('flex');
         }
     };
+
+    // DONATION AMOUNT BUTTONS
+    let selectedAmount = 2000; // default
+    const amountButtons = document.querySelectorAll('.donation-amount-btn');
+    const amountInput = document.getElementById('donationAmount');
+
+    if (amountButtons) {
+        amountButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                selectedAmount = parseInt(btn.getAttribute('data-amount'), 10);
+                if (amountInput) amountInput.value = ''; // clear custom amount output
+                
+                // update UI classes
+                amountButtons.forEach(b => {
+                    b.classList.remove('border-primary', 'bg-primary', 'text-white', 'shadow-md');
+                    b.classList.add('border-primary/20', 'text-gray-600', 'dark:text-gray-300');
+                });
+                btn.classList.add('border-primary', 'bg-primary', 'text-white', 'shadow-md');
+                btn.classList.remove('border-primary/20', 'text-gray-600', 'dark:text-gray-300');
+            });
+        });
+    }
+
+    if (amountInput) {
+        amountInput.addEventListener('input', () => {
+            if (amountInput.value) {
+                // If user types, visually deselect all preset buttons
+                amountButtons.forEach(b => {
+                    b.classList.remove('border-primary', 'bg-primary', 'text-white', 'shadow-md');
+                    b.classList.add('border-primary/20', 'text-gray-600', 'dark:text-gray-300');
+                });
+            }
+        });
+    }
+
+    // DONATION FORM
+    const donateBtn = document.getElementById('donateBtn');
+    if (donateBtn) {
+        donateBtn.addEventListener('click', async () => {
+            let finalAmount = selectedAmount;
+            if (amountInput && amountInput.value) {
+                finalAmount = parseFloat(amountInput.value);
+            }
+            
+            if (finalAmount < 10) {
+                showToast("Minimum donation is 10 BDT", "error");
+                return;
+            }
+
+            // Collect Donor Details
+            const donorName = document.getElementById('donorName')?.value.trim();
+            const phone = document.getElementById('donorPhone')?.value.trim();
+            const location = document.getElementById('donorLocation')?.value.trim();
+
+            if (!donorName || !phone || !location) {
+                showToast("Please fill in your Full Name, Phone, and Location", "error");
+                return;
+            }
+
+            // Collect Cause
+            const selectedCauseRadio = document.querySelector('input[name="selectedCause"]:checked');
+            const cause = selectedCauseRadio ? selectedCauseRadio.value : 'General Fund';
+
+            const originalText = donateBtn.innerText;
+            donateBtn.innerText = "Processing...";
+            donateBtn.disabled = true;
+
+            try {
+                const response = await fetch('http://localhost:5000/api/donate/init', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount: finalAmount, donorName, phone, location, cause })
+                });
+
+                const data = await response.json();
+                if (response.ok && data.url) {
+                    window.location.href = data.url;
+                } else {
+                    showToast("Failed to initialize payment", "error");
+                    donateBtn.innerText = originalText;
+                    donateBtn.disabled = false;
+                }
+            } catch (error) {
+                console.error("Donation Error:", error);
+                showToast("Cannot connect to server", "error");
+                donateBtn.innerText = originalText;
+                donateBtn.disabled = false;
+            }
+        });
+    }
 });
