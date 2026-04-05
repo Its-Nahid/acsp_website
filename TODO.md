@@ -1,5 +1,3 @@
-# ACSP Project - Implementation TO-DO List
-
 This document tracks the implemented features and planned future enhancements for the Animal Care and Support Project (ACSP).
 
 ## ✅ COMPLETED (Implemented)
@@ -21,9 +19,7 @@ This document tracks the implemented features and planned future enhancements fo
 - [x] Dynamic Photo Upload status feedback
 - [x] User Login and Signup forms with form validation
 - [x] Integrated success modals for report confirmation
-- [x] Unified JavaScript (`script.js`) for all API interactions
-- [x] Custom Toast notification system for success/error alerts
-- [x] Modern UI design using Tailwind CSS and Material Symbols
+- [x] Unified JavaScript
 
 ---
 

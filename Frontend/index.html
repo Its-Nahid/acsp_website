@@ -38,14 +38,17 @@
 
 <body
   class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-300">
-
+  <!-- Top Navigation Bar -->
   <div id="navbar-placeholder"></div>
   <main class="max-w-[1440px] mx-auto">
-
+    <!-- Hero Section -->
     <section class="px-4 md:px-10 py-12 md:py-20">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div class="flex flex-col gap-8">
-          <div class="10 text-primary font-bold text-xs uppercase tracking-widest">
+          <div
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-bold text-xs uppercase tracking-widest">
+            <span class="material-symbols-outlined text-sm">verified</span>
+            Empowering Animal Welfare in Bangladesh
           </div>
           <h1 class="text-5xl md:text-7xl font-black leading-tight text-slate-900 dark:text-white tracking-tighter">
             Care. Treat.<br />Rescue. Adopt.
@@ -75,67 +78,178 @@
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPKHEwJQnU9-Crlem1Ll2DgjORr8umWVKyaAZPwKUn8AqfVEfsOJc6DszyNZYa_BUHWPVREtx23RyjkPRQmp8laEsNnk2vQAv9tT0YDSvKa04uZjpPQ0b0bVGHmHOWScEtwi7Du7vsCgK5akk5WqKIMcHwzjwBO75pdvvwgXNdtjcEa8ngJrxpzDIFzddsmu5O8fuXU0bzCiS-1rcOFtYRN48T2b_lzapzt2HH_KEjr4d6PrvQ8SlU0iVrC_MisBl2rotBfYijXqV2" />
             <div
               class="absolute bottom-6 left-6 right-6 p-6 bg-white/10 backdrop-blur-md rounded-lg border border-white/20">
-              <p class="text-white font-bold italic text-lg">"Our Goal is to give Animal a safe place"</p>
+              <p class="text-white font-bold italic text-lg">"Over 12,000 animals rescued and rehoused since 2022."</p>
             </div>
           </div>
         </div>
       </div>
     </section>
-
+    <!-- Stats Section -->
     <section class="px-4 md:px-10 py-12">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
         <div
           class="p-8 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center gap-2 group hover:border-primary transition-colors">
           <span class="material-symbols-outlined text-primary text-4xl mb-2">favorite</span>
-          <span class="text-3xl font-black text-slate-900 dark:text-white">00</span>
+          <span class="text-3xl font-black text-slate-900 dark:text-white">12K+</span>
           <span class="text-sm font-medium text-slate-500 uppercase tracking-widest">Animals Saved</span>
         </div>
         <div
           class="p-8 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center gap-2 group hover:border-primary transition-colors">
           <span class="material-symbols-outlined text-primary text-4xl mb-2">apartment</span>
-          <span class="text-3xl font-black text-slate-900 dark:text-white">00</span>
+          <span class="text-3xl font-black text-slate-900 dark:text-white">85</span>
           <span class="text-sm font-medium text-slate-500 uppercase tracking-widest">Active NGOs</span>
         </div>
         <div
           class="p-8 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center gap-2 group hover:border-primary transition-colors">
           <span class="material-symbols-outlined text-primary text-4xl mb-2">stroller</span>
-          <span class="text-3xl font-black text-slate-900 dark:text-white">00</span>
+          <span class="text-3xl font-black text-slate-900 dark:text-white">450+</span>
           <span class="text-sm font-medium text-slate-500 uppercase tracking-widest">Adoptions</span>
         </div>
         <div
           class="p-8 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center gap-2 group hover:border-primary transition-colors">
           <span class="material-symbols-outlined text-primary text-4xl mb-2">volunteer_activism</span>
-          <span class="text-3xl font-black text-slate-900 dark:text-white">00</span>
+          <span class="text-3xl font-black text-slate-900 dark:text-white">1.2M</span>
           <span class="text-sm font-medium text-slate-500 uppercase tracking-widest">Donated (BDT)</span>
         </div>
       </div>
     </section>
-
-    <section class="px-4 md:px-10 py-12">
-      <div
-        class="w-full rounded-xl bg-slate-900 dark:bg-primary/5 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-1/3 h-full bg-primary/20 skew-x-12 translate-x-12"></div>
-        <div class="relative z-10 text-center md:text-left">
-          <h2 class="text-3xl md:text-4xl font-black text-white mb-4">Every Taka counts for a life.</h2>
-          <p class="text-slate-300 max-w-md">Your contributions help us provide immediate medical care and food for
-            injured street animals.</p>
+    <section class="px-4 md:px-10 py-16 bg-white dark:bg-slate-800/30">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="order-2 lg:order-1">
+          <div class="relative rounded-2xl overflow-hidden shadow-xl">
+            <img alt="ACSP Volunteers" class="w-full h-[400px] object-cover"
+              data-alt="Volunteers caring for animals in a shelter"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpY9_2W6V6Q_v5y1_M3wX7pE9R6fS9qQ6v3w-Xv-p9-Xv-p9-Xv-p9-Xv-p9-Xv-p9" />
+            <div class="absolute inset-0 bg-primary/10"></div>
+          </div>
         </div>
-        <a href="donation.html"
-          class="relative z-10 px-10 py-4 rounded-full bg-primary text-white font-bold text-xl hover:scale-105 transition-all flex items-center gap-3">
-          <span class="material-symbols-outlined">volunteer_activism</span>
-          Donate Now
-        </a>
+        <div class="flex flex-col gap-6 order-1 lg:order-2">
+          <h2 class="text-4xl font-black text-slate-900 dark:text-white tracking-tight">About ACSP</h2>
+          <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+            The Animal Care Service Platform (ACSP) is dedicated to revolutionizing animal welfare in Bangladesh. We act
+            as a bridge between compassionate individuals, local rescuers, and specialized NGOs to ensure every animal
+            receives the care it deserves.
+          </p>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <span class="material-symbols-outlined text-primary">check_circle</span>
+              <span class="font-medium text-slate-700 dark:text-slate-300">24/7 Emergency Rescue Support</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="material-symbols-outlined text-primary">check_circle</span>
+              <span class="font-medium text-slate-700 dark:text-slate-300">Verified NGO Network</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="material-symbols-outlined text-primary">check_circle</span>
+              <span class="font-medium text-slate-700 dark:text-slate-300">Transparent Donation Tracking</span>
+            </li>
+          </ul>
+          <button
+            class="w-fit px-8 py-3 rounded-full border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all">
+            Learn More Our Mission
+          </button>
+        </div>
       </div>
     </section>
-
-    <div id="footer-placeholder"></div>
-
-    <button
-      class="fixed bottom-8 right-8 size-16 rounded-full bg-red-500 text-white shadow-2xl flex items-center justify-center hover:scale-110 transition-transform z-50 animate-pulse">
-      <span class="material-symbols-outlined text-3xl">emergency</span>
-    </button>
-    <script src="components.js"></script>
-    <script src="script.js"></script>
+    <section class="px-4 md:px-10 py-16">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-4xl font-black text-slate-900 dark:text-white tracking-tight text-center mb-12">Common Questions
+        </h2>
+        <div class="space-y-4"><!-- Accordion Item 1 -->
+          <details
+            class="group rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 transition-all open:ring-2 open:ring-primary/20">
+            <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white">How can I report an injured animal?</h3>
+              <span
+                class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span>
+            </summary>
+            <div class="px-6 pb-6 text-slate-600 dark:text-slate-400">
+              You can use the 'Report an Animal' button on the homepage to upload a photo and location. Our system will
+              immediately dispatch the information to the nearest partner NGO.
+            </div>
+          </details>
+          <!-- Accordion Item 2 -->
+          <details
+            class="group rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 transition-all open:ring-2 open:ring-primary/20">
+            <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white">Is the adoption process free?</h3>
+              <span
+                class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span>
+            </summary>
+            <div class="px-6 pb-6 text-slate-600 dark:text-slate-400">
+              ACSP is a non-profit platform, but some NGOs may have a small processing fee to cover vaccination and
+              administrative costs for the animal.
+            </div>
+          </details>
+          <!-- Accordion Item 3 -->
+          <details
+            class="group rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 transition-all open:ring-2 open:ring-primary/20">
+            <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white">Where does my donation go?</h3>
+              <span
+                class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span>
+            </summary>
+            <div class="px-6 pb-6 text-slate-600 dark:text-slate-400">
+              100% of your donation goes directly to the selected NGO or animal case. ACSP does not take any commission;
+              we are funded by separate grants and sponsors.
+            </div>
+          </details>
+          <!-- Accordion Item 4 -->
+          <details
+            class="group rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 transition-all open:ring-2 open:ring-primary/20">
+            <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white">How do I become a partner NGO?</h3>
+              <span
+                class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span>
+            </summary>
+            <div class="px-6 pb-6 text-slate-600 dark:text-slate-400">
+              Organizations can apply through the 'Register' page by selecting the 'NGO Admin' role. We require
+              verification of your NGO's registration status in Bangladesh.
+            </div>
+          </details>
+          <!-- Accordion Item 5 -->
+          <details
+            class="group rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 transition-all open:ring-2 open:ring-primary/20">
+            <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white">Can I volunteer as a veterinarian?</h3>
+              <span
+                class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span>
+            </summary>
+            <div class="px-6 pb-6 text-slate-600 dark:text-slate-400">
+              Yes! Licensed veterinarians can register with a 'Veterinarian' role to help with consultations and
+              emergency triage through our AI-assisted portal.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+    <!-- Newsletter / Footer-top -->
+    <section class="px-4 md:px-10 py-16 border-t border-slate-100 dark:border-slate-800">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+        <div class="max-w-md text-center md:text-left">
+          <h3 class="text-2xl font-bold mb-2">Join our monthly newsletter</h3>
+          <p class="text-slate-500 dark:text-slate-400">Get updates on success stories, upcoming rescue missions, and
+            adoption events.</p>
+        </div>
+        <div
+          class="w-full max-w-lg flex items-center p-2 rounded-full bg-white dark:bg-slate-800 shadow-xl border border-slate-100 dark:border-slate-700">
+          <input class="flex-1 border-none focus:ring-0 bg-transparent px-6 font-medium"
+            placeholder="Your email address" type="email" />
+          <button
+            class="px-8 py-3 rounded-full bg-slate-900 dark:bg-primary text-white dark:text-slate-900 font-bold">Subscribe</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+  <!-- Floating Action Button -->
+  <button
+    class="fixed bottom-8 right-8 size-16 rounded-full bg-red-500 text-white shadow-2xl flex items-center justify-center hover:scale-110 transition-transform z-50 animate-pulse">
+    <span class="material-symbols-outlined text-3xl">emergency</span>
+  </button>
+  <script src="components.js"></script>
+  <script src="script.js"></script>
 </body>
 
 </html>

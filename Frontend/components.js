@@ -18,7 +18,7 @@ const components = {
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="drectory.html">NGO</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="#">Treatment</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="a-help.html">Animal</a>
-                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="dnation.html">Donation</a>
+                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="donation.html">Donation</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="#">Adoption</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-rescue" href="report.html">Rescue</a>
             </nav>
