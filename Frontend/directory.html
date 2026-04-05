@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ACSP - NGO Directory</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f98c06",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#112116",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }</script>
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+
+<body class="font-display bg-background-light dark:bg-background-dark text-[#0e1b12] dark:text-white antialiased">
+    <div class="relative flex min-h-screen flex-col overflow-x-hidden">
+        <!-- Top Navigation Bar Placeholder -->
+        <div id="navbar-placeholder"></div>
+
+        <main class="flex-1 w-full max-w-[1200px] mx-auto px-6 py-12">
+            <!-- Hero Section -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                <div class="max-w-2xl">
+                    <h1 class="text-5xl font-black tracking-tight mb-4">NGO Directory</h1>
+                    <p class="text-lg text-black/60 dark:text-white/60 leading-relaxed">
+                        Find and support local animal welfare organizations across the country. Every contribution helps
+                        provide medical care, food, and shelter to animals in need.
+                    </p>
+                </div>
+                <button
+                    class="flex items-center gap-2 px-6 py-3 bg-white dark:bg-white/5 border border-primary/20 rounded-full font-bold text-sm hover:border-primary transition-all group">
+                    <span>Become a Partner</span>
+                    <span
+                        class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </button>
+            </div>
+            <!-- Search and Filter Bar -->
+            <div
+                class="sticky top-20 z-40 mb-12 flex flex-col gap-4 p-2 bg-white dark:bg-white/5 border border-primary/10 rounded-2xl shadow-sm backdrop-blur-sm">
+                <div class="flex flex-col lg:flex-row gap-3">
+                    <div class="relative flex-1">
+                        <span
+                            class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-primary">search</span>
+                        <input
+                            class="w-full pl-12 pr-4 h-14 bg-background-light dark:bg-background-dark/50 border-none rounded-xl focus:ring-2 focus:ring-primary/50 text-base"
+                            placeholder="Search NGOs by name, city or specialty..." type="text" />
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button
+                            class="flex h-14 items-center gap-2 px-6 rounded-xl bg-background-light dark:bg-background-dark/50 hover:bg-primary/10 transition-colors">
+                            <span class="material-symbols-outlined text-primary size-5">location_on</span>
+                            <span class="text-sm font-semibold">Location</span>
+                            <span class="material-symbols-outlined text-black/40 dark:text-white/40">expand_more</span>
+                        </button>
+                        <button
+                            class="flex h-14 items-center gap-2 px-6 rounded-xl bg-background-light dark:bg-background-dark/50 hover:bg-primary/10 transition-colors">
+                            <span class="material-symbols-outlined text-primary size-5">pets</span>
+                            <span class="text-sm font-semibold">Animal Category</span>
+                            <span class="material-symbols-outlined text-black/40 dark:text-white/40">expand_more</span>
+                        </button>
+                        <button
+                            class="h-14 w-14 flex items-center justify-center rounded-xl bg-primary text-background-dark shadow-lg shadow-primary/20">
+                            <span class="material-symbols-outlined font-bold">tune</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- NGO Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- NGO Card A -->
+                <div
+                    class="group flex flex-col bg-white dark:bg-white/5 rounded-3xl border border-transparent hover:border-primary/30 transition-all hover:shadow-2xl hover:shadow-primary/5 overflow-hidden">
+                    <div class="relative h-48 w-full overflow-hidden">
+                        <img alt="Rescue Dogs"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            data-alt="Two happy rescue dogs sitting together in a park"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1QFeTBcpIykpvkgftQRnt4k9rxSMVy0dGG4pYHi5kuGDcV_zpTjyWtqOln9rcupN-n6sLWaw8zSgn-IfylSoj6UvZJc9QZIW0KONdVwapenTps30Z-gTUiwkbnRyw24qzAM-76RauzFOSLErMlAra3J9j4RAO0qtu0lzxHVvdqDH_Ec0O9Y9fi0czKkCRwKsbns6icLWfJg4nWPwymYfnyUde2RvQFI0g0MymwGSocEiLJqpWqPv0Lky5RpbioLDH6wR7sop_nzYd" />
+                        <div class="absolute top-4 left-4">
+                            <span
+                                class="px-3 py-1 bg-white/90 backdrop-blur-sm text-background-dark text-xs font-bold rounded-full uppercase tracking-wider shadow-sm">Verified</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-start justify-between mb-4">
+                            <div
+                                class="size-16 rounded-2xl bg-background-light dark:bg-background-dark border-4 border-white dark:border-background-dark -mt-14 relative z-10 overflow-hidden shadow-lg flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary text-3xl">home_health</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Dhaka Animal
+                            Rescue</h3>
+                        <div class="flex items-center gap-1.5 text-sm text-black/60 dark:text-white/60 mb-4">
+                            <span class="material-symbols-outlined text-primary text-lg">location_on</span>
+                            <span>Dhaka, Bangladesh</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span
+                                class="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full border border-primary/20">Dogs
+                                &amp; Cats</span>
+                            <span class="px-3 py-1 bg-black/5 dark:bg-white/5 text-xs font-bold rounded-full">Medical
+                                Care</span>
+                        </div>
+                        <div class="mt-auto grid grid-cols-2 gap-3">
+                            <button
+                                class="h-11 rounded-full border border-black/10 dark:border-white/10 text-sm font-bold hover:bg-black/5 dark:hover:bg-white/5 transition-colors">View
+                                Profile</button>
+                            <button
+                                class="h-11 rounded-full bg-primary text-background-dark text-sm font-bold hover:shadow-lg hover:shadow-primary/20 transition-all">Support
+                                Now</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- NGO Card B -->
+                <div
+                    class="group flex flex-col bg-white dark:bg-white/5 rounded-3xl border border-transparent hover:border-primary/30 transition-all hover:shadow-2xl hover:shadow-primary/5 overflow-hidden">
+                    <div class="relative h-48 w-full overflow-hidden">
+                        <img alt="Wildlife"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            data-alt="A wild deer in a lush forest environment"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHTsCXNNNjQUpITI3xBqsd7K5rGFaSWphb5nwNPEMfXtgUr9lyMhJTZDMIAnEM5DrE18jRmXnX2FTY5KDBbRfeKR8ZBp15zNTosiTnOjqwa2fHrSiR9ktK9ZcgRW8_PzSJpfKL1wXsV6MM0DipHs3xZXjiRrpESC3n1J0bROQyHIH-Wlwlw77xLJcrEhfqDFKoFAudVhRSZLgH-WfzgEl-zRhE8EUMFY75dvwszVYdTd4ukTL7GCvD7B6_okYPmVrKSsUSdha9qJ9h" />
+                        <div class="absolute top-4 left-4">
+                            <span
+                                class="px-3 py-1 bg-white/90 backdrop-blur-sm text-background-dark text-xs font-bold rounded-full uppercase tracking-wider shadow-sm">Eco-Partner</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-start justify-between mb-4">
+                            <div
+                                class="size-16 rounded-2xl bg-background-light dark:bg-background-dark border-4 border-white dark:border-background-dark -mt-14 relative z-10 overflow-hidden shadow-lg flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary text-3xl">forest</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Chittagong
+                            Wildlife Fund</h3>
+                        <div class="flex items-center gap-1.5 text-sm text-black/60 dark:text-white/60 mb-4">
+                            <span class="material-symbols-outlined text-primary text-lg">location_on</span>
+                            <span>Chittagong, Bangladesh</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span
+                                class="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full border border-primary/20">All
+                                Animals</span>
+                            <span
+                                class="px-3 py-1 bg-black/5 dark:bg-white/5 text-xs font-bold rounded-full">Conservation</span>
+                        </div>
+                        <div class="mt-auto grid grid-cols-2 gap-3">
+                            <button
+                                class="h-11 rounded-full border border-black/10 dark:border-white/10 text-sm font-bold hover:bg-black/5 dark:hover:bg-white/5 transition-colors">View
+                                Profile</button>
+                            <button
+                                class="h-11 rounded-full bg-primary text-background-dark text-sm font-bold hover:shadow-lg hover:shadow-primary/20 transition-all">Support
+                                Now</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- NGO Card C -->
+                <div
+                    class="group flex flex-col bg-white dark:bg-white/5 rounded-3xl border border-transparent hover:border-primary/30 transition-all hover:shadow-2xl hover:shadow-primary/5 overflow-hidden">
+                    <div class="relative h-48 w-full overflow-hidden">
+                        <img alt="Rescue Cat"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            data-alt="Portrait of a fluffy ginger cat looking curious"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDySzMn3aGljSxm7xLb0093KyyF-hsoKZV9yCpQ5yTtFj9iqQN5wB_cnNb6WjIs-dWcOuO-RdBYLneMHosFRLW2XTx4UM7ocpIwykmK6HRMahl0FRclleyklEB0ycX5LNU8aKWfD-f2iKosjnH2KJUEs9VGcvl-D6fFSVw509pvDVkiTwPUlovs0EWEx_rNtzw-Q1m_Os_5w5vFSewKeS5T27r17O_D7VxwaTvlXv--Mq5i3SPTi2_3F5u-41eUvQ8xxKahsJlhryD-" />
+                        <div class="absolute top-4 left-4">
+                            <span
+                                class="px-3 py-1 bg-white/90 backdrop-blur-sm text-background-dark text-xs font-bold rounded-full uppercase tracking-wider shadow-sm">Popular</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-start justify-between mb-4">
+                            <div
+                                class="size-16 rounded-2xl bg-background-light dark:bg-background-dark border-4 border-white dark:border-background-dark -mt-14 relative z-10 overflow-hidden shadow-lg flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary text-3xl">volunteer_activism</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">PawCare Foundation
+                        </h3>
+                        <div class="flex items-center gap-1.5 text-sm text-black/60 dark:text-white/60 mb-4">
+                            <span class="material-symbols-outlined text-primary text-lg">location_on</span>
+                            <span>Sylhet, Bangladesh</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span
+                                class="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full border border-primary/20">Cats
+                                Only</span>
+                            <span
+                                class="px-3 py-1 bg-black/5 dark:bg-white/5 text-xs font-bold rounded-full">Shelter</span>
+                        </div>
+                        <div class="mt-auto grid grid-cols-2 gap-3">
+                            <button
+                                class="h-11 rounded-full border border-black/10 dark:border-white/10 text-sm font-bold hover:bg-black/5 dark:hover:bg-white/5 transition-colors">View
+                                Profile</button>
+                            <button
+                                class="h-11 rounded-full bg-primary text-background-dark text-sm font-bold hover:shadow-lg hover:shadow-primary/20 transition-all">Support
+                                Now</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- NGO Card D -->
+                <div
+                    class="group flex flex-col bg-white dark:bg-white/5 rounded-3xl border border-transparent hover:border-primary/30 transition-all hover:shadow-2xl hover:shadow-primary/5 overflow-hidden">
+                    <div class="relative h-48 w-full overflow-hidden">
+                        <img alt="Bird Rescue"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            data-alt="Small colorful bird resting on a rescue branch"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgBcrFb1T05eys3o_Vo4s75HOsLvhTtnkWBMA2hQjNJBjcnoF9NAb-yYGrw7PbOrsyau4kEPx9zUz8XLhzwrvXuTnXN3hNwa6XZdI1Te9Yo2wJ4u78EiKGT2C9kIZK8BVZ4vxwVUG3IKuM6Ve2YE0XwzyWvj9ogEB5qeqF2SuhkcwCRCvqPLAKSanXCFQAerUr6D4X29gf5igjIddQuYVaLzZFj3IRF814mOo3M6vmb-DETh6n6CRQv11dCuQ8i9RljbXglA0V67Kt" />
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-start justify-between mb-4">
+                            <div
+                                class="size-16 rounded-2xl bg-background-light dark:bg-background-dark border-4 border-white dark:border-background-dark -mt-14 relative z-10 overflow-hidden shadow-lg flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary text-3xl">air</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Winged Sanctuary
+                        </h3>
+                        <div class="flex items-center gap-1.5 text-sm text-black/60 dark:text-white/60 mb-4">
+                            <span class="material-symbols-outlined text-primary text-lg">location_on</span>
+                            <span>Rajshahi, Bangladesh</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span
+                                class="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full border border-primary/20">Birds</span>
+                            <span
+                                class="px-3 py-1 bg-black/5 dark:bg-white/5 text-xs font-bold rounded-full">Sanctuary</span>
+                        </div>
+                        <div class="mt-auto grid grid-cols-2 gap-3">
+                            <button
+                                class="h-11 rounded-full border border-black/10 dark:border-white/10 text-sm font-bold hover:bg-black/5 dark:hover:bg-white/5 transition-colors">View
+                                Profile</button>
+                            <button
+                                class="h-11 rounded-full bg-primary text-background-dark text-sm font-bold hover:shadow-lg hover:shadow-primary/20 transition-all">Support
+                                Now</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- NGO Card E -->
+                <div
+                    class="group flex flex-col bg-white dark:bg-white/5 rounded-3xl border border-transparent hover:border-primary/30 transition-all hover:shadow-2xl hover:shadow-primary/5 overflow-hidden">
+                    <div class="relative h-48 w-full overflow-hidden">
+                        <img alt="Puppy Rescue"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            data-alt="Small puppy being held gently by a volunteer"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfVoPgUOldIjpCqdCMQs5QFGPwjEvv5qcGvTKak7cmOsUtQLsxtDCbER9jNpmRZLLPXTAnDMINRlFpxN3aUUFmWUZ3HcyzUY-gmmOnsdlXtgZ3cU4ub-FhcEm9zAqc8h5d-LyDaYXSw8QuBueenPTXMQi8rlFhSD4t3RTtECOSviGnBqLTwi90vXBrctaqR0u4ej5qlDKpoS5n-Nf3zUZh3uEkbheMiDNYDA-TTFp-bgItNJKZ0uj8EwEirMf1gtOc_CwQq93dJELK" />
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-start justify-between mb-4">
+                            <div
+                                class="size-16 rounded-2xl bg-background-light dark:bg-background-dark border-4 border-white dark:border-background-dark -mt-14 relative z-10 overflow-hidden shadow-lg flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary text-3xl">ecg_heart</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Hope for Paws</h3>
+                        <div class="flex items-center gap-1.5 text-sm text-black/60 dark:text-white/60 mb-4">
+                            <span class="material-symbols-outlined text-primary text-lg">location_on</span>
+                            <span>Khulna, Bangladesh</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span
+                                class="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full border border-primary/20">Dogs</span>
+                            <span
+                                class="px-3 py-1 bg-black/5 dark:bg-white/5 text-xs font-bold rounded-full">Emergency</span>
+                        </div>
+                        <div class="mt-auto grid grid-cols-2 gap-3">
+                            <button
+                                class="h-11 rounded-full border border-black/10 dark:border-white/10 text-sm font-bold hover:bg-black/5 dark:hover:bg-white/5 transition-colors">View
+                                Profile</button>
+                            <button
+                                class="h-11 rounded-full bg-primary text-background-dark text-sm font-bold hover:shadow-lg hover:shadow-primary/20 transition-all">Support
+                                Now</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- NGO Card F -->
+                <div
+                    class="group flex flex-col bg-white dark:bg-white/5 rounded-3xl border border-transparent hover:border-primary/30 transition-all hover:shadow-2xl hover:shadow-primary/5 overflow-hidden">
+                    <div class="relative h-48 w-full overflow-hidden">
+                        <img alt="Street Dogs"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            data-alt="Rescue team feeding stray dogs on the street"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAF5PbhoZctpxk1mU7hxZ7tJiwEs0Stbu02R89858L0Ar6WPNwGOs8voMu5_SdZdRdbAoay346X6dKn3H-SqxKvvLTATqsD11WtHCt8X4w5BZP3vkgsl8o7rjcAq1A2tUJARpGIHYyfAWE_kJGUXeHYxBCkbRs-BSHsBqyLYQ_kHyc4APd_hLmfezln-P2TokwEg31_Ok_0rMKKiX-ubw5FoM5gP53P2VO549QJMkneFRoeFSqOLUsJY52UC4pxp33MNLa1E3KMjrB8" />
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-start justify-between mb-4">
+                            <div
+                                class="size-16 rounded-2xl bg-background-light dark:bg-background-dark border-4 border-white dark:border-background-dark -mt-14 relative z-10 overflow-hidden shadow-lg flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary text-3xl">restaurant</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Street Feeders
+                        </h3>
+                        <div class="flex items-center gap-1.5 text-sm text-black/60 dark:text-white/60 mb-4">
+                            <span class="material-symbols-outlined text-primary text-lg">location_on</span>
+                            <span>Barisal, Bangladesh</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span
+                                class="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full border border-primary/20">All
+                                Strays</span>
+                            <span class="px-3 py-1 bg-black/5 dark:bg-white/5 text-xs font-bold rounded-full">Feeding
+                                Program</span>
+                        </div>
+                        <div class="mt-auto grid grid-cols-2 gap-3">
+                            <button
+                                class="h-11 rounded-full border border-black/10 dark:border-white/10 text-sm font-bold hover:bg-black/5 dark:hover:bg-white/5 transition-colors">View
+                                Profile</button>
+                            <button
+                                class="h-11 rounded-full bg-primary text-background-dark text-sm font-bold hover:shadow-lg hover:shadow-primary/20 transition-all">Support
+                                Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Pagination -->
+            <div class="mt-16 flex items-center justify-center gap-4">
+                <button
+                    class="size-12 rounded-full border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-background-dark transition-all">
+                    <span class="material-symbols-outlined">chevron_left</span>
+                </button>
+                <div class="flex items-center gap-2">
+                    <button class="size-12 rounded-full bg-primary text-background-dark font-bold">1</button>
+                    <button class="size-12 rounded-full hover:bg-primary/10 font-bold transition-colors">2</button>
+                    <button class="size-12 rounded-full hover:bg-primary/10 font-bold transition-colors">3</button>
+                    <span class="px-2">...</span>
+                    <button class="size-12 rounded-full hover:bg-primary/10 font-bold transition-colors">12</button>
+                </div>
+                <button
+                    class="size-12 rounded-full border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-background-dark transition-all">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </button>
+            </div>
+        </main>
+        <!-- Footer / Newsletter -->
+        <section class="w-full max-w-[1200px] mx-auto px-6 py-12">
+            <div
+                class="bg-[#f8fafc] dark:bg-white/5 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 border border-primary/10">
+                <div class="max-w-md">
+                    <h2 class="text-2xl font-black mb-2">Join our monthly newsletter</h2>
+                    <p class="text-black/60 dark:text-white/60">Get updates on success stories, upcoming rescue
+                        missions, and adoption events.</p>
+                </div>
+                <div class="w-full max-w-md flex flex-col sm:flex-row gap-2">
+                    <input
+                        class="flex-1 h-12 px-6 rounded-full border-none bg-white dark:bg-white/10 ring-1 ring-black/5 focus:ring-2 focus:ring-primary shadow-sm"
+                        placeholder="Your email address" type="email" />
+                    <button
+                        class="h-12 px-8 rounded-full bg-[#112116] text-white font-bold hover:bg-black transition-colors">Subscribe</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Simple Footer Placeholder -->
+        <div id="footer-placeholder"></div>
+        
+    </div>
+    <script src="components.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
