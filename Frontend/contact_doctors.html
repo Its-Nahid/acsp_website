@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ACSP Treatment Portal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f98c06",
+                        "medical-blue": "#f0f7ff",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#112116",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }</script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f7ff;
+            /* Medical Blue Background */
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+
+<body class="bg-medical-blue font-display min-h-screen text-slate-800">
+    <!-- Top Navigation Bar -->
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-2">
+                    <div class="w-10 h-10 bg-[#f98c06] rounded-full flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white">pets</span>
+                    </div>
+                    <span class="text-2xl font-bold text-gray-900">ACSP</span>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a class="text-gray-600 hover:text-[#f98c06] font-medium" href="#">User</a>
+                    <a class="text-gray-600 hover:text-[#f98c06] font-medium" href="#">NGO</a>
+                    <a class="text-gray-600 hover:text-[#f98c06] font-medium" href="#">Treatment</a>
+                    <a class="text-gray-600 hover:text-[#f98c06] font-medium" href="#">Animal</a>
+                    <a class="text-gray-600 hover:text-[#f98c06] font-medium" href="#">Donation</a>
+                    <a class="text-gray-600 hover:text-[#f98c06] font-medium" href="#">Adoption</a>
+                    <a class="text-gray-600 hover:text-[#f98c06] font-medium" href="#">Rescue</a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <button
+                        class="px-6 py-2 rounded-full bg-orange-50 text-[#f98c06] font-semibold hover:bg-orange-100 transition-colors">Login</button>
+                    <button
+                        class="px-6 py-2 rounded-full bg-[#f98c06] text-white font-semibold hover:bg-orange-600 transition-colors">Register</button>
+                    <div
+                        class="w-10 h-10 rounded-full bg-green-900 flex items-center justify-center text-white overflow-hidden">
+                        <img alt="Profile" class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQruaziNWG1eLejiV0SNZhMfrrFkQWcQ4aR9LM3w8qUgjdotpm0HVNJDRNIaOGBx8uxYkjbVH1NUdzMdbnW2ZFPdhjMghnHDiz3AI7PnGGvwwDznDJ9zxet2j1fdYZbNZ2aR5ter_OllsM9Hozh5RFPnfHgi3ThwDLMjxHjfZQx9CPJ4SzQeALjfx9rHVfuFJGMF6dWA9Rzlukd5jrQso19zR9VpBgqtmFWwOTtKvilQ7SVWwbWuGiLsLEzgpeR8wGuombygjdeg52" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="max-w-4xl mx-auto px-6 py-12 flex flex-col justify-center"><!-- Centralized AI Interface -->
+        <div class="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-12 animate-fade-in">
+            <div class="space-y-6">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-[#f98c06] font-semibold text-sm mb-4">
+                    <span class="material-symbols-outlined text-sm">smart_toy</span>
+                    ACSP AI Assistant is Online
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight">
+                    How can I help your <br />
+                    <span class="text-[#f98c06]">animal friend</span> today?
+                </h1>
+                <p class="text-lg text-slate-500 max-w-xl mx-auto">
+                    Describe symptoms, ask about care, or get an instant triage assessment for any animal in need.
+                </p>
+            </div>
+            <!-- Central Search Bar (Chat Input) -->
+            <div class="w-full max-w-3xl">
+                <div class="relative group">
+                    <div
+                        class="absolute -inset-1 bg-gradient-to-r from-orange-400 to-orange-200 rounded-full blur opacity-25 group-focus-within:opacity-50 transition duration-1000">
+                    </div>
+                    <div
+                        class="relative flex items-center bg-white rounded-full shadow-2xl border border-orange-100 p-2">
+                        <div class="pl-6 text-slate-400">
+                            <span class="material-symbols-outlined">search</span>
+                        </div>
+                        <input
+                            class="w-full px-4 py-4 bg-transparent border-none focus:ring-0 text-lg placeholder-slate-400"
+                            placeholder="Describe the symptoms or ask a question..." type="text" />
+                        <button
+                            class="flex items-center gap-2 px-8 py-4 bg-[#f98c06] text-white font-bold rounded-full hover:bg-orange-600 transition-all hover:shadow-lg">
+                            <span>Send</span>
+                            <span class="material-symbols-outlined text-sm">send</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Quick Suggestion Tags -->
+                <div class="mt-8 flex flex-wrap justify-center gap-3">
+                    <button
+                        class="px-4 py-2 rounded-full bg-white border border-slate-100 text-sm text-slate-600 hover:border-[#f98c06] hover:text-[#f98c06] transition-colors">Dog
+                        is coughing</button>
+                    <button
+                        class="px-4 py-2 rounded-full bg-white border border-slate-100 text-sm text-slate-600 hover:border-[#f98c06] hover:text-[#f98c06] transition-colors">Cat
+                        not eating</button>
+                    <button
+                        class="px-4 py-2 rounded-full bg-white border border-slate-100 text-sm text-slate-600 hover:border-[#f98c06] hover:text-[#f98c06] transition-colors">Wound
+                        care tips</button>
+                    <button
+                        class="px-4 py-2 rounded-full bg-white border border-slate-100 text-sm text-slate-600 hover:border-[#f98c06] hover:text-[#f98c06] transition-colors">Emergency
+                        contacts</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <section class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-900 mb-2">Consult with Local Experts</h2>
+                    <p class="text-slate-500">Connect with verified veterinarians for professional medical advice.</p>
+                </div>
+                <a class="text-[#f98c06] font-semibold flex items-center gap-1 hover:underline" href="#">
+                    View all specialists <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Vet Card 1 -->
+                <div
+                    class="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center text-center">
+                    <div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-4 border-orange-50">
+                        <img alt="Dr. Rahat Hasan" class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQruaziNWG1eLejiV0SNZhMfrrFkQWcQ4aR9LM3w8qUgjdotpm0HVNJDRNIaOGBx8uxYkjbVH1NUdzMdbnW2ZFPdhjMghnHDiz3AI7PnGGvwwDznDJ9zxet2j1fdYZbNZ2aR5ter_OllsM9Hozh5RFPnfHgi3ThwDLMjxHjfZQx9CPJ4SzQeALjfx9rHVfuFJGMF6dWA9Rzlukd5jrQso19zR9VpBgqtmFWwOTtKvilQ7SVWwbWuGiLsLEzgpeR8wGuombygjdeg52" />
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900">Dr. Rahat Hasan</h3>
+                    <p class="text-sm text-slate-500 mb-6">Small Animal Specialist</p>
+                    <button
+                        class="w-full py-3 bg-[#f98c06] text-white font-bold rounded-full hover:bg-orange-600 transition-colors shadow-sm">Contact</button>
+                </div>
+                <!-- Vet Card 2 -->
+                <div
+                    class="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center text-center">
+                    <div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-4 border-orange-50">
+                        <img alt="Dr. Sarah Khan" class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQruaziNWG1eLejiV0SNZhMfrrFkQWcQ4aR9LM3w8qUgjdotpm0HVNJDRNIaOGBx8uxYkjbVH1NUdzMdbnW2ZFPdhjMghnHDiz3AI7PnGGvwwDznDJ9zxet2j1fdYZbNZ2aR5ter_OllsM9Hozh5RFPnfHgi3ThwDLMjxHjfZQx9CPJ4SzQeALjfx9rHVfuFJGMF6dWA9Rzlukd5jrQso19zR9VpBgqtmFWwOTtKvilQ7SVWwbWuGiLsLEzgpeR8wGuombygjdeg52" />
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900">Dr. Sarah Khan</h3>
+                    <p class="text-sm text-slate-500 mb-6">Feline Medicine</p>
+                    <button
+                        class="w-full py-3 bg-[#f98c06] text-white font-bold rounded-full hover:bg-orange-600 transition-colors shadow-sm">Contact</button>
+                </div>
+                <!-- Vet Card 3 -->
+                <div
+                    class="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center text-center">
+                    <div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-4 border-orange-50">
+                        <img alt="Dr. Amit Sen" class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQruaziNWG1eLejiV0SNZhMfrrFkQWcQ4aR9LM3w8qUgjdotpm0HVNJDRNIaOGBx8uxYkjbVH1NUdzMdbnW2ZFPdhjMghnHDiz3AI7PnGGvwwDznDJ9zxet2j1fdYZbNZ2aR5ter_OllsM9Hozh5RFPnfHgi3ThwDLMjxHjfZQx9CPJ4SzQeALjfx9rHVfuFJGMF6dWA9Rzlukd5jrQso19zR9VpBgqtmFWwOTtKvilQ7SVWwbWuGiLsLEzgpeR8wGuombygjdeg52" />
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900">Dr. Amit Sen</h3>
+                    <p class="text-sm text-slate-500 mb-6">Emergency Surgery</p>
+                    <button
+                        class="w-full py-3 bg-[#f98c06] text-white font-bold rounded-full hover:bg-orange-600 transition-colors shadow-sm">Contact</button>
+                </div>
+                <!-- Vet Card 4 -->
+                <div
+                    class="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center text-center">
+                    <div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-4 border-orange-50">
+                        <img alt="Dr. Nadia Islam" class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQruaziNWG1eLejiV0SNZhMfrrFkQWcQ4aR9LM3w8qUgjdotpm0HVNJDRNIaOGBx8uxYkjbVH1NUdzMdbnW2ZFPdhjMghnHDiz3AI7PnGGvwwDznDJ9zxet2j1fdYZbNZ2aR5ter_OllsM9Hozh5RFPnfHgi3ThwDLMjxHjfZQx9CPJ4SzQeALjfx9rHVfuFJGMF6dWA9Rzlukd5jrQso19zR9VpBgqtmFWwOTtKvilQ7SVWwbWuGiLsLEzgpeR8wGuombygjdeg52" />
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900">Dr. Nadia Islam</h3>
+                    <p class="text-sm text-slate-500 mb-6">Avian Specialist</p>
+                    <button
+                        class="w-full py-3 bg-[#f98c06] text-white font-bold rounded-full hover:bg-orange-600 transition-colors shadow-sm">Contact</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Floating AI Chatbot Assistant -->
+    <!-- Footer -->
+    <section class="bg-slate-50 py-16 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div
+                class="bg-white rounded-[2rem] p-8 md:p-12 shadow-sm border border-orange-50 flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="max-w-md">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Join our monthly newsletter</h2>
+                    <p class="text-gray-500">Get updates on success stories, upcoming rescue missions, and adoption
+                        events.</p>
+                </div>
+                <div class="w-full md:w-auto flex flex-col sm:flex-row gap-4">
+                    <input
+                        class="px-6 py-4 rounded-full bg-gray-50 border-gray-100 focus:ring-[#f98c06] focus:border-[#f98c06] w-full sm:w-80"
+                        placeholder="Your email address" type="email" />
+                    <button
+                        class="px-10 py-4 bg-slate-900 text-white font-bold rounded-full hover:bg-slate-800 transition-all">Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="bg-white border-t border-gray-100 pt-20 pb-10 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            <div class="space-y-6">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-[#f98c06] rounded-full flex items-center justify-center text-white">
+                        <span class="material-symbols-outlined text-sm">pets</span>
+                    </div>
+                    <span class="text-xl font-bold">ACSP</span>
+                </div>
+                <p class="text-gray-500 text-sm leading-relaxed">Bangladesh's leading platform for animal welfare,
+                    rescue coordination, and sustainable adoption solutions.</p>
+                <div class="flex gap-4">
+                    <a class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-[#f98c06] hover:text-white transition-all"
+                        href="#"><span class="material-symbols-outlined text-sm">public</span></a>
+                    <a class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-[#f98c06] hover:text-white transition-all"
+                        href="#"><span class="material-symbols-outlined text-sm">share</span></a>
+                    <a class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-[#f98c06] hover:text-white transition-all"
+                        href="#"><span class="material-symbols-outlined text-sm">mail</span></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-bold text-gray-900 mb-6">Quick Links</h4>
+                <ul class="space-y-4 text-gray-500 text-sm">
+                    <li><a class="hover:text-[#f98c06]" href="#">NGO Partnership</a></li>
+                    <li><a class="hover:text-[#f98c06]" href="#">Rescue Guides</a></li>
+                    <li><a class="hover:text-[#f98c06]" href="#">Donate Supplies</a></li>
+                    <li><a class="hover:text-[#f98c06]" href="#">Success Stories</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-gray-900 mb-6">Categories</h4>
+                <ul class="space-y-4 text-gray-500 text-sm">
+                    <li><a class="hover:text-[#f98c06]" href="#">Medical Treatment</a></li>
+                    <li><a class="hover:text-[#f98c06]" href="#">Emergency Rescue</a></li>
+                    <li><a class="hover:text-[#f98c06]" href="#">Lost &amp; Found</a></li>
+                    <li><a class="hover:text-[#f98c06]" href="#">Volunteer Program</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-gray-900 mb-6">Contact Us</h4>
+                <ul class="space-y-4 text-gray-500 text-sm">
+                    <li class="flex items-center gap-2"><span
+                            class="material-symbols-outlined text-orange-500 text-sm">location_on</span> Dhaka,
+                        Bangladesh</li>
+                    <li class="flex items-center gap-2"><span
+                            class="material-symbols-outlined text-orange-500 text-sm">call</span> +880 1234 567890</li>
+                    <li class="flex items-center gap-2"><span
+                            class="material-symbols-outlined text-orange-500 text-sm">mail</span> support@acsp-bd.org
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto pt-8 border-t border-gray-100 text-center text-gray-400 text-xs">
+            © 2024 Animal Care Service Platform (ACSP). All rights reserved. Built for compassion.
+        </div>
+    </footer>
+</body>
+
+</html>
