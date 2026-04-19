@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+
+# Environment variables (Secrets)
+.env
+.env.*
+!.env.example
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# IDE / Editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# User-uploaded files
+Backend/uploads/
+uploads/
+
+# Build outputs (if any)
+dist/
+build/
+bin/
+obj/
