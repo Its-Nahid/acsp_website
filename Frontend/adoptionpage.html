@@ -1,0 +1,763 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Ember Orchard - Animal Adoption Listings</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&amp;display=swap"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet" />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-surface-variant": "#51453a",
+              "on-error-container": "#410009",
+              surface: "#fcf9f6",
+              primary: "#f98c06",
+              "on-secondary-fixed-variant": "#584400",
+              "inverse-surface": "#362f29",
+              "surface-container-highest": "#ebe8e5",
+              "error-container": "#ffdad9",
+              "tertiary-container": "#93f7b8",
+              "on-tertiary-fixed": "#00210f",
+              "tertiary-fixed": "#93f7b8",
+              "surface-container-lowest": "#ffffff",
+              "on-background": "#1a140e",
+              "surface-dim": "#e5e2df",
+              "surface-bright": "#ffffff",
+              "secondary-fixed": "#ffe08d",
+              "on-primary-container": "#321300",
+              "primary-fixed-dim": "#ffb68e",
+              "primary-fixed": "#ffdbc0",
+              "on-tertiary-fixed-variant": "#00522d",
+              "on-error": "#ffffff",
+              "inverse-on-surface": "#fcf0e4",
+              "surface-container-low": "#fcf9f6",
+              "on-primary-fixed": "#321300",
+              "surface-tint": "#f98c06",
+              "primary-container": "#ffdbc0",
+              "outline-variant": "#d4c4b5",
+              "secondary-fixed-dim": "#e9c44a",
+              "secondary-container": "#ffe08d",
+              secondary: "#745b00",
+              "on-primary-fixed-variant": "#7c3700",
+              "on-tertiary": "#ffffff",
+              "on-secondary-container": "#241a00",
+              "on-tertiary-container": "#00210f",
+              "surface-container-high": "#f0edea",
+              tertiary: "#006d3e",
+              "tertiary-fixed-dim": "#77da9e",
+              "on-primary": "#ffffff",
+              error: "#e11d48",
+              "inverse-primary": "#ffb68e",
+              outline: "#837569",
+              "surface-variant": "#f4e0d0",
+              "surface-container": "#f6f3f0",
+              "on-secondary": "#ffffff",
+              "on-surface": "#1a140e",
+              background: "#fcf9f6",
+              "on-secondary-fixed": "#241a00",
+            },
+            borderRadius: {
+              DEFAULT: "1rem",
+              lg: "2rem",
+              xl: "3rem",
+              full: "9999px",
+            },
+            fontFamily: {
+              headline: ["Inter"],
+              body: ["Inter"],
+              label: ["Inter"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #fcf9f6;
+        color: #1a140e;
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+  </head>
+  <body class="bg-surface text-on-surface min-h-screen pb-32">
+    <!-- TopAppBar -->
+    <nav
+      class="fixed top-0 left-0 w-full z-50 bg-white/80 dark:bg-stone-900/80 backdrop-blur-md shadow-sm border-none">
+      <div
+        class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+        <div
+          class="text-2xl font-black tracking-tighter text-stone-900 dark:text-stone-50">
+          Ember Orchard
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+          <a
+            class="text-orange-600 font-bold font-inter tracking-tight uppercase text-[12px] hover:scale-105 hover:-translate-y-0.5 transition-all duration-300"
+            href="#"
+            >Adopt</a
+          >
+          <a
+            class="text-stone-500 dark:text-stone-400 font-inter tracking-tight font-black uppercase text-[12px] hover:scale-105 hover:-translate-y-0.5 transition-all duration-300"
+            href="#"
+            >Alerts</a
+          >
+          <a
+            class="text-stone-500 dark:text-stone-400 font-inter tracking-tight font-black uppercase text-[12px] hover:scale-105 hover:-translate-y-0.5 transition-all duration-300"
+            href="#"
+            >Saved</a
+          >
+          <a
+            class="text-stone-500 dark:text-stone-400 font-inter tracking-tight font-black uppercase text-[12px] hover:scale-105 hover:-translate-y-0.5 transition-all duration-300"
+            href="#"
+            >Profile</a
+          >
+        </div>
+        <div class="flex items-center gap-4">
+          <button
+            class="bg-primary text-white rounded-full px-6 py-2 font-black uppercase tracking-widest text-[10px] shadow-lg hover:scale-105 hover:-translate-y-1 transition-all duration-300 active:scale-95">
+            Post for Adoption
+          </button>
+        </div>
+      </div>
+    </nav>
+    <!-- Main Content Canvas -->
+    <main class="max-w-7xl mx-auto px-6 pt-24">
+      <!-- Header Section -->
+      <header class="py-12">
+        <h1 class="text-[3rem] font-black tracking-tight leading-none mb-4">
+          Find your new companion.
+        </h1>
+        <p class="text-on-surface-variant text-lg max-w-2xl leading-relaxed">
+          Browse our curated list of pets looking for their forever homes. Every
+          animal is vetted, loved, and waiting for a second chance.
+        </p>
+      </header>
+      <!-- Search & Filter Cluster -->
+      <div class="mb-12 flex flex-wrap gap-4 items-center">
+        <div
+          class="flex-grow bg-white rounded-full shadow-sm border border-on-surface-variant/10 flex items-center px-6 py-3">
+          <span class="material-symbols-outlined text-stone-400 mr-3"
+            >search</span
+          >
+          <input
+            class="bg-transparent border-none focus:ring-0 w-full text-sm font-medium"
+            placeholder="Search breeds, ages, or locations..."
+            type="text" />
+        </div>
+        <button
+          class="bg-white rounded-full px-6 py-3 shadow-sm border border-on-surface-variant/10 flex items-center gap-2 hover:-translate-y-1 transition-all">
+          <span class="material-symbols-outlined text-[18px]">tune</span>
+          <span class="text-[12px] font-black uppercase tracking-widest"
+            >Filter</span
+          >
+        </button>
+      </div>
+      <div class="mb-12 flex justify-center">
+        <button
+          class="bg-primary text-white rounded-full px-12 py-5 font-black uppercase tracking-[0.2em] text-[14px] shadow-xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 active:scale-95 flex items-center gap-3">
+          <span class="material-symbols-outlined">add_circle</span>
+          Post for Adoption
+        </button>
+      </div>
+      <!-- Adoption Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Card 1 -->
+        <div
+          class="group bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2 overflow-hidden flex flex-col">
+          <div class="relative h-72 overflow-hidden">
+            <img
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              data-alt="portrait of a friendly golden retriever sitting in a sunny grassy field with a bright happy expression and soft natural lighting"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3zUkwmIUwS4tR-ulmvQGye2p7o0Eg6L4QW9nCJLzTN4HBWY9HkxKUhdb9PvwSTjZJeRHSYJlpaqZgs6sijAuVsvClDTybGEgU3yRAwNuchqQeI0PC7beoUnr36ebVESWsShQJhBQhFWsDhK0r3T3WrDlyKsg5Tn1dD2ecDfmQ5_t83VUCt3eTeXPyWTR8Sncv0ooyET3h_jvmcERZshAV0h-piK2DB5lR-XsiprWf66kq8-ZA7Rz9NvdskxwMFsxx4SnjiB1nppcG" />
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span
+                class="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider"
+                >Active</span
+              >
+            </div>
+            <button
+              class="absolute top-4 right-4 bg-white/90 backdrop-blur-md p-2 rounded-full hover:text-orange-600 transition-colors">
+              <span class="material-symbols-outlined">favorite</span>
+            </button>
+          </div>
+          <div class="p-8 flex flex-col flex-grow">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <span
+                  class="text-[12px] font-black uppercase tracking-[0.2em] text-orange-600"
+                  >Golden Retriever</span
+                >
+                <h3 class="text-2xl font-extrabold tracking-tight">Cooper</h3>
+              </div>
+              <div class="text-right">
+                <span
+                  class="text-[12px] font-black uppercase tracking-widest block"
+                  >2 Years</span
+                >
+                <span
+                  class="text-[12px] text-stone-400 font-bold uppercase tracking-widest block"
+                  >Male</span
+                >
+              </div>
+            </div>
+            <p class="text-stone-600 text-sm leading-relaxed mb-6 italic">
+              "A gentle soul who loves weekend hikes and belly rubs."
+            </p>
+            <div class="space-y-3 mb-8">
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-tertiary text-[18px]"
+                  >verified</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Fully Vaccinated</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-tertiary text-[18px]"
+                  >check_circle</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Spayed/Neutered</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-orange-500 text-[18px]"
+                  >family_restroom</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Good with Kids &amp; Pets</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-stone-400 text-[18px]"
+                  >location_on</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Austin, TX</span
+                >
+              </div>
+            </div>
+            <button
+              class="mt-auto w-full bg-primary text-white py-4 rounded-full font-black uppercase tracking-[0.2em] text-[12px] shadow-lg hover:shadow-orange-200 transition-all active:scale-95">
+              Adopt Now
+            </button>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div
+          class="group bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2 overflow-hidden flex flex-col">
+          <div class="relative h-72 overflow-hidden">
+            <img
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              data-alt="close-up of a sleek black and white tuxedo cat with striking green eyes lounging on a textured grey blanket in soft morning light"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9awT5s6NFh-EjB2UlrA1TVZmCOw-i72FMrzkrODrmx41r9SfvXLM0O5rDtIhKZXP6mU5n9p_Qnrb-n403nbpLWHytMlpDd8_tOKW_NbbKPkyvYxqYSyB033AOMJAr7Mg0mt73kX6WQ034ckUHrFG6yb8BHn5YrsTfkDz5_-AV5qT62GYE_33rW_gXj5pqjKTf58oGW2A-hiXkQdwXc8YJOAEKplVypwNGEap2cYWiR5ZSzPnyYZAkEo5THXJ3XTXXoHhYi07ihSqi" />
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span
+                class="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider"
+                >New Listing</span
+              >
+            </div>
+            <button
+              class="absolute top-4 right-4 bg-white/90 backdrop-blur-md p-2 rounded-full hover:text-orange-600 transition-colors">
+              <span
+                class="material-symbols-outlined"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >favorite</span
+              >
+            </button>
+          </div>
+          <div class="p-8 flex flex-col flex-grow">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <span
+                  class="text-[12px] font-black uppercase tracking-[0.2em] text-orange-600"
+                  >Tuxedo Cat</span
+                >
+                <h3 class="text-2xl font-extrabold tracking-tight">Mittens</h3>
+              </div>
+              <div class="text-right">
+                <span
+                  class="text-[12px] font-black uppercase tracking-widest block"
+                  >4 Years</span
+                >
+                <span
+                  class="text-[12px] text-stone-400 font-bold uppercase tracking-widest block"
+                  >Female</span
+                >
+              </div>
+            </div>
+            <p class="text-stone-600 text-sm leading-relaxed mb-6 italic">
+              "Expert lounge artist seeking a quiet lap for afternoon naps."
+            </p>
+            <div class="space-y-3 mb-8">
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-tertiary text-[18px]"
+                  >verified</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Fully Vaccinated</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-tertiary text-[18px]"
+                  >check_circle</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Spayed/Neutered</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-orange-500 text-[18px]"
+                  >house</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Indoors Only</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-stone-400 text-[18px]"
+                  >location_on</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Seattle, WA</span
+                >
+              </div>
+            </div>
+            <button
+              class="mt-auto w-full bg-primary text-white py-4 rounded-full font-black uppercase tracking-[0.2em] text-[12px] shadow-lg hover:shadow-orange-200 transition-all active:scale-95">
+              Adopt Now
+            </button>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div
+          class="group bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2 overflow-hidden flex flex-col">
+          <div class="relative h-72 overflow-hidden">
+            <img
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              data-alt="energetic small french bulldog wearing a yellow bandana running in a vibrant park setting during a clear bright day"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGeLNb0AVfC_z6IYwladxl0-Np-yQ4uLMvudjspE-25G9vdcQ4kFVOwegDfgAjeIPg7KjsoPNf5bDTyx9KPp5Z0r5ntXEDprLfSGEIrunuDJZTtUmXh1f3cZzkA3hQhJi0Ti1AJg8ID9EU-5NJcjgHulCmoQpUaowCkANam-y2I7PPQkEMHO4XV5Bn07JtObgeguRYmdd_-7ItHoFKaNwxN1OGWDx3djIQPpW4UC4m4mk__MrhEzJnGAmncDLn-X3XgIetjcniCLzh" />
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span
+                class="bg-rose-600 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider"
+                >Urgent Adoption</span
+              >
+            </div>
+            <button
+              class="absolute top-4 right-4 bg-white/90 backdrop-blur-md p-2 rounded-full hover:text-orange-600 transition-colors">
+              <span class="material-symbols-outlined">favorite</span>
+            </button>
+          </div>
+          <div class="p-8 flex flex-col flex-grow">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <span
+                  class="text-[12px] font-black uppercase tracking-[0.2em] text-orange-600"
+                  >French Bulldog</span
+                >
+                <h3 class="text-2xl font-extrabold tracking-tight">Bean</h3>
+              </div>
+              <div class="text-right">
+                <span
+                  class="text-[12px] font-black uppercase tracking-widest block"
+                  >1 Year</span
+                >
+                <span
+                  class="text-[12px] text-stone-400 font-bold uppercase tracking-widest block"
+                  >Male</span
+                >
+              </div>
+            </div>
+            <p class="text-stone-600 text-sm leading-relaxed mb-6 italic">
+              "Tiny but mighty energy looking for an active family."
+            </p>
+            <div class="space-y-3 mb-8">
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-stone-400 text-[18px]"
+                  >schedule</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Vaccinations Pending</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-tertiary text-[18px]"
+                  >check_circle</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Spayed/Neutered</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-orange-500 text-[18px]"
+                  >pets</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Highly Social</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-stone-400 text-[18px]"
+                  >location_on</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Denver, CO</span
+                >
+              </div>
+            </div>
+            <button
+              class="mt-auto w-full bg-primary text-white py-4 rounded-full font-black uppercase tracking-[0.2em] text-[12px] shadow-lg hover:shadow-orange-200 transition-all active:scale-95">
+              Adopt Now
+            </button>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div
+          class="group bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2 overflow-hidden flex flex-col">
+          <div class="relative h-72 overflow-hidden">
+            <img
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              data-alt="elegant siamese cat with deep blue eyes and pointed coat markings sitting gracefully"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3K-N_A-0M6yS8X_8Z1S8P_N-k_V_Q-6W-8X_8Z1S8P_N-k_V_Q-6W-8X_8Z1S8P_N-k_V_Q-6W" />
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span
+                class="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider"
+                >New Listing</span
+              >
+            </div>
+            <button
+              class="absolute top-4 right-4 bg-white/90 backdrop-blur-md p-2 rounded-full hover:text-orange-600 transition-colors">
+              <span class="material-symbols-outlined">favorite</span>
+            </button>
+          </div>
+          <div class="p-8 flex flex-col flex-grow">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <span
+                  class="text-[12px] font-black uppercase tracking-[0.2em] text-orange-600"
+                  >Siamese Cat</span
+                >
+                <h3 class="text-2xl font-extrabold tracking-tight">Luna</h3>
+              </div>
+              <div class="text-right">
+                <span
+                  class="text-[12px] font-black uppercase tracking-widest block"
+                  >3 Years</span
+                >
+                <span
+                  class="text-[12px] text-stone-400 font-bold uppercase tracking-widest block"
+                  >Female</span
+                >
+              </div>
+            </div>
+            <p class="text-stone-600 text-sm leading-relaxed mb-6 italic">
+              "A sophisticated lady who enjoys bird watching and gentle head
+              scratches."
+            </p>
+            <div class="space-y-3 mb-8">
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-tertiary text-[18px]"
+                  >verified</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Fully Vaccinated</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-tertiary text-[18px]"
+                  >check_circle</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Spayed/Neutered</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-orange-500 text-[18px]"
+                  >house</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Indoors Only</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-stone-400 text-[18px]"
+                  >location_on</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Portland, OR</span
+                >
+              </div>
+            </div>
+            <button
+              class="mt-auto w-full bg-primary text-white py-4 rounded-full font-black uppercase tracking-[0.2em] text-[12px] shadow-lg hover:shadow-orange-200 transition-all active:scale-95">
+              Adopt Now
+            </button>
+          </div>
+        </div>
+        <!-- Card 5 -->
+        <div
+          class="group bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2 overflow-hidden flex flex-col">
+          <div class="relative h-72 overflow-hidden">
+            <img
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              data-alt="cheerful tricolor beagle dog with long floppy ears sniffing the grass in a sunny backyard"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-N_A-0M6yS8X_8Z1S8P_N-k_V_Q-6W-8X_8Z1S8P_N-k_V_Q-6W-8X_8Z1S8P_N-k_V_Q-6W" />
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span
+                class="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider"
+                >Active</span
+              >
+            </div>
+            <button
+              class="absolute top-4 right-4 bg-white/90 backdrop-blur-md p-2 rounded-full hover:text-orange-600 transition-colors">
+              <span class="material-symbols-outlined">favorite</span>
+            </button>
+          </div>
+          <div class="p-8 flex flex-col flex-grow">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <span
+                  class="text-[12px] font-black uppercase tracking-[0.2em] text-orange-600"
+                  >Beagle</span
+                >
+                <h3 class="text-2xl font-extrabold tracking-tight">Oliver</h3>
+              </div>
+              <div class="text-right">
+                <span
+                  class="text-[12px] font-black uppercase tracking-widest block"
+                  >5 Years</span
+                >
+                <span
+                  class="text-[12px] text-stone-400 font-bold uppercase tracking-widest block"
+                  >Male</span
+                >
+              </div>
+            </div>
+            <p class="text-stone-600 text-sm leading-relaxed mb-6 italic">
+              "Loves to follow his nose and would be the perfect partner for
+              long walks."
+            </p>
+            <div class="space-y-3 mb-8">
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-tertiary text-[18px]"
+                  >verified</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Fully Vaccinated</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-tertiary text-[18px]"
+                  >check_circle</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Spayed/Neutered</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-orange-500 text-[18px]"
+                  >family_restroom</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Great with Kids</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-stone-400 text-[18px]"
+                  >location_on</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Nashville, TN</span
+                >
+              </div>
+            </div>
+            <button
+              class="mt-auto w-full bg-primary text-white py-4 rounded-full font-black uppercase tracking-[0.2em] text-[12px] shadow-lg hover:shadow-orange-200 transition-all active:scale-95">
+              Adopt Now
+            </button>
+          </div>
+        </div>
+        <!-- Card 6 -->
+        <div
+          class="group bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2 overflow-hidden flex flex-col">
+          <div class="relative h-72 overflow-hidden">
+            <img
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              data-alt="beautiful calico cat with distinct orange, black, and white patches resting in a cozy sunlit spot"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-N_A-0M6yS8X_8Z1S8P_N-k_V_Q-6W-8X_8Z1S8P_N-k_V_Q-6W-8X_8Z1S8P_N-k_V_Q-6W" />
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span
+                class="bg-rose-600 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider"
+                >Urgent Adoption</span
+              >
+            </div>
+            <button
+              class="absolute top-4 right-4 bg-white/90 backdrop-blur-md p-2 rounded-full hover:text-orange-600 transition-colors">
+              <span class="material-symbols-outlined">favorite</span>
+            </button>
+          </div>
+          <div class="p-8 flex flex-col flex-grow">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <span
+                  class="text-[12px] font-black uppercase tracking-[0.2em] text-orange-600"
+                  >Calico Cat</span
+                >
+                <h3 class="text-2xl font-extrabold tracking-tight">Bella</h3>
+              </div>
+              <div class="text-right">
+                <span
+                  class="text-[12px] font-black uppercase tracking-widest block"
+                  >2 Years</span
+                >
+                <span
+                  class="text-[12px] text-stone-400 font-bold uppercase tracking-widest block"
+                  >Female</span
+                >
+              </div>
+            </div>
+            <p class="text-stone-600 text-sm leading-relaxed mb-6 italic">
+              "A playful and affectionate companion who will fill your home with
+              joy."
+            </p>
+            <div class="space-y-3 mb-8">
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-tertiary text-[18px]"
+                  >verified</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Fully Vaccinated</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-tertiary text-[18px]"
+                  >check_circle</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Spayed/Neutered</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-orange-500 text-[18px]"
+                  >pets</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >Friendly Personality</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-stone-400 text-[18px]"
+                  >location_on</span
+                >
+                <span class="text-[12px] font-bold text-on-surface-variant"
+                  >San Diego, CA</span
+                >
+              </div>
+            </div>
+            <button
+              class="mt-auto w-full bg-primary text-white py-4 rounded-full font-black uppercase tracking-[0.2em] text-[12px] shadow-lg hover:shadow-orange-200 transition-all active:scale-95">
+              Adopt Now
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="mt-16 flex justify-center w-full">
+        <button
+          class="bg-primary text-white rounded-full px-12 py-5 font-black uppercase tracking-[0.2em] text-[14px] shadow-xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 active:scale-95 flex items-center gap-3">
+          <span class="material-symbols-outlined">expand_more</span>
+          Load more companion
+        </button>
+      </div>
+    </main>
+    <!-- BottomNavBar -->
+    <nav
+      class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-white/90 dark:bg-stone-900/90 backdrop-blur-lg rounded-t-[3rem] shadow-xl shadow-orange-900/5">
+      <a
+        class="flex flex-col items-center justify-center bg-orange-500 text-white rounded-full px-6 py-2 shadow-lg transition-all duration-300"
+        href="#">
+        <span
+          class="material-symbols-outlined"
+          style="font-variation-settings: &quot;FILL&quot; 1"
+          >pets</span
+        >
+        <span
+          class="font-inter text-[10px] font-black uppercase tracking-widest mt-1"
+          >Adopt</span
+        >
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-500 px-4 py-2 hover:text-orange-400 transition-colors"
+        href="#">
+        <span class="material-symbols-outlined">notifications</span>
+        <span
+          class="font-inter text-[10px] font-black uppercase tracking-widest mt-1"
+          >Alerts</span
+        >
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-500 px-4 py-2 hover:text-orange-400 transition-colors"
+        href="#">
+        <span class="material-symbols-outlined">favorite</span>
+        <span
+          class="font-inter text-[10px] font-black uppercase tracking-widest mt-1"
+          >Saved</span
+        >
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-500 px-4 py-2 hover:text-orange-400 transition-colors"
+        href="#">
+        <span class="material-symbols-outlined">person</span>
+        <span
+          class="font-inter text-[10px] font-black uppercase tracking-widest mt-1"
+          >Profile</span
+        >
+      </a>
+    </nav>
+  </body>
+</html>
