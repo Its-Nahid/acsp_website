@@ -10,6 +10,7 @@ const path = require("path");
 const User = require("./models/user");
 const RescueReport = require("./models/RescueReport");
 const Donation = require("./models/Donation");
+const Adoption = require("./models/Adoption");
 const SSLCommerzPayment = require("sslcommerz-lts");
 
 // Initialize Express
@@ -126,6 +127,68 @@ app.get('/reports', async (req, res) => {
         });
     } catch (error) {
         res.status(500).json({ message: "Server error while fetching reports" });
+    }
+});
+
+// 10 Adoption Routes
+app.post('/adoption', upload.array('photos', 5), async (req, res) => {
+    try {
+        const photoPaths = req.files ? req.files.map(file => file.path) : [];
+        
+        let socialComp = [];
+        if (req.body.socialCompatibility) {
+            socialComp = Array.isArray(req.body.socialCompatibility) 
+                ? req.body.socialCompatibility 
+                : [req.body.socialCompatibility];
+        }
+
+        const newAdoption = new Adoption({
+            name: req.body.name,
+            type: req.body.type,
+            breed: req.body.breed,
+            age: req.body.age,
+            gender: req.body.gender,
+            vaccinationStatus: req.body.vaccinationStatus,
+            spayedNeutered: req.body.spayedNeutered,
+            socialCompatibility: socialComp,
+            temperament: req.body.temperament,
+            headline: req.body.headline,
+            story: req.body.story,
+            photos: photoPaths,
+            contactName: req.body.contactName,
+            phone: req.body.phone,
+            location: req.body.location
+        });
+
+        await newAdoption.save();
+        res.status(201).json({ message: "Adoption post submitted successfully!" });
+    } catch (error) {
+        console.error("Adoption Submit Error:", error);
+        res.status(500).json({ message: "Server error while submitting adoption post" });
+    }
+});
+
+app.get('/adoptions', async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = 6;
+        const skip = (page - 1) * limit;
+
+        const adoptions = await Adoption.find()
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit);
+
+        const total = await Adoption.countDocuments();
+
+        res.json({
+            adoptions,
+            totalPages: Math.ceil(total / limit),
+            currentPage: page,
+            totalReports: total
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Server error while fetching adoptions" });
     }
 });
 

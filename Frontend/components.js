@@ -19,7 +19,7 @@ const components = {
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="#">Treatment</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="a-help.html">Animal</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="donation.html">Donation</a>
-                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="#">Adoption</a>
+                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-adoption" href="adoptionpage.html">Adoption</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-rescue" href="report.html">Rescue</a>
             </nav>
             <div class="flex items-center gap-3">
@@ -88,13 +88,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navPlaceholder) {
         navPlaceholder.innerHTML = components.navbar;
 
-        // Highlight active link based on current page
         const currentPage = window.location.pathname.split('/').pop();
         if (currentPage === 'report.html' || currentPage === 'rescue.html') {
             const rescueLink = document.getElementById('nav-rescue');
             if (rescueLink) {
                 rescueLink.classList.remove('text-gray-500');
                 rescueLink.classList.add('text-primary');
+            }
+        }
+        if (currentPage === 'adoptionpage.html' || currentPage === 'adoption_form.html') {
+            const adoptionLink = document.getElementById('nav-adoption');
+            if (adoptionLink) {
+                adoptionLink.classList.remove('text-gray-500');
+                adoptionLink.classList.add('text-primary');
             }
         }
     }
