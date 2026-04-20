@@ -23,6 +23,9 @@ ACSP enables users to report animals in need, upload photos, and interact with a
   - `report.html`: Rescue reporting form with photo upload support.
   - `donations/donation.html`: Dynamic SSL Commerz payment form with cause selection.
   - `donations/success.html`, `donations/fail.html`, `donations/cancel.html`: Payment gateway resolution redirects.
+  - `adoptionpage.html`: Dynamic pet adoption gallery with filtering and pagination.
+  - `adoption_form.html`: Interactive multi-photo listing form for pets.
+  - `components.js`: Shared component library for unified UI headers/footers.
   - `rescuse.html`: Information related to rescue operations.
   - `forgot-password.html`: Placeholder for password recovery.
   - `script.js`: Unified JavaScript for frontend logic and API integration.
@@ -56,11 +59,18 @@ ACSP enables users to report animals in need, upload photos, and interact with a
 - **Smart Payment Inputs:** Preset donation amount buttons feature elegant override mechanics when custom financial inputs are typed.
 - **Database Tracking:** Every transaction persistently stores contextual donor information (Name, Phone, Location, Transaction ID, Status) into the updated MongoDB ecosystem.
 
+### 5. Pet Adoption Marketplace
+
+- **Dynamic Gallery:** Real-time data fetching from MongoDB to display pet listings with status badges (Vaccinated, Neutered).
+- **Listing Submission:** Sophisticated form for posting pets including multi-photo uploads (max 5) and health/personality profiling.
+- **UI Consistency:** Leverages a custom shared component system (`components.js`) for a unified experience across the portal.
+- **Success Experience:** Beautiful, animated success modal with refresh protection for stable form submissions.
+
 ---
 
 ## 🔧 Pending / In Progress
 
-- Navigation links to **NGO Directory, Treatment, and Adoption** pages currently point to placeholders and require full implementation.
+- Navigation links to **NGO Directory and Treatment** pages currently point to placeholders and require full implementation.
 - Backend logic for **forgot-password** functionality.
 
 ---

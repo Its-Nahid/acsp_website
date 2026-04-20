@@ -14,6 +14,8 @@ This document tracks the implemented features and planned future enhancements fo
 - [x] API Routes for /signup, /login, and /report
 - [x] SSL Commerz Payment Gateway logic integration (`/api/donate/init`, `/success`, `/fail`, `/cancel`)
 - [x] Dynamic Donation Schema for recording donor data and explicit transaction states
+- [x] Adoption Schema & API Implementation (`POST /adoption`, `GET /adoptions`)
+- [x] Multi-photo Multer support for Adoption listings (max 5)
 
 ### Frontend & UI
 
@@ -25,6 +27,9 @@ This document tracks the implemented features and planned future enhancements fo
 - [x] Integrated success modals for report confirmation
 - [x] Unified JavaScript
 - [x] Dynamic Donation interface (`donations/donation.html`) and callback processing redirects (`donations/success.html`, `donations/fail.html`, `donations/cancel.html`)
+- [x] Dynamic Adoption Portal (`adoptionpage.html`) with grid layout and pagination
+- [x] Interactive Adoption Listing Form (`adoption_form.html`) with photo preview and success modal
+- [x] Centralized Component System (`components.js`) for unified headers and footers across pages
 
 ---
 
@@ -34,7 +39,7 @@ This document tracks the implemented features and planned future enhancements fo
 
 - [ ] **NGO Management**: Implement NGO directory and profile registration.
 - [ ] **Treatment Module**: Create a system for tracking animal medical history and vet appointments.
-- [ ] **Adoption Portal**: Build a marketplace for pet adoption with status tracking.
+- [x] **Adoption Portal**: Build a marketplace for pet adoption with status tracking.
 - [ ] **Real-time Map**: Implement Google Maps / Leaflet for precise rescue location tracking.
 - [ ] **Admin Dashboard**: Create a dashboard for NGOs and Admins to manage rescue requests.
 - [ ] **User Profile**: Allow users to see their report history and update personal information.
