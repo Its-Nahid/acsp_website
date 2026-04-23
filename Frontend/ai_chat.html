@@ -131,6 +131,7 @@
                         <span class="material-symbols-outlined">add_circle</span>
                     </button>
                     <textarea
+                        id="user-input"
                         class="w-full px-4 py-3 bg-transparent border-none focus:ring-0 text-slate-700 resize-none"
                         placeholder="Describe symptoms or ask a question..." rows="1"></textarea>
                     <div class="flex items-center gap-1">
@@ -138,6 +139,7 @@
                             <span class="material-symbols-outlined">mic</span>
                         </button>
                         <button
+                            id="send-button"
                             class="flex items-center justify-center w-12 h-12 bg-primary text-white rounded-xl hover:bg-orange-600 transition-all shadow-md">
                             <span class="material-symbols-outlined">send</span>
                         </button>
@@ -150,6 +152,104 @@
             </div>
         </div>
     </main>
+
+    <script>
+        const chatHistory = document.getElementById('chat-history');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+
+        function appendMessage(role, text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `flex gap-4 ${role === 'user' ? 'flex-row-reverse' : ''} max-w-[85%] animate-message`;
+            
+            const avatarHtml = role === 'user' 
+                ? `<div class="w-8 h-8 rounded-full bg-slate-200 flex-shrink-0 flex items-center justify-center text-slate-600">
+                     <span class="material-symbols-outlined text-xs">person</span>
+                   </div>`
+                : `<div class="w-8 h-8 rounded-full bg-primary flex-shrink-0 flex items-center justify-center text-white">
+                     <span class="material-symbols-outlined text-xs">smart_toy</span>
+                   </div>`;
+
+            const bgClass = role === 'user' ? 'bg-primary text-white rounded-tr-none' : 'bg-white text-slate-700 rounded-tl-none border border-orange-100';
+
+            messageDiv.innerHTML = `
+                ${avatarHtml}
+                <div class="${bgClass} p-5 rounded-2xl shadow-sm">
+                    <p class="leading-relaxed">${text}</p>
+                </div>
+            `;
+            
+            chatHistory.appendChild(messageDiv);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+        function appendLoading() {
+            const loadingId = 'loading-' + Date.now();
+            const loadingDiv = document.createElement('div');
+            loadingDiv.id = loadingId;
+            loadingDiv.className = 'flex gap-4 max-w-[85%] animate-message';
+            loadingDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-primary flex-shrink-0 flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined text-xs">smart_toy</span>
+                </div>
+                <div class="bg-white p-5 rounded-2xl rounded-tl-none shadow-sm border border-orange-100">
+                    <div class="flex gap-1">
+                        <span class="w-2 h-2 bg-orange-200 rounded-full animate-bounce"></span>
+                        <span class="w-2 h-2 bg-orange-300 rounded-full animate-bounce delay-100"></span>
+                        <span class="w-2 h-2 bg-orange-400 rounded-full animate-bounce delay-200"></span>
+                    </div>
+                </div>
+            `;
+            chatHistory.appendChild(loadingDiv);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+            return loadingId;
+        }
+
+        async function handleSend() {
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            appendMessage('user', message);
+            userInput.value = '';
+            userInput.style.height = 'auto';
+
+            const loadingId = appendLoading();
+
+            try {
+                const response = await fetch('http://localhost:5000/api/ai-chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+
+                const data = await response.json();
+                document.getElementById(loadingId).remove();
+
+                if (response.ok) {
+                    appendMessage('ai', data.reply);
+                } else {
+                    appendMessage('ai', data.message || "Something went wrong. Please try again.");
+                }
+            } catch (error) {
+                document.getElementById(loadingId).remove();
+                appendMessage('ai', "I'm having trouble connecting to the server. Please ensure the backend is running.");
+            }
+        }
+
+        sendButton.addEventListener('click', handleSend);
+        userInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSend();
+            }
+        });
+
+        // Auto-resize textarea
+        userInput.addEventListener('input', () => {
+            userInput.style.height = 'auto';
+            userInput.style.height = userInput.scrollHeight + 'px';
+        });
+    </script>
 </body>
 
 </html>
