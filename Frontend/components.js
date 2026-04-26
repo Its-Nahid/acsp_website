@@ -15,7 +15,7 @@ const components = {
             </div>
             <nav class="hidden lg:flex items-center bg-white dark:bg-zinc-800 px-8 py-3 rounded-full shadow-sm border border-gray-100 dark:border-zinc-700 gap-8">
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="login.html">User</a>
-                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="drectory.html">NGO</a>
+                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="directory.html">NGO</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="#">Treatment</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="a-help.html">Animal</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="donation.html">Donation</a>
