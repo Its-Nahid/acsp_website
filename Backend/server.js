@@ -14,6 +14,7 @@ const Donation = require("./models/Donation");
 const Adoption = require("./models/Adoption");
 const SSLCommerzPayment = require("sslcommerz-lts");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+console.log("Gemini API Key loaded:", process.env.GEMINI_API_KEY ? "Yes (Starts with " + process.env.GEMINI_API_KEY.substring(0, 7) + "...)" : "No");
 
 // Initialize Express
 const app = express();
@@ -25,7 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads')); // serve uploaded photos
 
 //Connect MongoDB
-mongoose.connect("mongodb://localhost:27017/acspAuth")
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/acspAuth")
     .then(() => console.log("MongoDB Connected"))
     .catch(err => console.log(err));
 
@@ -66,7 +67,7 @@ app.post("/login", async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ message: "Invalid password" });
 
-        const token = jwt.sign({ id: user._id }, "mySecretKey", { expiresIn: "1d" });
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || "mySecretKey", { expiresIn: "1d" });
 
         res.json({ message: "Login successful", token });
     } catch (error) {
@@ -195,8 +196,8 @@ app.get('/adoptions', async (req, res) => {
 });
 
 // 9️⃣ SSL COMMERZ INTEGRATION
-const store_id = "fluff69d2431081877";
-const store_passwd = "fluff69d2431081877@ssl";
+const store_id = process.env.SSLCOMMERZ_STORE_ID || "fluff69d2431081877";
+const store_passwd = process.env.SSLCOMMERZ_STORE_PASSWORD || "fluff69d2431081877@ssl";
 const is_live = false;
 
 app.post("/api/donate/init", async (req, res) => {
@@ -285,7 +286,7 @@ app.post("/api/donate/cancel", async (req, res) => {
 // Gemini AI Setup
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "YOUR_GEMINI_API_KEY");
 const aiModel = genAI.getGenerativeModel({ 
-    model: "gemini-1.5-flash",
+    model: "gemini-2.0-flash",
     systemInstruction: "You are the ACSP AI Assistant, a helpful expert in animal care. You can answer basic questions about pet nutrition, grooming, and common minor symptoms. However, for any complex medical problems, emergencies, or serious symptoms (like severe bleeding, breathing difficulties, or sudden collapse), you MUST advise the user to consult a professional veterinarian or visit the nearest animal clinic immediately. Be concise and friendly."
 });
 
@@ -301,11 +302,22 @@ app.post("/api/ai-chat", async (req, res) => {
 
         res.json({ reply: text });
     } catch (error) {
-        console.error("Gemini Error:", error);
-        res.status(500).json({ message: "AI Assistant is currently unavailable" });
+        console.error("Gemini Error:", error.message || error);
+        let userMessage = "AI Assistant is currently unavailable";
+        
+        if (error.message && error.message.includes("quota")) {
+            userMessage = "AI Assistant quota exhausted for today. Please try again later.";
+        } else if (error.message && error.message.includes("API key not valid")) {
+            userMessage = "Invalid API Key. Please check your .env file.";
+        }
+
+        res.status(500).json({ 
+            message: userMessage,
+            error: error.message 
+        });
     }
 });
 
 // Start server
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
