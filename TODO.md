@@ -16,6 +16,8 @@ This document tracks the implemented features and planned future enhancements fo
 - [x] Dynamic Donation Schema for recording donor data and explicit transaction states
 - [x] Adoption Schema & API Implementation (`POST /adoption`, `GET /adoptions`)
 - [x] Multi-photo Multer support for Adoption listings (max 5)
+- [x] Gemini AI Integration with secure backend environment variables
+- [x] Environment variables setup for all secrets (.env)
 
 ### Frontend & UI
 
@@ -30,6 +32,8 @@ This document tracks the implemented features and planned future enhancements fo
 - [x] Dynamic Adoption Portal (`adoptionpage.html`) with grid layout and pagination
 - [x] Interactive Adoption Listing Form (`adoption_form.html`) with photo preview and success modal
 - [x] Centralized Component System (`components.js`) for unified headers and footers across pages
+- [x] Interactive AI Assistant page (`ai_chat.html`) with responsive chat UI
+- [x] Data-driven Admin Dashboard (`admin_dashboard.html`) with real-time stats
 
 ---
 
@@ -41,7 +45,7 @@ This document tracks the implemented features and planned future enhancements fo
 - [ ] **Treatment Module**: Create a system for tracking animal medical history and vet appointments.
 - [x] **Adoption Portal**: Build a marketplace for pet adoption with status tracking.
 - [ ] **Real-time Map**: Implement Google Maps / Leaflet for precise rescue location tracking.
-- [ ] **Admin Dashboard**: Create a dashboard for NGOs and Admins to manage rescue requests.
+- [x] **Admin Dashboard**: Create a dashboard for NGOs and Admins to manage rescue requests.
 - [ ] **User Profile**: Allow users to see their report history and update personal information.
 - [ ] **Email Notifications**: Automated email alerts for successful reports and case updates.
 
