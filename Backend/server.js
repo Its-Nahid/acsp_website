@@ -1,4 +1,5 @@
 
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -12,6 +13,7 @@ const RescueReport = require("./models/RescueReport");
 const Donation = require("./models/Donation");
 const Adoption = require("./models/Adoption");
 const SSLCommerzPayment = require("sslcommerz-lts");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 // Initialize Express
 const app = express();
@@ -134,11 +136,11 @@ app.get('/reports', async (req, res) => {
 app.post('/adoption', upload.array('photos', 5), async (req, res) => {
     try {
         const photoPaths = req.files ? req.files.map(file => file.path) : [];
-        
+
         let socialComp = [];
         if (req.body.socialCompatibility) {
-            socialComp = Array.isArray(req.body.socialCompatibility) 
-                ? req.body.socialCompatibility 
+            socialComp = Array.isArray(req.body.socialCompatibility)
+                ? req.body.socialCompatibility
                 : [req.body.socialCompatibility];
         }
 
@@ -205,12 +207,12 @@ app.post("/api/donate/init", async (req, res) => {
         total_amount: amount || 2000,
         currency: "BDT",
         tran_id: tran_id, // unique for each payment
-        
+
         success_url: `http://localhost:5000/api/donate/success`,
         fail_url: `http://localhost:5000/api/donate/fail`,
         cancel_url: `http://localhost:5000/api/donate/cancel`,
         ipn_url: `http://localhost:5000/api/donate/ipn`,
-        
+
         shipping_method: "No",
         product_name: cause || "Donation",
         product_category: "Charity",
@@ -240,7 +242,7 @@ app.post("/api/donate/init", async (req, res) => {
             let GatewayPageURL = apiResponse.GatewayPageURL;
             res.json({ url: GatewayPageURL });
         });
-    } catch(err) {
+    } catch (err) {
         console.error("Init Error", err);
         res.status(500).json({ message: "Failed to init payment" });
     }
@@ -250,13 +252,13 @@ app.post("/api/donate/success", async (req, res) => {
     try {
         const val_id = req.body.val_id;
         const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live);
-        
+
         // Note: validation returns result as an object
         const response = await sslcz.validate({ val_id });
-        
+
         if (response && (response.status === 'VALID' || response.status === 'VALIDATED')) {
             await Donation.findOneAndUpdate(
-                { transactionId: req.body.tran_id }, 
+                { transactionId: req.body.tran_id },
                 { status: 'VALID', valId: val_id, paymentMethod: response.card_type }
             );
             // Replace with your frontend URL port (assuming 5500 Live Server defaults)
@@ -278,6 +280,30 @@ app.post("/api/donate/fail", async (req, res) => {
 app.post("/api/donate/cancel", async (req, res) => {
     await Donation.findOneAndUpdate({ transactionId: req.body.tran_id }, { status: 'CANCELLED' });
     res.redirect("http://localhost:5500/cancel.html");
+});
+
+// Gemini AI Setup
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "YOUR_GEMINI_API_KEY");
+const aiModel = genAI.getGenerativeModel({ 
+    model: "gemini-1.5-flash",
+    systemInstruction: "You are the ACSP AI Assistant, a helpful expert in animal care. You can answer basic questions about pet nutrition, grooming, and common minor symptoms. However, for any complex medical problems, emergencies, or serious symptoms (like severe bleeding, breathing difficulties, or sudden collapse), you MUST advise the user to consult a professional veterinarian or visit the nearest animal clinic immediately. Be concise and friendly."
+});
+
+// AI Chat Route
+app.post("/api/ai-chat", async (req, res) => {
+    try {
+        const { message } = req.body;
+        if (!message) return res.status(400).json({ message: "Message is required" });
+
+        const result = await aiModel.generateContent(message);
+        const response = await result.response;
+        const text = response.text();
+
+        res.json({ reply: text });
+    } catch (error) {
+        console.error("Gemini Error:", error);
+        res.status(500).json({ message: "AI Assistant is currently unavailable" });
+    }
 });
 
 // Start server
