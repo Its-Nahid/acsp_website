@@ -15,9 +15,9 @@ const components = {
             </div>
             <nav class="hidden lg:flex items-center bg-white dark:bg-zinc-800 px-8 py-3 rounded-full shadow-sm border border-gray-100 dark:border-zinc-700 gap-8">
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="login.html">User</a>
-                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="drectory.html">NGO</a>
+                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="ngo_directory.html">NGO</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="#">Treatment</a>
-                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="a-help.html">Animal</a>
+                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-animal" href="animal_listing.html">Animal</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="donation.html">Donation</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-adoption" href="adoptionpage.html">Adoption</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-rescue" href="report.html">Rescue</a>
@@ -51,10 +51,11 @@ const components = {
             <div>
                 <h4 class="font-bold mb-6 dark:text-white">Quick Links</h4>
                 <ul class="flex flex-col gap-4 text-sm text-slate-500 dark:text-slate-400">
-                    <li><a class="hover:text-primary transition-colors" href="#">NGO Partnership</a></li>
-                    <li><a class="hover:text-primary transition-colors" href="#">Rescue Guides</a></li>
-                    <li><a class="hover:text-primary transition-colors" href="#">Donate Supplies</a></li>
-                    <li><a class="hover:text-primary transition-colors" href="#">Success Stories</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="animal_listing.html">Rescued Animals</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="ngo_directory.html">NGO Directory</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="article.html">Animal Care Guide</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="donation-tracking.html">Transparency Dashboard</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="donation.html">Donate Supplies</a></li>
                 </ul>
             </div>
             <div>
@@ -101,6 +102,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (adoptionLink) {
                 adoptionLink.classList.remove('text-gray-500');
                 adoptionLink.classList.add('text-primary');
+            }
+        }
+        if (currentPage === 'animal_listing.html') {
+            const animalLink = document.getElementById('nav-animal');
+            if (animalLink) {
+                animalLink.classList.remove('text-gray-500');
+                animalLink.classList.add('text-primary');
             }
         }
     }

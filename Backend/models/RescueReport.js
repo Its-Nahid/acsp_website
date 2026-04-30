@@ -10,6 +10,17 @@ const RescueReportSchema = new mongoose.Schema({
   category: String,
   urgency: String,
   photos: [String], // store filenames
+  status: { 
+    type: String, 
+    enum: ['Pending', 'Accepted', 'Rejected', 'In Progress', 'Under Treatment', 'Recovered', 'Adopted'], 
+    default: 'Pending' 
+  },
+  assignedNGO: { type: mongoose.Schema.Types.ObjectId, ref: 'NGO' },
+  statusUpdates: [{
+    status: String,
+    note: String,
+    updatedAt: { type: Date, default: Date.now }
+  }],
   createdAt: { type: Date, default: Date.now }
 });
 
