@@ -74,6 +74,96 @@ app.post("/login", async (req, res) => {
     }
 });
 
+// FORGOT PASSWORD - Send reset code
+app.post("/forgot-password", async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({ email });
+        if (!user) return res.status(400).json({ message: "User not found" });
+
+        // Generate 6-digit code
+        const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
+        const resetCodeExpiry = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
+
+        // Save code to user
+        user.resetCode = resetCode;
+        user.resetCodeExpiry = resetCodeExpiry;
+        await user.save();
+
+        // In production, send email here
+        console.log(`Reset code for ${email}: ${resetCode}`);
+
+        res.json({ message: "Reset code sent to your email" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+// VERIFY RESET CODE
+app.post("/verify-reset-code", async (req, res) => {
+    try {
+        const { email, code } = req.body;
+        const user = await User.findOne({ email });
+        if (!user) return res.status(400).json({ message: "User not found" });
+
+        if (!user.resetCode || user.resetCode !== code) {
+            return res.status(400).json({ message: "Invalid reset code" });
+        }
+
+        if (user.resetCodeExpiry < new Date()) {
+            return res.status(400).json({ message: "Reset code has expired" });
+        }
+
+        // Generate temporary reset token
+        const resetToken = jwt.sign({ id: user._id, purpose: "password_reset" }, "mySecretKey", { expiresIn: "15m" });
+
+        res.json({ message: "Code verified", resetToken });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+// RESET PASSWORD
+app.post("/reset-password", async (req, res) => {
+    try {
+        const { resetToken, newPassword } = req.body;
+
+        // Verify reset token
+        const decoded = jwt.verify(resetToken, "mySecretKey");
+        if (decoded.purpose !== "password_reset") {
+            return res.status(400).json({ message: "Invalid reset token" });
+        }
+
+        const user = await User.findById(decoded.id);
+        if (!user) return res.status(400).json({ message: "User not found" });
+
+        // Validate password strength
+        if (newPassword.length < 8) {
+            return res.status(400).json({ message: "Password must be at least 8 characters long" });
+        }
+
+        // Hash new password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+        // Update password and clear reset fields
+        user.password = hashedPassword;
+        user.resetCode = undefined;
+        user.resetCodeExpiry = undefined;
+        await user.save();
+
+        res.json({ message: "Password reset successful" });
+    } catch (error) {
+        console.error(error);
+        if (error.name === "JsonWebTokenError") {
+            return res.status(400).json({ message: "Invalid reset token" });
+        }
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
 // 7️⃣ Multer setup for photo uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, 'uploads/'),
