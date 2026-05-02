@@ -22,9 +22,8 @@ const components = {
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-adoption" href="adoptionpage.html">Adoption</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-rescue" href="report.html">Rescue</a>
             </nav>
-            <div class="flex items-center gap-3">
-                <a href="login.html" class="text-sm font-bold text-gray-700 dark:text-gray-300 px-4">Login</a>
-                <a href="signup.html" class="bg-primary text-white px-8 py-3 rounded-full text-sm font-bold shadow-lg shadow-primary/25 hover:scale-105 transition-all">Register</a>
+            <div class="flex items-center gap-3" id="auth-container">
+                <!-- Auth buttons injected by JS -->
             </div>
         </div>
     </header>
@@ -101,6 +100,30 @@ document.addEventListener('DOMContentLoaded', () => {
             if (adoptionLink) {
                 adoptionLink.classList.remove('text-gray-500');
                 adoptionLink.classList.add('text-primary');
+            }
+        }
+
+        // Update Auth Buttons based on login status
+        const authContainer = document.getElementById('auth-container');
+        if (authContainer) {
+            const token = localStorage.getItem('token');
+            if (token) {
+                authContainer.innerHTML = `
+                    <button id="logoutBtn" class="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-full text-sm font-bold shadow-lg shadow-red-500/25 hover:scale-105 transition-all flex items-center gap-2">
+                        <span>Logout</span>
+                        <span class="material-symbols-outlined text-lg">logout</span>
+                    </button>
+                `;
+                
+                document.getElementById('logoutBtn').addEventListener('click', () => {
+                    localStorage.removeItem('token');
+                    window.location.href = 'login.html';
+                });
+            } else {
+                authContainer.innerHTML = `
+                    <a href="login.html" class="text-sm font-bold text-gray-700 dark:text-gray-300 px-4">Login</a>
+                    <a href="signup.html" class="bg-primary text-white px-8 py-3 rounded-full text-sm font-bold shadow-lg shadow-primary/25 hover:scale-105 transition-all">Register</a>
+                `;
             }
         }
     }

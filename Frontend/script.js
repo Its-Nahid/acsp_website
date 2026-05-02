@@ -101,6 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // SIGNUP FORM
     const signupForm = document.getElementById('signupForm');
+    let currentSignupEmail = '';
+
     if (signupForm) {
         signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -109,6 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = document.getElementById('signupEmail').value;
             const password = document.getElementById('signupPassword').value;
             const role = document.querySelector('input[name="role"]:checked')?.value || 'general';
+            
+            const btn = signupForm.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = 'Processing...';
 
             try {
                 const response = await fetch('http://localhost:5000/signup', {
@@ -118,7 +125,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 const data = await response.json();
-                if (response.ok) {
+                if (response.ok && data.requireVerification) {
+                    showToast("Verification code sent! Check your email.");
+                    currentSignupEmail = email;
+                    document.getElementById('signupEmailDisplay').textContent = email;
+                    
+                    // Switch forms
+                    signupForm.classList.add('hidden');
+                    const footer = document.getElementById('signupFooter');
+                    if (footer) footer.classList.add('hidden');
+                    document.getElementById('verifySignupForm').classList.remove('hidden');
+                } else if (response.ok) {
                     showToast("Signup successful! Redirecting to login...");
                     setTimeout(() => window.location.href = 'login.html', 2000);
                 } else {
@@ -127,6 +144,62 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (error) {
                 console.error("Signup Error:", error);
                 showToast("Cannot connect to server", "error");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        });
+    }
+
+    // VERIFY SIGNUP CODE FORM
+    const verifySignupForm = document.getElementById('verifySignupForm');
+    if (verifySignupForm) {
+        verifySignupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const code = document.getElementById('signupCode').value;
+            const verifyBtn = document.getElementById('verifySignupBtn');
+            const originalText = verifyBtn.innerHTML;
+
+            if (code.length !== 6) {
+                showToast("Please enter a 6-digit code", "error");
+                return;
+            }
+
+            verifyBtn.disabled = true;
+            verifyBtn.innerHTML = 'Verifying...';
+
+            try {
+                const response = await fetch('http://localhost:5000/verify-signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: currentSignupEmail, code })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    showToast("Account verified successfully! Redirecting to login...");
+                    setTimeout(() => window.location.href = 'login.html', 2000);
+                } else {
+                    showToast(data.message || "Invalid code", "error");
+                }
+            } catch (error) {
+                console.error("Verify Signup Error:", error);
+                showToast("Cannot connect to server", "error");
+            } finally {
+                verifyBtn.disabled = false;
+                verifyBtn.innerHTML = originalText;
+            }
+        });
+    }
+    
+    // VALIDATION FOR SIGNUP CODE (only numbers)
+    const signupCodeInput = document.getElementById('signupCode');
+    if (signupCodeInput) {
+        signupCodeInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+            if (e.target.value.length > 6) {
+                e.target.value = e.target.value.slice(0, 6);
             }
         });
     }

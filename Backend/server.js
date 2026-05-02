@@ -7,6 +7,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
+const nodemailer = require("nodemailer");
 
 const User = require("./models/user");
 const RescueReport = require("./models/RescueReport");
@@ -41,16 +42,87 @@ app.get("/", (req, res) => {
 app.post("/signup", async (req, res) => {
     try {
         const { name, email, password, role } = req.body;
-        const existingUser = await User.findOne({ email });
-        if (existingUser) return res.status(400).json({ message: "User already exists" });
+        let existingUser = await User.findOne({ email });
+        
+        if (existingUser && existingUser.isVerified !== false) {
+            return res.status(400).json({ message: "User already exists" });
+        }
 
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
+        
+        const signupCode = Math.floor(100000 + Math.random() * 900000).toString();
+        const signupCodeExpiry = new Date(Date.now() + 15 * 60 * 1000); // 15 mins
 
-        const newUser = new User({ name, email, password: hashedPassword, role: role || "general" });
-        await newUser.save();
+        if (existingUser && existingUser.isVerified === false) {
+            // Update unverified user
+            existingUser.name = name;
+            existingUser.password = hashedPassword;
+            existingUser.role = role || "general";
+            existingUser.signupCode = signupCode;
+            existingUser.signupCodeExpiry = signupCodeExpiry;
+            await existingUser.save();
+        } else {
+            const newUser = new User({ 
+                name, email, password: hashedPassword, role: role || "general", 
+                signupCode, signupCodeExpiry, isVerified: false 
+            });
+            await newUser.save();
+        }
 
-        res.status(201).json({ message: "User registered successfully" });
+        // Configure Nodemailer transporter
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS
+            }
+        });
+
+        // Email content
+        const mailOptions = {
+            from: `"ACSP Team" <${process.env.EMAIL_USER}>`,
+            to: email,
+            subject: "ACSP - Verify Your Account",
+            html: `
+                <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px;">
+                    <h2 style="color: #f98c06; text-align: center;">Welcome to ACSP!</h2>
+                    <p>Hello ${name},</p>
+                    <p>Thank you for registering. Please use the 6-digit code below to verify your account:</p>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <span style="font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #333; background: #f4f4f4; padding: 10px 20px; border-radius: 5px;">${signupCode}</span>
+                    </div>
+                    <p style="color: #555; font-size: 14px;">This code will expire in 15 minutes.</p>
+                </div>
+            `
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        res.status(201).json({ message: "Verification code sent to your email", requireVerification: true });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+// VERIFY SIGNUP CODE
+app.post("/verify-signup", async (req, res) => {
+    try {
+        const { email, code } = req.body;
+        const user = await User.findOne({ email });
+        
+        if (!user) return res.status(400).json({ message: "User not found" });
+        if (user.isVerified) return res.status(400).json({ message: "User is already verified" });
+        if (!user.signupCode || user.signupCode !== code) return res.status(400).json({ message: "Invalid verification code" });
+        if (user.signupCodeExpiry < new Date()) return res.status(400).json({ message: "Verification code has expired" });
+
+        user.isVerified = true;
+        user.signupCode = undefined;
+        user.signupCodeExpiry = undefined;
+        await user.save();
+
+        res.json({ message: "Account verified successfully!" });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Server error" });
@@ -66,6 +138,10 @@ app.post("/login", async (req, res) => {
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ message: "Invalid password" });
+
+        if (user.isVerified === false) {
+            return res.status(400).json({ message: "Please verify your email first. Sign up again to receive a new code." });
+        }
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || "mySecretKey", { expiresIn: "1d" });
 
@@ -91,8 +167,39 @@ app.post("/forgot-password", async (req, res) => {
         user.resetCodeExpiry = resetCodeExpiry;
         await user.save();
 
-        // In production, send email here
-        console.log(`Reset code for ${email}: ${resetCode}`);
+        // Configure Nodemailer transporter
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS
+            }
+        });
+
+        // Email content
+        const mailOptions = {
+            from: `"ACSP Team" <${process.env.EMAIL_USER}>`,
+            to: email,
+            subject: "ACSP - Password Reset Code",
+            html: `
+                <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px;">
+                    <h2 style="color: #f98c06; text-align: center;">ACSP Password Reset</h2>
+                    <p>Hello ${user.name},</p>
+                    <p>We received a request to reset your password. Here is your 6-digit verification code:</p>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <span style="font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #333; background: #f4f4f4; padding: 10px 20px; border-radius: 5px;">${resetCode}</span>
+                    </div>
+                    <p style="color: #555; font-size: 14px;">This code will expire in 15 minutes.</p>
+                    <p style="color: #555; font-size: 14px;">If you didn't request this password reset, please ignore this email or contact support if you have concerns.</p>
+                    <br>
+                    <p>Best regards,<br>The ACSP Team</p>
+                </div>
+            `
+        };
+
+        // Send email
+        await transporter.sendMail(mailOptions);
+        console.log(`Reset email sent successfully to ${email}`);
 
         res.json({ message: "Reset code sent to your email" });
     } catch (error) {
