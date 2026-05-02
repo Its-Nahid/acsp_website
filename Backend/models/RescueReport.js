@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+//recordes of rescued animals
 const RescueReportSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
   phone: { type: String, required: true },
@@ -10,10 +10,10 @@ const RescueReportSchema = new mongoose.Schema({
   category: String,
   urgency: String,
   photos: [String], // store filenames
-  status: { 
-    type: String, 
-    enum: ['Pending', 'Accepted', 'Rejected', 'In Progress', 'Under Treatment', 'Recovered', 'Adopted'], 
-    default: 'Pending' 
+  status: {
+    type: String,
+    enum: ['Pending', 'Accepted', 'Rejected', 'In Progress', 'Under Treatment', 'Recovered', 'Adopted'],
+    default: 'Pending'
   },
   assignedNGO: { type: mongoose.Schema.Types.ObjectId, ref: 'NGO' },
   statusUpdates: [{
