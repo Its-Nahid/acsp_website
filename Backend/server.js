@@ -7,7 +7,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
-
+//server handled
 const User = require("./models/user");
 const RescueReport = require("./models/RescueReport");
 const Donation = require("./models/Donation");
@@ -144,7 +144,7 @@ app.put('/api/reports/:id/status', async (req, res) => {
 
         const report = await RescueReport.findByIdAndUpdate(
             req.params.id,
-            { 
+            {
                 $set: updateData,
                 $push: { statusUpdates: { status, note } }
             },
@@ -320,7 +320,7 @@ app.post("/api/donate/cancel", async (req, res) => {
 
 // Gemini AI Setup
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "YOUR_GEMINI_API_KEY");
-const aiModel = genAI.getGenerativeModel({ 
+const aiModel = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
     systemInstruction: "You are the ACSP AI Assistant, a helpful expert in animal care. You can answer basic questions about pet nutrition, grooming, and common minor symptoms. However, for any complex medical problems, emergencies, or serious symptoms (like severe bleeding, breathing difficulties, or sudden collapse), you MUST advise the user to consult a professional veterinarian or visit the nearest animal clinic immediately. Be concise and friendly."
 });
@@ -346,7 +346,7 @@ app.post("/api/ai-chat", async (req, res) => {
 app.post('/api/ngo', upload.array('gallery', 10), async (req, res) => {
     try {
         const galleryPaths = req.files ? req.files.map(file => file.path) : [];
-        
+
         // Parse complex objects if sent as strings (common with multipart/form-data)
         const location = typeof req.body.location === 'string' ? JSON.parse(req.body.location) : req.body.location;
         const contact = typeof req.body.contact === 'string' ? JSON.parse(req.body.contact) : req.body.contact;
@@ -447,7 +447,7 @@ app.get('/api/donations/summary', async (req, res) => {
 app.post('/api/rescued-animals', upload.array('photos', 5), async (req, res) => {
     try {
         const photoPaths = req.files ? req.files.map(file => file.path) : [];
-        
+
         const newAnimal = new RescuedAnimal({
             animalId: req.body.animalId,
             name: req.body.name,

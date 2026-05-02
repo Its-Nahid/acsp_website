@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('ACSP Unified System Loaded');
-
+    //ngo dashboad function
     function showToast(message, type = 'success') {
         let container = document.getElementById('toast-container');
         if (!container) {
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.addEventListener('click', () => {
                 selectedAmount = parseInt(btn.getAttribute('data-amount'), 10);
                 if (amountInput) amountInput.value = ''; // clear custom amount output
-                
+
                 // update UI classes
                 amountButtons.forEach(b => {
                     b.classList.remove('border-primary', 'bg-primary', 'text-white', 'shadow-md');
@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (amountInput && amountInput.value) {
                 finalAmount = parseFloat(amountInput.value);
             }
-            
+
             if (finalAmount < 10) {
                 showToast("Minimum donation is 10 BDT", "error");
                 return;
