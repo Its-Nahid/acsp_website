@@ -145,7 +145,7 @@ app.post("/login", async (req, res) => {
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || "mySecretKey", { expiresIn: "1d" });
 
-        res.json({ message: "Login successful", token });
+        res.json({ message: "Login successful", token, role: user.role });
     } catch (error) {
         res.status(500).json({ message: "Server error" });
     }
@@ -389,6 +389,44 @@ app.get('/adoptions', async (req, res) => {
         });
     } catch (error) {
         res.status(500).json({ message: "Server error while fetching adoptions" });
+    }
+});
+
+// Admin Delete Routes
+app.delete('/reports/:id', async (req, res) => {
+    try {
+        await RescueReport.findByIdAndDelete(req.params.id);
+        res.json({ message: "Report deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Server error deleting report" });
+    }
+});
+
+app.delete('/adoptions/:id', async (req, res) => {
+    try {
+        await Adoption.findByIdAndDelete(req.params.id);
+        res.json({ message: "Adoption post deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Server error deleting adoption post" });
+    }
+});
+
+// Admin NGO Routes
+app.get('/admin/ngos', async (req, res) => {
+    try {
+        const ngos = await User.find({ role: 'ngo' });
+        res.json({ ngos });
+    } catch (error) {
+        res.status(500).json({ message: "Server error fetching NGOs" });
+    }
+});
+
+app.put('/admin/ngos/:id/status', async (req, res) => {
+    try {
+        const user = await User.findByIdAndUpdate(req.params.id, { ngoStatus: req.body.status }, { new: true });
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ message: "Server error updating NGO status" });
     }
 });
 

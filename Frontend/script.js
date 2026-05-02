@@ -224,6 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     showToast("Login successful! Redirecting...");
                     localStorage.setItem('token', data.token);
+                    localStorage.setItem('role', data.role);
                     setTimeout(() => window.location.href = 'index.html', 2000);
                 } else {
                     showToast(data.message || "Login failed", "error");

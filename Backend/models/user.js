@@ -9,7 +9,8 @@ const userSchema = new mongoose.Schema({
     resetCodeExpiry: { type: Date }, // Code expiration time
     isVerified: { type: Boolean, default: false },
     signupCode: { type: String },
-    signupCodeExpiry: { type: Date }
+    signupCodeExpiry: { type: Date },
+    ngoStatus: { type: String, default: "pending" }
 });
 
 module.exports = mongoose.model("User", userSchema);
