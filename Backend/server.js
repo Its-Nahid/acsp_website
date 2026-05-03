@@ -7,6 +7,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
+//server handled
 const nodemailer = require("nodemailer");
 
 const User = require("./models/user");
@@ -342,7 +343,7 @@ app.put('/api/reports/:id/status', async (req, res) => {
 
         const report = await RescueReport.findByIdAndUpdate(
             req.params.id,
-            { 
+            {
                 $set: updateData,
                 $push: { statusUpdates: { status, note } }
             },
@@ -593,7 +594,7 @@ app.post("/api/ai-chat", async (req, res) => {
 app.post('/api/ngo', upload.array('gallery', 10), async (req, res) => {
     try {
         const galleryPaths = req.files ? req.files.map(file => file.path) : [];
-        
+
         // Parse complex objects if sent as strings (common with multipart/form-data)
         const location = typeof req.body.location === 'string' ? JSON.parse(req.body.location) : req.body.location;
         const contact = typeof req.body.contact === 'string' ? JSON.parse(req.body.contact) : req.body.contact;
@@ -694,7 +695,7 @@ app.get('/api/donations/summary', async (req, res) => {
 app.post('/api/rescued-animals', upload.array('photos', 5), async (req, res) => {
     try {
         const photoPaths = req.files ? req.files.map(file => file.path) : [];
-        
+
         const newAnimal = new RescuedAnimal({
             animalId: req.body.animalId,
             name: req.body.name,
