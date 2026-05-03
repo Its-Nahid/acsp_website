@@ -15,7 +15,7 @@ const RescuedAnimalSchema = new mongoose.Schema({
     status: {
         type: String,
         required: true,
-        enum: ["Ready for Adoption", "Under Treatment", "Rehabilitation", "Critical Care", "Recovered", "Adopted"],
+        enum: ["Ready for Adoption", "Under Treatment", "Rehabilitation", "Critical Care", "Recovery", "Hibernation/Observation", "Recovered", "Adopted"],
         default: "Under Treatment"
     },
     currentLocation: { type: String },
