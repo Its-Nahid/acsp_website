@@ -21,6 +21,7 @@ const components = {
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-animal" href="animal_listing.html">Animal</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="donation.html">Donation</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-adoption" href="adoptionpage.html">Adoption</a>
+                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-volunteer" href="volunteer.html">Volunteer</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-rescue" href="report.html">Rescue</a>
             </nav>
             <div class="flex items-center gap-3" id="auth-container">
@@ -64,7 +65,7 @@ const components = {
                     <li><a class="hover:text-primary transition-colors" href="#">Medical Treatment</a></li>
                     <li><a class="hover:text-primary transition-colors" href="#">Emergency Rescue</a></li>
                     <li><a class="hover:text-primary transition-colors" href="#">Lost & Found</a></li>
-                    <li><a class="hover:text-primary transition-colors" href="#">Volunteer Program</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="volunteer.html">Volunteer Program</a></li>
                 </ul>
             </div>
             <div>
@@ -135,6 +136,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     <a href="login.html" class="text-sm font-bold text-gray-700 dark:text-gray-300 px-4">Login</a>
                     <a href="signup.html" class="bg-primary text-white px-8 py-3 rounded-full text-sm font-bold shadow-lg shadow-primary/25 hover:scale-105 transition-all">Register</a>
                 `;
+            }
+        }
+        if (currentPage === 'volunteer.html') {
+            const volunteerLink = document.getElementById('nav-volunteer');
+            if (volunteerLink) {
+                volunteerLink.classList.remove('text-gray-500');
+                volunteerLink.classList.add('text-primary');
             }
         }
     }

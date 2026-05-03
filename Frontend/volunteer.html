@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Volunteer Coordination - ACSP</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f98c06",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#112116",
+                        "accent-blue": "#e0f2fe",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-300">
+    <!-- Top Navigation Bar -->
+    <div id="navbar-placeholder"></div>
+
+    <main class="max-w-[1440px] mx-auto px-4 md:px-10 py-12">
+        <!-- Hero Section -->
+        <section class="mb-16">
+            <div class="bg-primary/5 dark:bg-primary/10 rounded-3xl p-8 md:p-16 flex flex-col md:flex-row items-center gap-12 border border-primary/10">
+                <div class="flex-1 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-white font-bold text-xs uppercase tracking-widest">
+                        <span class="material-symbols-outlined text-sm">volunteer_activism</span>
+                        Be a Hero
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-black leading-tight tracking-tighter">
+                        Join the Movement.<br />Save a Life.
+                    </h1>
+                    <p class="text-lg text-slate-600 dark:text-slate-400 max-w-lg">
+                        Volunteers are the backbone of ACSP. Whether you're a driver, a photographer, or a medical professional, your time can make a world of difference.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <a href="#opportunities" class="px-8 py-4 rounded-full bg-primary text-white font-bold text-lg hover:scale-105 transition-transform shadow-xl shadow-primary/20">
+                            View Opportunities
+                        </a>
+                        <a href="#guidelines" class="px-8 py-4 rounded-full bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 font-bold text-lg hover:bg-slate-50 transition-colors">
+                            How it Works
+                        </a>
+                    </div>
+                </div>
+                <div class="flex-1 relative">
+                    <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full"></div>
+                    <img src="https://images.unsplash.com/photo-1559027615-cd26736f5df4?auto=format&fit=crop&q=80&w=800" alt="Volunteers working" class="relative rounded-2xl shadow-2xl border-4 border-white dark:border-slate-700 object-cover h-[400px] w-full" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Overview -->
+        <section class="mb-20 grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-center space-y-2">
+                <span class="text-4xl font-black text-primary">85</span>
+                <p class="text-sm font-bold text-slate-500 uppercase tracking-widest">Registered Volunteers</p>
+            </div>
+            <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-center space-y-2">
+                <span class="text-4xl font-black text-primary">42</span>
+                <p class="text-sm font-bold text-slate-500 uppercase tracking-widest">Active Monthly</p>
+            </div>
+            <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-center space-y-2">
+                <span class="text-4xl font-black text-primary">12</span>
+                <p class="text-sm font-bold text-slate-500 uppercase tracking-widest">New On-boarding</p>
+            </div>
+            <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-center space-y-2">
+                <span class="text-4xl font-black text-primary">6</span>
+                <p class="text-sm font-bold text-slate-500 uppercase tracking-widest">NGOs with Open Roles</p>
+            </div>
+        </section>
+
+        <!-- Opportunities Section -->
+        <section id="opportunities" class="mb-20">
+            <div class="flex items-end justify-between mb-8">
+                <div>
+                    <h2 class="text-3xl font-black tracking-tight mb-2">Current Opportunities</h2>
+                    <p class="text-slate-500">Find a role that matches your skills and availability.</p>
+                </div>
+                <div class="hidden md:block">
+                    <span class="px-4 py-2 bg-red-100 text-red-600 rounded-full text-xs font-bold uppercase tracking-widest">Urgent Roles Highlighted</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border-2 border-red-200 dark:border-red-900 shadow-lg shadow-red-500/5 relative overflow-hidden group hover:border-red-500 transition-colors">
+                    <div class="absolute top-0 right-0 p-3 bg-red-500 text-white text-[10px] font-bold uppercase tracking-tighter rounded-bl-xl">🔥 High Urgency</div>
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="p-3 bg-red-50 dark:bg-red-950 rounded-xl text-red-500">
+                            <span class="material-symbols-outlined">emergency_share</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold">Night Rescue Driver</h3>
+                            <p class="text-xs text-slate-500 font-medium">Save The Paws</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                            <span class="material-symbols-outlined text-sm">schedule</span>
+                            10pm - 2am
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                            <span class="material-symbols-outlined text-sm">location_on</span>
+                            Dhaka (On-site)
+                        </div>
+                    </div>
+                    <button class="w-full py-3 rounded-xl bg-red-500 text-white font-bold hover:bg-red-600 transition-colors">Apply Now</button>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-primary transition-colors shadow-sm">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="p-3 bg-blue-50 dark:bg-blue-950 rounded-xl text-blue-500">
+                            <span class="material-symbols-outlined">inventory_2</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold">Pharmacy Inventory</h3>
+                            <p class="text-xs text-slate-500 font-medium">Hope Animal Clinic</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                            <span class="material-symbols-outlined text-sm">calendar_month</span>
+                            Weekend Mornings
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                            <span class="material-symbols-outlined text-sm">priority_high</span>
+                            Medium Priority
+                        </div>
+                    </div>
+                    <button class="w-full py-3 rounded-xl bg-slate-900 dark:bg-slate-700 text-white font-bold hover:bg-primary transition-colors">Apply Now</button>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-primary transition-colors shadow-sm">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="p-3 bg-green-50 dark:bg-green-950 rounded-xl text-green-500">
+                            <span class="material-symbols-outlined">cleaning_services</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold">Aviary Cleaner</h3>
+                            <p class="text-xs text-slate-500 font-medium">Winged Friends</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                            <span class="material-symbols-outlined text-sm">timer</span>
+                            4 hrs / week
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                            <span class="material-symbols-outlined text-sm">priority</span>
+                            Low Priority
+                        </div>
+                    </div>
+                    <button class="w-full py-3 rounded-xl bg-slate-900 dark:bg-slate-700 text-white font-bold hover:bg-primary transition-colors">Apply Now</button>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-primary transition-colors shadow-sm">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="p-3 bg-purple-50 dark:bg-purple-950 rounded-xl text-purple-500">
+                            <span class="material-symbols-outlined">pets</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold">Puppy Socializer</h3>
+                            <p class="text-xs text-slate-500 font-medium">Happy Paws Foster</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                            <span class="material-symbols-outlined text-sm">update</span>
+                            Flexible Hours
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                            <span class="material-symbols-outlined text-sm">priority_high</span>
+                            Medium Priority
+                        </div>
+                    </div>
+                    <button class="w-full py-3 rounded-xl bg-slate-900 dark:bg-slate-700 text-white font-bold hover:bg-primary transition-colors">Apply Now</button>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-primary transition-colors shadow-sm">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="p-3 bg-orange-50 dark:bg-orange-950 rounded-xl text-orange-500">
+                            <span class="material-symbols-outlined">draw</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold">UI/UX Designer</h3>
+                            <p class="text-xs text-slate-500 font-medium">ACSP Tech Team</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                            <span class="material-symbols-outlined text-sm">code</span>
+                            Project Based
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                            <span class="material-symbols-outlined text-sm">priority_high</span>
+                            Medium Priority
+                        </div>
+                    </div>
+                    <button class="w-full py-3 rounded-xl bg-slate-900 dark:bg-slate-700 text-white font-bold hover:bg-primary transition-colors">Apply Now</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Volunteer Registry -->
+        <section class="mb-20 bg-white dark:bg-slate-800 rounded-3xl p-8 border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden">
+            <h2 class="text-3xl font-black tracking-tight mb-8">Active Volunteer Registry</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b border-slate-100 dark:border-slate-700">
+                            <th class="pb-4 font-bold text-sm text-slate-500 uppercase tracking-widest">ID</th>
+                            <th class="pb-4 font-bold text-sm text-slate-500 uppercase tracking-widest">Name</th>
+                            <th class="pb-4 font-bold text-sm text-slate-500 uppercase tracking-widest">Assigned NGO</th>
+                            <th class="pb-4 font-bold text-sm text-slate-500 uppercase tracking-widest">Role</th>
+                            <th class="pb-4 font-bold text-sm text-slate-500 uppercase tracking-widest">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-50 dark:divide-slate-700/50">
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+                            <td class="py-4 text-sm font-medium text-slate-400">VOL-2024-001</td>
+                            <td class="py-4 font-bold">Arif Hossain</td>
+                            <td class="py-4 text-sm">Save The Paws</td>
+                            <td class="py-4 text-sm"><span class="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full text-xs font-bold">🚑 Rescue Assist</span></td>
+                            <td class="py-4 text-sm"><span class="text-green-500 flex items-center gap-1 font-bold">✅ Active</span></td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+                            <td class="py-4 text-sm font-medium text-slate-400">VOL-2024-002</td>
+                            <td class="py-4 font-bold">Sumaiya Akter</td>
+                            <td class="py-4 text-sm">Hope Animal Clinic</td>
+                            <td class="py-4 text-sm"><span class="px-3 py-1 bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-full text-xs font-bold">🩺 Medical Aid</span></td>
+                            <td class="py-4 text-sm"><span class="text-green-500 flex items-center gap-1 font-bold">✅ Active</span></td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+                            <td class="py-4 text-sm font-medium text-slate-400">VOL-2024-003</td>
+                            <td class="py-4 font-bold">Imtiaz Ahmed</td>
+                            <td class="py-4 text-sm">ACSP Central</td>
+                            <td class="py-4 text-sm"><span class="px-3 py-1 bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-full text-xs font-bold">📸 Photography</span></td>
+                            <td class="py-4 text-sm"><span class="text-green-500 flex items-center gap-1 font-bold">✅ Active</span></td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+                            <td class="py-4 text-sm font-medium text-slate-400">VOL-2024-004</td>
+                            <td class="py-4 font-bold">Farhana Ritu</td>
+                            <td class="py-4 text-sm">Happy Paws Foster</td>
+                            <td class="py-4 text-sm"><span class="px-3 py-1 bg-zinc-50 dark:bg-zinc-900/30 text-zinc-600 dark:text-zinc-400 rounded-full text-xs font-bold">🏠 Foster Management</span></td>
+                            <td class="py-4 text-sm"><span class="text-amber-500 flex items-center gap-1 font-bold">⏳ On-boarding</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-8 pt-8 border-t border-slate-100 dark:border-slate-700 text-center">
+                <button class="text-primary font-bold hover:underline">View Entire Registry (85 total)</button>
+            </div>
+        </section>
+
+        <!-- Guidelines Section -->
+        <section id="guidelines" class="mb-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="order-2 md:order-1">
+                <img src="https://images.unsplash.com/photo-1544333346-641270274737?auto=format&fit=crop&q=80&w=800" alt="Training session" class="rounded-3xl shadow-xl" />
+            </div>
+            <div class="space-y-8 order-1 md:order-2">
+                <h2 class="text-3xl font-black tracking-tight">Coordination Guidelines</h2>
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <div class="size-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold flex-shrink-0">1</div>
+                        <div>
+                            <h4 class="font-bold mb-1">Application</h4>
+                            <p class="text-slate-500 text-sm">All volunteers must complete the online application and a brief background check for animal safety.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="size-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold flex-shrink-0">2</div>
+                        <div>
+                            <h4 class="font-bold mb-1">Training</h4>
+                            <p class="text-slate-500 text-sm">NGO-specific training (e.g., animal handling, medical protocols) is mandatory before your first shift.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="size-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold flex-shrink-0">3</div>
+                        <div>
+                            <h4 class="font-bold mb-1">Logging Hours</h4>
+                            <p class="text-slate-500 text-sm">Volunteers should log their hours via the NGO Admin dashboard to receive certified certificates.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="size-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold flex-shrink-0">4</div>
+                        <div>
+                            <h4 class="font-bold mb-1">Recognition</h4>
+                            <p class="text-slate-500 text-sm">Top contributors are highlighted on the ACSP "Heroes" wall monthly to celebrate their impact.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="bg-slate-900 dark:bg-primary rounded-[3rem] p-12 md:p-20 text-center text-white relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+                <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M0 100 C 20 0 50 0 100 100 Z" fill="currentColor"></path>
+                </svg>
+            </div>
+            <div class="relative z-10 max-w-2xl mx-auto space-y-8">
+                <h2 class="text-4xl md:text-5xl font-black tracking-tight">Ready to make a difference?</h2>
+                <p class="text-lg opacity-80">Start your journey with ACSP today and help us create a safer world for animals in Bangladesh.</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button class="px-10 py-5 rounded-full bg-white text-slate-900 font-black text-xl hover:scale-105 transition-transform shadow-2xl">Register as Volunteer</button>
+                    <button class="px-10 py-5 rounded-full border-2 border-white/30 hover:bg-white/10 transition-colors font-bold text-xl">Contact Support</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <script src="components.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
