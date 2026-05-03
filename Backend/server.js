@@ -14,6 +14,8 @@ const Donation = require("./models/Donation");
 const Adoption = require("./models/Adoption");
 const NGO = require("./models/NGO");
 const RescuedAnimal = require("./models/RescuedAnimal");
+const Volunteer = require("./models/Volunteer");
+const VolunteerOpportunity = require("./models/VolunteerOpportunity");
 const SSLCommerzPayment = require("sslcommerz-lts");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
@@ -506,6 +508,63 @@ app.put('/api/rescued-animals/:id', async (req, res) => {
         res.json({ message: "Animal updated successfully", animal: updatedAnimal });
     } catch (error) {
         res.status(500).json({ message: "Server error while updating animal" });
+    }
+});
+
+// 12. Volunteer Coordination Routes
+app.get('/api/volunteers', async (req, res) => {
+    try {
+        const volunteers = await Volunteer.find().sort({ createdAt: -1 });
+        res.json(volunteers);
+    } catch (error) {
+        res.status(500).json({ message: "Server error while fetching volunteers" });
+    }
+});
+
+app.post('/api/volunteers', async (req, res) => {
+    try {
+        const newVolunteer = new Volunteer(req.body);
+        await newVolunteer.save();
+        res.status(201).json({ message: "Volunteer registered successfully!", volunteer: newVolunteer });
+    } catch (error) {
+        res.status(500).json({ message: "Server error while registering volunteer" });
+    }
+});
+
+app.get('/api/volunteer-opportunities', async (req, res) => {
+    try {
+        const opportunities = await VolunteerOpportunity.find().sort({ createdAt: -1 });
+        res.json(opportunities);
+    } catch (error) {
+        res.status(500).json({ message: "Server error while fetching opportunities" });
+    }
+});
+
+app.post('/api/volunteer-opportunities', async (req, res) => {
+    try {
+        const newOpportunity = new VolunteerOpportunity(req.body);
+        await newOpportunity.save();
+        res.status(201).json({ message: "Opportunity added successfully!", opportunity: newOpportunity });
+    } catch (error) {
+        res.status(500).json({ message: "Server error while adding opportunity" });
+    }
+});
+
+app.get('/api/volunteers/summary', async (req, res) => {
+    try {
+        const total = await Volunteer.countDocuments();
+        const active = await Volunteer.countDocuments({ status: "Active" });
+        const onboarding = await Volunteer.countDocuments({ status: "On-boarding" });
+        const ngoCount = await VolunteerOpportunity.distinct("ngoName");
+
+        res.json({
+            totalRegistered: total,
+            activeMonthly: active,
+            newOnboarding: onboarding,
+            ngosWithOpenRoles: ngoCount.length
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Server error while fetching volunteer summary" });
     }
 });
 
