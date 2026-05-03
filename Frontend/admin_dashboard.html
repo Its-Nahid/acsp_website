@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#ffb68e",
+                        "inverse-surface": "#362f29",
+                        "surface-dim": "#e5e2df",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#ffb68e",
+                        "outline-variant": "#d4c4b5",
+                        "on-background": "#1a140e",
+                        "surface-container-high": "#f0edea",
+                        "on-primary": "#ffffff",
+                        "surface": "#fcf9f6",
+                        "on-tertiary-container": "#00210f",
+                        "surface-bright": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#fcf0e4",
+                        "background": "#fcf9f6",
+                        "surface-variant": "#f4e0d0",
+                        "tertiary-fixed": "#93f7b8",
+                        "on-primary-fixed": "#321300",
+                        "secondary-fixed": "#ffe08d",
+                        "on-tertiary-fixed-variant": "#00522d",
+                        "surface-container-highest": "#ebe8e5",
+                        "error": "#e11d48",
+                        "surface-container": "#f6f3f0",
+                        "secondary-container": "#ffe08d",
+                        "primary": "#f98c06",
+                        "outline": "#837569",
+                        "on-tertiary-fixed": "#00210f",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#e9c44a",
+                        "primary-container": "#ffdbc0",
+                        "error-container": "#ffdad9",
+                        "secondary": "#745b00",
+                        "on-surface-variant": "#51453a",
+                        "tertiary": "#006d3e",
+                        "surface-container-low": "#fcf9f6",
+                        "on-surface": "#1a140e",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#77da9e",
+                        "primary-fixed": "#ffdbc0",
+                        "on-secondary-fixed-variant": "#584400",
+                        "on-error-container": "#410009",
+                        "tertiary-container": "#93f7b8",
+                        "surface-tint": "#f98c06",
+                        "on-primary-fixed-variant": "#7c3700",
+                        "on-primary-container": "#321300",
+                        "on-secondary-fixed": "#241a00",
+                        "on-secondary-container": "#241a00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "display": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcf9f6;
+            color: #1a140e;
+        }
+    </style>
+</head>
+
+<body class="bg-background">
+    <!-- SideNavBar -->
+    <nav class="h-screen w-72 rounded-r-[3rem] fixed left-0 top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm border-none flex flex-col py-8 px-4 space-y-6">
+        <div class="px-6 mb-4">
+            <h1 class="text-xl font-black tracking-tighter text-[#f98c06]">ACSP Admin</h1>
+            <p class="text-[10px] font-black uppercase tracking-[0.2em] text-stone-400 mt-1">Welfare Console</p>
+        </div>
+        <div class="flex-1 space-y-2">
+            <!-- Tabs -->
+            <button onclick="switchTab('dashboard')" id="tab-dashboard" class="w-full flex items-center gap-4 bg-orange-50 text-[#f98c06] font-black rounded-full px-6 py-3 transition-all duration-300">
+                <span class="material-symbols-outlined">dashboard</span>
+                <span>Dashboard</span>
+            </button>
+            <button onclick="switchTab('ngos')" id="tab-ngos" class="w-full flex items-center gap-4 text-stone-500 font-bold uppercase text-[12px] tracking-[0.2em] px-6 py-3 hover:bg-orange-50/50 transition-all duration-300">
+                <span class="material-symbols-outlined">verified_user</span>
+                <span>NGO Approvals</span>
+            </button>
+            <button onclick="switchTab('rescues')" id="tab-rescues" class="w-full flex items-center gap-4 text-stone-500 font-bold uppercase text-[12px] tracking-[0.2em] px-6 py-3 hover:bg-orange-50/50 transition-all duration-300">
+                <span class="material-symbols-outlined">emergency</span>
+                <span>Rescue Reports</span>
+            </button>
+            <button onclick="switchTab('adoptions')" id="tab-adoptions" class="w-full flex items-center gap-4 text-stone-500 font-bold uppercase text-[12px] tracking-[0.2em] px-6 py-3 hover:bg-orange-50/50 transition-all duration-300">
+                <span class="material-symbols-outlined">pets</span>
+                <span>Adoption Listings</span>
+            </button>
+        </div>
+        <div class="px-4 pb-4">
+            <button class="w-full bg-error text-white font-black py-4 rounded-full shadow-lg hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">campaign</span>
+                Broadcast Alert
+            </button>
+        </div>
+        <div class="border-t border-stone-100 pt-6 space-y-2">
+            <a class="flex items-center gap-4 text-stone-500 font-bold uppercase text-[12px] tracking-[0.2em] px-6 py-3 hover:bg-orange-50/50 transition-all" href="index.html">
+                <span class="material-symbols-outlined">home</span>
+                <span>Back to Site</span>
+            </a>
+            <button onclick="logout()" class="w-full flex items-center gap-4 text-stone-500 font-bold uppercase text-[12px] tracking-[0.2em] px-6 py-3 hover:bg-red-50 text-error transition-all">
+                <span class="material-symbols-outlined">logout</span>
+                <span>Logout</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- TopNavBar -->
+    <header class="sticky top-0 ml-72 flex justify-between items-center z-40 bg-[#fcf9f6]/90 backdrop-blur-md rounded-full mt-4 mx-6 px-8 py-3 shadow-sm border border-stone-200/10">
+        <div class="flex items-center gap-4">
+            <span class="text-lg font-black uppercase tracking-[0.2em] text-[#1a140e]" id="current-tab-title">Dashboard</span>
+        </div>
+        <div class="flex items-center gap-6">
+            <div class="relative group">
+                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400 material-symbols-outlined">search</span>
+                <input class="bg-stone-100 border-none rounded-full pl-12 pr-6 py-2 w-64 focus:ring-2 focus:ring-[#f98c06] transition-all" placeholder="Search data..." type="text" />
+            </div>
+            <div class="flex items-center gap-4 text-stone-500">
+                <button class="hover:text-[#f98c06] transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+                <div class="h-10 w-10 rounded-full bg-primary-container flex items-center justify-center text-[#f98c06] font-bold">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="ml-72 p-8 pt-6">
+        <!-- Dashboard Overview -->
+        <section id="section-dashboard" class="tab-section">
+            <div class="mb-12">
+                <h2 class="text-[3rem] font-black tracking-tight leading-none mb-2 text-on-background">System Overview</h2>
+                <p class="text-on-surface-variant font-medium">Real-time status of Ember Orchard platform metrics.</p>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-primary/5">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-primary-container rounded-2xl text-primary">
+                            <span class="material-symbols-outlined text-3xl">verified_user</span>
+                        </div>
+                        <span class="bg-primary/10 text-primary text-[10px] font-black px-3 py-1 rounded-full tracking-widest uppercase">NGOs</span>
+                    </div>
+                    <div class="text-[2.5rem] font-black leading-none mb-1" id="count-ngos">0</div>
+                    <div class="text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">Total Partnership Requests</div>
+                </div>
+                <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-primary/5">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-secondary-container rounded-2xl text-secondary">
+                            <span class="material-symbols-outlined text-3xl">emergency</span>
+                        </div>
+                        <span class="bg-secondary/10 text-secondary text-[10px] font-black px-3 py-1 rounded-full tracking-widest uppercase">Rescues</span>
+                    </div>
+                    <div class="text-[2.5rem] font-black leading-none mb-1" id="count-rescues">0</div>
+                    <div class="text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">Total Rescue Reports</div>
+                </div>
+                <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-primary/5">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-tertiary-container rounded-2xl text-tertiary">
+                            <span class="material-symbols-outlined text-3xl">pets</span>
+                        </div>
+                        <span class="bg-tertiary/10 text-tertiary text-[10px] font-black px-3 py-1 rounded-full tracking-widest uppercase">Adoptions</span>
+                    </div>
+                    <div class="text-[2.5rem] font-black leading-none mb-1" id="count-adoptions">0</div>
+                    <div class="text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">Active Adoption Listings</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Tables Section -->
+        <section class="bg-surface-container-lowest rounded-xl p-8 shadow-sm">
+            <div class="flex items-center justify-between mb-8">
+                <h3 class="text-xl font-black tracking-tight" id="table-title">Recent Submissions</h3>
+                <div class="text-[12px] font-black uppercase tracking-[0.2em] text-[#f98c06]" id="data-count">Loading...</div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-separate border-spacing-y-4">
+                    <thead>
+                        <tr id="table-head">
+                            <!-- Dynamic Head -->
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Dynamic Content -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Details Modal -->
+    <div id="viewModal" class="fixed inset-0 z-[100] hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white dark:bg-zinc-900 rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col transform scale-95 transition-transform duration-300" id="modalContentWrapper">
+            <!-- Modal Header -->
+            <div class="px-8 py-6 border-b border-gray-100 dark:border-zinc-800 flex justify-between items-center bg-gray-50/50 dark:bg-zinc-800/50">
+                <h2 id="modalTitle" class="text-2xl font-black tracking-tight text-gray-900 dark:text-white">Details</h2>
+                <button onclick="closeViewModal()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors text-gray-500">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <!-- Modal Body -->
+            <div id="modalBody" class="p-8 overflow-y-auto space-y-6 text-gray-700 dark:text-gray-300">
+                <!-- Content injected here -->
+            </div>
+            <!-- Modal Footer -->
+            <div class="px-8 py-6 border-t border-gray-100 dark:border-zinc-800 bg-gray-50/50 dark:bg-zinc-800/50 flex justify-end">
+                <button onclick="closeViewModal()" class="bg-gray-200 hover:bg-gray-300 dark:bg-zinc-700 dark:hover:bg-zinc-600 text-gray-800 dark:text-white px-6 py-2.5 rounded-full font-bold transition-colors">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="components.js"></script>
+    <script src="script.js"></script>
+    <script>
+        const API_BASE = 'http://localhost:5000';
+        let currentTab = 'dashboard';
+        let globalData = { rescues: [], adoptions: [], ngos: [] };
+
+        async function fetchData() {
+            try {
+                const [rescueRes, adoptionRes, ngoRes] = await Promise.all([
+                    fetch(`${API_BASE}/reports`),
+                    fetch(`${API_BASE}/adoptions`),
+                    fetch(`${API_BASE}/admin/ngos`)
+                ]);
+
+                const rescueData = await rescueRes.json();
+                const adoptionData = await adoptionRes.json();
+                const ngoData = await ngoRes.json();
+
+                globalData.rescues = rescueData.reports || [];
+                globalData.adoptions = adoptionData.adoptions || [];
+                globalData.ngos = ngoData.ngos || [];
+
+                document.getElementById('count-rescues').innerText = rescueData.totalReports || 0;
+                document.getElementById('count-adoptions').innerText = adoptionData.totalReports || 0;
+                document.getElementById('count-ngos').innerText = globalData.ngos.length || 0;
+
+                renderTable(currentTab);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        function renderTable(tab) {
+            const head = document.getElementById('table-head');
+            const body = document.getElementById('table-body');
+            head.innerHTML = '';
+            body.innerHTML = '';
+
+            let data = [];
+            let type = tab;
+            
+            if (tab === 'dashboard' || tab === 'rescues') {
+                type = 'rescues';
+                data = globalData.rescues;
+                document.getElementById('table-title').innerText = tab === 'dashboard' ? 'Recent Rescues Overview' : 'Rescue Reports';
+            } else if (tab === 'adoptions') {
+                type = 'adoptions';
+                data = globalData.adoptions;
+                document.getElementById('table-title').innerText = 'Adoption Posts';
+            } else if (tab === 'ngos') {
+                type = 'ngos';
+                data = globalData.ngos;
+                document.getElementById('table-title').innerText = 'Registered NGOs';
+            }
+
+            if (type === 'rescues') {
+                head.innerHTML = `
+                    <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">Reporter</th>
+                    <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">Animal / Type</th>
+                    <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">Urgency</th>
+                    <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400 text-right">Actions</th>
+                `;
+
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.className = 'group';
+                    row.innerHTML = `
+                        <td class="px-6 py-4 bg-stone-50/50 rounded-l-xl group-hover:bg-orange-50/30 transition-colors">
+                            <div class="font-black text-on-surface">${item.fullName || 'Anonymous'}</div>
+                            <div class="text-sm text-stone-400">${item.phone || 'N/A'}</div>
+                        </td>
+                        <td class="px-6 py-4 bg-stone-50/50 group-hover:bg-orange-50/30 transition-colors">
+                            <div class="font-bold">${item.animalType || 'Unknown'}</div>
+                            <div class="text-[10px] font-black uppercase text-stone-400">${item.category || 'N/A'}</div>
+                        </td>
+                        <td class="px-6 py-4 bg-stone-50/50 group-hover:bg-orange-50/30 transition-colors">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${getUrgencyClass(item.urgency)}">${item.urgency || 'Normal'}</span>
+                        </td>
+                        <td class="px-6 py-4 bg-stone-50/50 rounded-r-xl text-right group-hover:bg-orange-50/30 transition-colors">
+                            <div class="flex justify-end gap-2">
+                                <button onclick="viewItem('${type}', '${item._id}')" class="bg-[#f98c06] text-white p-2 rounded-full hover:scale-110 shadow-md transition-all" title="View Details"><span class="material-symbols-outlined block">visibility</span></button>
+                                <button onclick="deleteItem('${type}', '${item._id}')" class="bg-white text-error p-2 rounded-full hover:scale-110 shadow-sm border border-error/10 transition-all" title="Delete"><span class="material-symbols-outlined block">delete</span></button>
+                            </div>
+                        </td>
+                    `;
+                    body.appendChild(row);
+                });
+                document.getElementById('data-count').innerText = `Showing ${data.length} Reports`;
+            } else if (type === 'adoptions') {
+                head.innerHTML = `
+                    <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">Pet Info</th>
+                    <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">Breed / Age</th>
+                    <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">Status</th>
+                    <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400 text-right">Actions</th>
+                `;
+
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.className = 'group';
+                    row.innerHTML = `
+                        <td class="px-6 py-4 bg-stone-50/50 rounded-l-xl group-hover:bg-orange-50/30 transition-colors">
+                            <div class="font-black text-on-surface">${item.name || 'Unnamed'}</div>
+                            <div class="text-sm text-stone-400">${item.type || 'N/A'}</div>
+                        </td>
+                        <td class="px-6 py-4 bg-stone-50/50 group-hover:bg-orange-50/30 transition-colors">
+                            <div class="font-bold">${item.breed || 'Unknown'}</div>
+                            <div class="text-[10px] font-black uppercase text-stone-400">${item.age || 'Unknown Age'}</div>
+                        </td>
+                        <td class="px-6 py-4 bg-stone-50/50 group-hover:bg-orange-50/30 transition-colors">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-blue-100 text-blue-700">Available</span>
+                        </td>
+                        <td class="px-6 py-4 bg-stone-50/50 rounded-r-xl text-right group-hover:bg-orange-50/30 transition-colors">
+                            <div class="flex justify-end gap-2">
+                                <button onclick="viewItem('${type}', '${item._id}')" class="bg-[#f98c06] text-white p-2 rounded-full hover:scale-110 shadow-md transition-all" title="View Details"><span class="material-symbols-outlined block">visibility</span></button>
+                                <button onclick="deleteItem('${type}', '${item._id}')" class="bg-white text-error p-2 rounded-full hover:scale-110 shadow-sm border border-error/10 transition-all" title="Delete"><span class="material-symbols-outlined block">delete</span></button>
+                            </div>
+                        </td>
+                    `;
+                    body.appendChild(row);
+                });
+                document.getElementById('data-count').innerText = `Showing ${data.length} Posts`;
+            } else if (type === 'ngos') {
+                head.innerHTML = `
+                    <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">NGO Name</th>
+                    <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">Email</th>
+                    <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">Status</th>
+                    <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400 text-right">Actions</th>
+                `;
+
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.className = 'group';
+                    const statusClass = item.ngoStatus === 'approved' ? 'bg-green-100 text-green-700' : (item.ngoStatus === 'declined' ? 'bg-red-100 text-red-700' : 'bg-orange-100 text-orange-700');
+                    row.innerHTML = `
+                        <td class="px-6 py-4 bg-stone-50/50 rounded-l-xl group-hover:bg-orange-50/30 transition-colors">
+                            <div class="font-black text-on-surface">${item.name || 'Unnamed NGO'}</div>
+                        </td>
+                        <td class="px-6 py-4 bg-stone-50/50 group-hover:bg-orange-50/30 transition-colors">
+                            <div class="font-bold">${item.email || 'N/A'}</div>
+                        </td>
+                        <td class="px-6 py-4 bg-stone-50/50 group-hover:bg-orange-50/30 transition-colors">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${statusClass}">${item.ngoStatus || 'pending'}</span>
+                        </td>
+                        <td class="px-6 py-4 bg-stone-50/50 rounded-r-xl text-right group-hover:bg-orange-50/30 transition-colors">
+                            <div class="flex justify-end gap-2">
+                                <button onclick="updateNGO('${item._id}', 'approved')" class="bg-green-500 text-white p-2 rounded-full hover:scale-110 shadow-md transition-all" title="Approve"><span class="material-symbols-outlined block text-sm">check</span></button>
+                                <button onclick="updateNGO('${item._id}', 'declined')" class="bg-red-500 text-white p-2 rounded-full hover:scale-110 shadow-md transition-all" title="Decline"><span class="material-symbols-outlined block text-sm">close</span></button>
+                            </div>
+                        </td>
+                    `;
+                    body.appendChild(row);
+                });
+                document.getElementById('data-count').innerText = `Showing ${data.length} NGOs`;
+            } else {
+                body.innerHTML = '<tr><td colspan="4" class="text-center py-8 text-stone-400">No data available</td></tr>';
+                document.getElementById('data-count').innerText = `Showing 0 Records`;
+            }
+        }
+
+        function getUrgencyClass(urgency) {
+            switch(urgency?.toLowerCase()) {
+                case 'critical': return 'bg-red-100 text-red-700';
+                case 'high': return 'bg-orange-100 text-orange-700';
+                default: return 'bg-blue-100 text-blue-700';
+            }
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+            // Update UI
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('bg-orange-50', 'text-[#f98c06]', 'font-black');
+                btn.classList.add('text-stone-500', 'font-bold');
+            });
+            const activeBtn = document.getElementById(`tab-${tab}`);
+            if(activeBtn) {
+                activeBtn.classList.add('bg-orange-50', 'text-[#f98c06]', 'font-black');
+                activeBtn.classList.remove('text-stone-500', 'font-bold');
+            }
+
+            document.getElementById('current-tab-title').innerText = tab.charAt(0).toUpperCase() + tab.slice(1);
+            
+            // Re-render table based on the new tab
+            renderTable(tab);
+        }
+
+        async function deleteItem(type, id) {
+            if (!confirm('Are you sure you want to delete this item?')) return;
+            const endpoint = type === 'rescues' ? 'reports' : 'adoptions';
+            try {
+                const res = await fetch(`${API_BASE}/${endpoint}/${id}`, { method: 'DELETE' });
+                if (res.ok) {
+                    await fetchData(); // refresh data
+                } else {
+                    alert('Failed to delete item.');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error deleting item.');
+            }
+        }
+
+        async function updateNGO(id, status) {
+            if (!confirm(`Are you sure you want to mark this NGO as ${status}?`)) return;
+            try {
+                const res = await fetch(`${API_BASE}/admin/ngos/${id}/status`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status })
+                });
+                if (res.ok) {
+                    await fetchData(); // refresh data
+                } else {
+                    alert('Failed to update NGO status.');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error updating NGO status.');
+            }
+        }
+
+        function viewItem(type, id) {
+            let item;
+            let html = '';
+            
+            if (type === 'rescues') {
+                item = globalData.rescues.find(r => r._id === id);
+                if (!item) return;
+                html = `
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div><strong>Reporter:</strong> ${item.fullName || 'Anonymous'}</div>
+                            <div><strong>Phone:</strong> ${item.phone || 'N/A'}</div>
+                            <div><strong>Animal Type:</strong> ${item.animalType || 'Unknown'}</div>
+                            <div><strong>Category:</strong> ${item.category || 'N/A'}</div>
+                            <div><strong>Urgency:</strong> <span class="px-2 py-1 rounded-full text-xs font-bold ${getUrgencyClass(item.urgency)}">${item.urgency || 'Normal'}</span></div>
+                            <div><strong>Location:</strong> ${item.location || 'Unknown'}</div>
+                        </div>
+                        <div>
+                            <strong>Summary:</strong>
+                            <p class="mt-1 p-3 bg-gray-50 dark:bg-zinc-800 rounded-lg text-sm">${item.caseSummary || 'No summary provided.'}</p>
+                        </div>
+                        <div>
+                            <strong>Description:</strong>
+                            <p class="mt-1 p-3 bg-gray-50 dark:bg-zinc-800 rounded-lg text-sm whitespace-pre-wrap">${item.description || 'No description provided.'}</p>
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'adoptions') {
+                item = globalData.adoptions.find(a => a._id === id);
+                if (!item) return;
+                html = `
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div><strong>Pet Name:</strong> ${item.name || 'Unnamed'}</div>
+                            <div><strong>Type:</strong> ${item.type || 'N/A'}</div>
+                            <div><strong>Breed:</strong> ${item.breed || 'Unknown'}</div>
+                            <div><strong>Age:</strong> ${item.age || 'Unknown Age'}</div>
+                            <div><strong>Gender:</strong> ${item.gender || 'Unknown'}</div>
+                            <div><strong>Vaccinated:</strong> ${item.vaccinationStatus || 'Unknown'}</div>
+                            <div><strong>Spayed/Neutered:</strong> ${item.spayedNeutered || 'Unknown'}</div>
+                            <div><strong>Temperament:</strong> ${item.temperament || 'Unknown'}</div>
+                            <div><strong>Contact:</strong> ${item.contactName || 'Unknown'}</div>
+                            <div><strong>Phone:</strong> ${item.phone || 'No phone'}</div>
+                            <div class="col-span-2"><strong>Location:</strong> ${item.location || 'Unknown'}</div>
+                        </div>
+                        <div>
+                            <strong>Headline:</strong>
+                            <p class="mt-1 p-3 bg-gray-50 dark:bg-zinc-800 rounded-lg text-sm font-bold">${item.headline || 'No headline provided.'}</p>
+                        </div>
+                        <div>
+                            <strong>Story:</strong>
+                            <p class="mt-1 p-3 bg-gray-50 dark:bg-zinc-800 rounded-lg text-sm whitespace-pre-wrap">${item.story || 'No story provided.'}</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            document.getElementById('modalBody').innerHTML = html;
+            const modal = document.getElementById('viewModal');
+            modal.classList.remove('hidden');
+            // Tiny delay for opacity transition
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                document.getElementById('modalContentWrapper').classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeViewModal() {
+            const modal = document.getElementById('viewModal');
+            modal.classList.add('opacity-0');
+            document.getElementById('modalContentWrapper').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Close modal on backdrop click
+        document.getElementById('viewModal').addEventListener('click', (e) => {
+            if (e.target.id === 'viewModal') {
+                closeViewModal();
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = 'login.html';
+        }
+
+        fetchData();
+    </script>
+</body>
+</html>

@@ -101,6 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // SIGNUP FORM
     const signupForm = document.getElementById('signupForm');
+    let currentSignupEmail = '';
+
     if (signupForm) {
         signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -109,6 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = document.getElementById('signupEmail').value;
             const password = document.getElementById('signupPassword').value;
             const role = document.querySelector('input[name="role"]:checked')?.value || 'general';
+            
+            const btn = signupForm.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = 'Processing...';
 
             try {
                 const response = await fetch('http://localhost:5000/signup', {
@@ -118,7 +125,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 const data = await response.json();
-                if (response.ok) {
+                if (response.ok && data.requireVerification) {
+                    showToast("Verification code sent! Check your email.");
+                    currentSignupEmail = email;
+                    document.getElementById('signupEmailDisplay').textContent = email;
+                    
+                    // Switch forms
+                    signupForm.classList.add('hidden');
+                    const footer = document.getElementById('signupFooter');
+                    if (footer) footer.classList.add('hidden');
+                    document.getElementById('verifySignupForm').classList.remove('hidden');
+                } else if (response.ok) {
                     showToast("Signup successful! Redirecting to login...");
                     setTimeout(() => window.location.href = 'login.html', 2000);
                 } else {
@@ -127,6 +144,62 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (error) {
                 console.error("Signup Error:", error);
                 showToast("Cannot connect to server", "error");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        });
+    }
+
+    // VERIFY SIGNUP CODE FORM
+    const verifySignupForm = document.getElementById('verifySignupForm');
+    if (verifySignupForm) {
+        verifySignupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const code = document.getElementById('signupCode').value;
+            const verifyBtn = document.getElementById('verifySignupBtn');
+            const originalText = verifyBtn.innerHTML;
+
+            if (code.length !== 6) {
+                showToast("Please enter a 6-digit code", "error");
+                return;
+            }
+
+            verifyBtn.disabled = true;
+            verifyBtn.innerHTML = 'Verifying...';
+
+            try {
+                const response = await fetch('http://localhost:5000/verify-signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: currentSignupEmail, code })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    showToast("Account verified successfully! Redirecting to login...");
+                    setTimeout(() => window.location.href = 'login.html', 2000);
+                } else {
+                    showToast(data.message || "Invalid code", "error");
+                }
+            } catch (error) {
+                console.error("Verify Signup Error:", error);
+                showToast("Cannot connect to server", "error");
+            } finally {
+                verifyBtn.disabled = false;
+                verifyBtn.innerHTML = originalText;
+            }
+        });
+    }
+    
+    // VALIDATION FOR SIGNUP CODE (only numbers)
+    const signupCodeInput = document.getElementById('signupCode');
+    if (signupCodeInput) {
+        signupCodeInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+            if (e.target.value.length > 6) {
+                e.target.value = e.target.value.slice(0, 6);
             }
         });
     }
@@ -151,6 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     showToast("Login successful! Redirecting...");
                     localStorage.setItem('token', data.token);
+                    localStorage.setItem('role', data.role);
                     setTimeout(() => window.location.href = 'index.html', 2000);
                 } else {
                     showToast(data.message || "Login failed", "error");
@@ -158,6 +232,223 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (error) {
                 console.error("Login Error:", error);
                 showToast("Cannot connect to server", "error");
+            }
+        });
+    }
+
+    // FORGOT PASSWORD FORM
+    const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+    if (forgotPasswordForm) {
+        forgotPasswordForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const sendCodeBtn = document.getElementById('sendCodeBtn');
+            const originalText = sendCodeBtn.innerHTML;
+
+            sendCodeBtn.disabled = true;
+            sendCodeBtn.innerHTML = '<span>Sending...</span><span class="material-symbols-outlined text-xl">hourglass_empty</span>';
+
+            try {
+                const response = await fetch('http://localhost:5000/forgot-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    showToast("Reset code sent! Check your email.");
+                    // Switch to code verification form
+                    document.getElementById('emailDisplay').textContent = email;
+                    forgotPasswordForm.classList.add('hidden');
+                    document.getElementById('verifyCodeForm').classList.remove('hidden');
+                } else {
+                    showToast(data.message || "Failed to send reset code", "error");
+                }
+            } catch (error) {
+                console.error("Forgot Password Error:", error);
+                showToast("Cannot connect to server", "error");
+            } finally {
+                sendCodeBtn.disabled = false;
+                sendCodeBtn.innerHTML = originalText;
+            }
+        });
+    }
+
+    // VERIFY RESET CODE FORM
+    const verifyCodeForm = document.getElementById('verifyCodeForm');
+    if (verifyCodeForm) {
+        verifyCodeForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const code = document.getElementById('resetCode').value;
+            const verifyCodeBtn = document.getElementById('verifyCodeBtn');
+            const originalText = verifyCodeBtn.innerHTML;
+
+            if (code.length !== 6) {
+                showToast("Please enter a 6-digit code", "error");
+                return;
+            }
+
+            verifyCodeBtn.disabled = true;
+            verifyCodeBtn.innerHTML = '<span>Verifying...</span><span class="material-symbols-outlined text-xl">hourglass_empty</span>';
+
+            try {
+                const response = await fetch('http://localhost:5000/verify-reset-code', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, code })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    showToast("Code verified! Redirecting...");
+                    // Redirect to reset password page with token
+                    setTimeout(() => {
+                        window.location.href = `reset-password.html?token=${encodeURIComponent(data.resetToken)}`;
+                    }, 1500);
+                } else {
+                    showToast(data.message || "Invalid code", "error");
+                }
+            } catch (error) {
+                console.error("Verify Code Error:", error);
+                showToast("Cannot connect to server", "error");
+            } finally {
+                verifyCodeBtn.disabled = false;
+                verifyCodeBtn.innerHTML = originalText;
+            }
+        });
+
+        // RESEND CODE BUTTON
+        const resendCodeBtn = document.getElementById('resendCodeBtn');
+        if (resendCodeBtn) {
+            resendCodeBtn.addEventListener('click', async () => {
+                const email = document.getElementById('email').value;
+                resendCodeBtn.disabled = true;
+                resendCodeBtn.textContent = 'Sending...';
+
+                try {
+                    const response = await fetch('http://localhost:5000/forgot-password', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email })
+                    });
+
+                    const data = await response.json();
+                    if (response.ok) {
+                        showToast("New reset code sent!");
+                    } else {
+                        showToast(data.message || "Failed to resend code", "error");
+                    }
+                } catch (error) {
+                    console.error("Resend Code Error:", error);
+                    showToast("Cannot connect to server", "error");
+                } finally {
+                    resendCodeBtn.disabled = false;
+                    resendCodeBtn.textContent = "Didn't receive code? Resend";
+                }
+            });
+        }
+    }
+
+    // RESET PASSWORD FORM
+    const resetPasswordForm = document.getElementById('resetPasswordForm');
+    if (resetPasswordForm) {
+        resetPasswordForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const resetToken = urlParams.get('token');
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const resetPasswordBtn = document.getElementById('resetPasswordBtn');
+            const originalText = resetPasswordBtn.innerHTML;
+
+            if (!resetToken) {
+                showToast("Invalid reset link", "error");
+                return;
+            }
+
+            if (newPassword.length < 8) {
+                showToast("Password must be at least 8 characters long", "error");
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                showToast("Passwords do not match", "error");
+                return;
+            }
+
+            resetPasswordBtn.disabled = true;
+            resetPasswordBtn.innerHTML = '<span>Resetting...</span><span class="material-symbols-outlined text-xl">hourglass_empty</span>';
+
+            try {
+                const response = await fetch('http://localhost:5000/reset-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ resetToken, newPassword })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    showToast("Password reset successful! Redirecting to login...");
+                    setTimeout(() => window.location.href = 'login.html', 2000);
+                } else {
+                    showToast(data.message || "Failed to reset password", "error");
+                }
+            } catch (error) {
+                console.error("Reset Password Error:", error);
+                showToast("Cannot connect to server", "error");
+            } finally {
+                resetPasswordBtn.disabled = false;
+                resetPasswordBtn.innerHTML = originalText;
+            }
+        });
+    }
+
+    // PASSWORD VISIBILITY TOGGLES
+    const toggleNewPassword = document.getElementById('toggleNewPassword');
+    const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+
+    if (toggleNewPassword) {
+        toggleNewPassword.addEventListener('click', () => {
+            const input = document.getElementById('newPassword');
+            const icon = toggleNewPassword.querySelector('.material-symbols-outlined');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.textContent = 'visibility_off';
+            } else {
+                input.type = 'password';
+                icon.textContent = 'visibility';
+            }
+        });
+    }
+
+    if (toggleConfirmPassword) {
+        toggleConfirmPassword.addEventListener('click', () => {
+            const input = document.getElementById('confirmPassword');
+            const icon = toggleConfirmPassword.querySelector('.material-symbols-outlined');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.textContent = 'visibility_off';
+            } else {
+                input.type = 'password';
+                icon.textContent = 'visibility';
+            }
+        });
+    }
+
+    // RESET CODE INPUT VALIDATION (only numbers, max 6 digits)
+    const resetCodeInput = document.getElementById('resetCode');
+    if (resetCodeInput) {
+        resetCodeInput.addEventListener('input', (e) => {
+            // Remove any non-numeric characters
+            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+            // Limit to 6 digits
+            if (e.target.value.length > 6) {
+                e.target.value = e.target.value.slice(0, 6);
             }
         });
     }
