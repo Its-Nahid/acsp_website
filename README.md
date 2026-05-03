@@ -17,10 +17,14 @@ ACSP enables users to report animals in need, upload photos, and interact with a
   - `server.js`: Main entry point for the backend.
   - `models/`: Mongoose schemas for User, RescueReport, and Donation.
   - `uploads/`: Directory for storing uploaded photos.
-- **/Frontend**: Client-side files.
+- `/Frontend`: Client-side files.
   - `index.html`: Main landing page with navigation and emergency contacts.
   - `login.html` & `signup.html`: User authentication pages.
+  - `ai_chat.html`: Interactive AI Assistant powered by Gemini 2.0 Flash.
+  - `admin_dashboard.html`: Data-driven dashboard for platform management.
   - `report.html`: Rescue reporting form with photo upload support.
+  - `directory.html`: NGO partner directory with location-based filtering.
+  - `become_partner.html`: Application form for NGOs to join the platform.
   - `donations/donation.html`: Dynamic SSL Commerz payment form with cause selection.
   - `donations/success.html`, `donations/fail.html`, `donations/cancel.html`: Payment gateway resolution redirects.
   - `adoptionpage.html`: Dynamic pet adoption gallery with filtering and pagination.
@@ -66,12 +70,24 @@ ACSP enables users to report animals in need, upload photos, and interact with a
 - **UI Consistency:** Leverages a custom shared component system (`components.js`) for a unified experience across the portal.
 - **Success Experience:** Beautiful, animated success modal with refresh protection for stable form submissions.
 
+### 6. AI Chat Assistant
+
+- **Gemini AI Integration:** Integrated Google Gemini 2.0 Flash for a smart, interactive pet care assistant.
+- **Contextual Knowledge:** Programmed to provide expert advice on pet nutrition, symptoms, and emergency guidance.
+- **Security:** API keys are managed via backend environment variables for safety.
+
+### 7. Admin Dashboard
+
+- **Real-time Analytics:** Dashboard overview showing total rescues, adoptions, and NGOs.
+- **Management Interface:** Tabbed system for viewing and managing rescue reports and adoption listings.
+- **Data Integration:** Dynamically fetches live data from MongoDB to provide up-to-date platform metrics.
+
 ---
 
 ## 🔧 Pending / In Progress
 
-- Navigation links to **NGO Directory and Treatment** pages currently point to placeholders and require full implementation.
 - Backend logic for **forgot-password** functionality.
+- Database integration for the **NGO Directory** (currently static frontend).
 
 ---
 
@@ -84,7 +100,7 @@ ACSP enables users to report animals in need, upload photos, and interact with a
 | File Uploads | Multer                                    |
 | Auth         | JWT, BcryptJS                             |
 | Frontend     | HTML5, CSS3 (Tailwind), JavaScript (ES6+) |
-| Misc         | CORS, Fetch API, SSL Commerz              |
+| Misc         | CORS, Fetch API, SSL Commerz, Gemini AI   |
 
 ---
 
@@ -103,7 +119,7 @@ ACSP enables users to report animals in need, upload photos, and interact with a
 ## 🐛 Known Issues
 
 - Forgot-password feature not yet implemented.
-- Some frontend navigation links point to placeholder pages.
+- NGO Directory is currently static and needs backend integration for partner management.
 - File upload limit per report is capped at 5 images.
 
 ## 🧠 What I Learned
