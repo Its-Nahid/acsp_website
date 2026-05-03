@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html class="light" lang="en">
+
 <head>
+    //animal Listings
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Rescued Animal Inventory | ACSP</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap"
+        rel="stylesheet" />
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -31,6 +34,7 @@
             transform: translateY(-2px);
             transition: all 0.3s ease;
         }
+
         .category-tab.active {
             background-color: #f98c06;
             color: white;
@@ -38,7 +42,9 @@
         }
     </style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-300">
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-300">
     <!-- Navigation -->
     <div id="navbar-placeholder"></div>
 
@@ -48,15 +54,22 @@
             <img src="rescued_animals_hero.png" alt="Rescued Animals" class="w-full h-[400px] object-cover">
             <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent flex items-center p-8 md:p-16">
                 <div class="max-w-2xl text-white">
-                    <span class="inline-block px-4 py-1 bg-primary rounded-full text-xs font-bold uppercase tracking-widest mb-4">Live Inventory</span>
-                    <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">Every Life Matters.<br>Meet Our Survivors.</h1>
+                    <span
+                        class="inline-block px-4 py-1 bg-primary rounded-full text-xs font-bold uppercase tracking-widest mb-4">Live
+                        Inventory</span>
+                    <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">Every Life Matters.<br>Meet Our
+                        Survivors.</h1>
                     <p class="text-lg opacity-90 leading-relaxed mb-8">
-                        Our platform tracks every animal rescued across our partner network. 
+                        Our platform tracks every animal rescued across our partner network.
                         From medical recovery to finding a forever home, witness their journey to a second chance.
                     </p>
                     <div class="flex gap-4">
-                        <a href="#inventory" class="px-8 py-3 bg-white text-primary font-bold rounded-full hover:scale-105 transition-transform shadow-lg">View Listings</a>
-                        <a href="donation.html" class="px-8 py-3 bg-primary text-white font-bold rounded-full hover:scale-105 transition-transform shadow-lg shadow-primary/30">Support Their Care</a>
+                        <a href="#inventory"
+                            class="px-8 py-3 bg-white text-primary font-bold rounded-full hover:scale-105 transition-transform shadow-lg">View
+                            Listings</a>
+                        <a href="donation.html"
+                            class="px-8 py-3 bg-primary text-white font-bold rounded-full hover:scale-105 transition-transform shadow-lg shadow-primary/30">Support
+                            Their Care</a>
                     </div>
                 </div>
             </div>
@@ -64,22 +77,26 @@
 
         <!-- Stats Overview -->
         <section class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16" id="stats">
-            <div class="p-8 rounded-2xl bg-white dark:bg-zinc-800/50 border border-slate-100 dark:border-zinc-700 flex flex-col items-center text-center shadow-sm">
+            <div
+                class="p-8 rounded-2xl bg-white dark:bg-zinc-800/50 border border-slate-100 dark:border-zinc-700 flex flex-col items-center text-center shadow-sm">
                 <span class="material-symbols-outlined text-4xl text-primary mb-3">pets</span>
                 <span class="text-4xl font-black">42</span>
                 <span class="text-xs uppercase tracking-widest font-bold text-slate-400 mt-2">Total Rescued</span>
             </div>
-            <div class="p-8 rounded-2xl bg-white dark:bg-zinc-800/50 border border-slate-100 dark:border-zinc-700 flex flex-col items-center text-center shadow-sm">
+            <div
+                class="p-8 rounded-2xl bg-white dark:bg-zinc-800/50 border border-slate-100 dark:border-zinc-700 flex flex-col items-center text-center shadow-sm">
                 <span class="material-symbols-outlined text-4xl text-green-500 mb-3">volunteer_activism</span>
                 <span class="text-4xl font-black">15</span>
                 <span class="text-xs uppercase tracking-widest font-bold text-slate-400 mt-2">Ready for Adoption</span>
             </div>
-            <div class="p-8 rounded-2xl bg-white dark:bg-zinc-800/50 border border-slate-100 dark:border-zinc-700 flex flex-col items-center text-center shadow-sm">
+            <div
+                class="p-8 rounded-2xl bg-white dark:bg-zinc-800/50 border border-slate-100 dark:border-zinc-700 flex flex-col items-center text-center shadow-sm">
                 <span class="material-symbols-outlined text-4xl text-orange-500 mb-3">medical_services</span>
                 <span class="text-4xl font-black">18</span>
                 <span class="text-xs uppercase tracking-widest font-bold text-slate-400 mt-2">Under Treatment</span>
             </div>
-            <div class="p-8 rounded-2xl bg-white dark:bg-zinc-800/50 border border-slate-100 dark:border-zinc-700 flex flex-col items-center text-center shadow-sm">
+            <div
+                class="p-8 rounded-2xl bg-white dark:bg-zinc-800/50 border border-slate-100 dark:border-zinc-700 flex flex-col items-center text-center shadow-sm">
                 <span class="material-symbols-outlined text-4xl text-blue-500 mb-3">auto_awesome</span>
                 <span class="text-4xl font-black">9</span>
                 <span class="text-xs uppercase tracking-widest font-bold text-slate-400 mt-2">Rehabilitation</span>
@@ -93,24 +110,39 @@
                     <h2 class="text-3xl font-black tracking-tight">Browse by Category</h2>
                     <p class="text-slate-500 dark:text-slate-400">Filtering our latest rescued residents</p>
                 </div>
-                <div class="flex flex-wrap items-center gap-3 bg-white dark:bg-zinc-800 p-2 rounded-2xl shadow-sm border border-slate-100 dark:border-zinc-700">
-                    <button class="category-tab active px-6 py-2 rounded-xl text-sm font-bold transition-all" onclick="filterCategory('all')">All Animals</button>
-                    <button class="category-tab px-6 py-2 rounded-xl text-sm font-bold transition-all text-slate-500 hover:bg-slate-50 dark:hover:bg-zinc-700" onclick="filterCategory('dogs')">Dogs</button>
-                    <button class="category-tab px-6 py-2 rounded-xl text-sm font-bold transition-all text-slate-500 hover:bg-slate-50 dark:hover:bg-zinc-700" onclick="filterCategory('cats')">Cats</button>
-                    <button class="category-tab px-6 py-2 rounded-xl text-sm font-bold transition-all text-slate-500 hover:bg-slate-50 dark:hover:bg-zinc-700" onclick="filterCategory('birds')">Birds</button>
-                    <button class="category-tab px-6 py-2 rounded-xl text-sm font-bold transition-all text-slate-500 hover:bg-slate-50 dark:hover:bg-zinc-700" onclick="filterCategory('others')">Others</button>
+                <div
+                    class="flex flex-wrap items-center gap-3 bg-white dark:bg-zinc-800 p-2 rounded-2xl shadow-sm border border-slate-100 dark:border-zinc-700">
+                    <button class="category-tab active px-6 py-2 rounded-xl text-sm font-bold transition-all"
+                        onclick="filterCategory('all')">All Animals</button>
+                    <button
+                        class="category-tab px-6 py-2 rounded-xl text-sm font-bold transition-all text-slate-500 hover:bg-slate-50 dark:hover:bg-zinc-700"
+                        onclick="filterCategory('dogs')">Dogs</button>
+                    <button
+                        class="category-tab px-6 py-2 rounded-xl text-sm font-bold transition-all text-slate-500 hover:bg-slate-50 dark:hover:bg-zinc-700"
+                        onclick="filterCategory('cats')">Cats</button>
+                    <button
+                        class="category-tab px-6 py-2 rounded-xl text-sm font-bold transition-all text-slate-500 hover:bg-slate-50 dark:hover:bg-zinc-700"
+                        onclick="filterCategory('birds')">Birds</button>
+                    <button
+                        class="category-tab px-6 py-2 rounded-xl text-sm font-bold transition-all text-slate-500 hover:bg-slate-50 dark:hover:bg-zinc-700"
+                        onclick="filterCategory('others')">Others</button>
                 </div>
             </div>
 
             <!-- Animal Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="animal-grid">
                 <!-- Buddy (Dog) -->
-                <div class="animal-card bg-white dark:bg-zinc-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-zinc-700 shadow-sm hover:shadow-xl transition-all group" data-category="dogs">
+                <div class="animal-card bg-white dark:bg-zinc-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-zinc-700 shadow-sm hover:shadow-xl transition-all group"
+                    data-category="dogs">
                     <div class="relative h-64">
-                        <img src="buddy_dog.png" alt="Buddy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-4 left-4 px-4 py-1.5 bg-green-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">Ready for Adoption</span>
+                        <img src="buddy_dog.png" alt="Buddy"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span
+                            class="absolute top-4 left-4 px-4 py-1.5 bg-green-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">Ready
+                            for Adoption</span>
                         <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end">
-                            <div class="bg-black/50 backdrop-blur-md px-4 py-1 rounded-full text-white text-xs font-bold border border-white/20">
+                            <div
+                                class="bg-black/50 backdrop-blur-md px-4 py-1 rounded-full text-white text-xs font-bold border border-white/20">
                                 DG-001
                             </div>
                         </div>
@@ -136,17 +168,24 @@
                                 <span>Rescued: March 12, 2024</span>
                             </div>
                         </div>
-                        <a href="adoptionpage.html" class="block w-full py-3 bg-slate-100 dark:bg-zinc-700 text-slate-900 dark:text-white text-center rounded-xl font-bold hover:bg-primary hover:text-white transition-colors">Apply for Adoption</a>
+                        <a href="adoptionpage.html"
+                            class="block w-full py-3 bg-slate-100 dark:bg-zinc-700 text-slate-900 dark:text-white text-center rounded-xl font-bold hover:bg-primary hover:text-white transition-colors">Apply
+                            for Adoption</a>
                     </div>
                 </div>
 
                 <!-- Milo (Cat) -->
-                <div class="animal-card bg-white dark:bg-zinc-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-zinc-700 shadow-sm hover:shadow-xl transition-all group" data-category="cats">
+                <div class="animal-card bg-white dark:bg-zinc-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-zinc-700 shadow-sm hover:shadow-xl transition-all group"
+                    data-category="cats">
                     <div class="relative h-64">
-                        <img src="milo_cat.png" alt="Milo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-4 left-4 px-4 py-1.5 bg-green-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">Ready for Adoption</span>
+                        <img src="milo_cat.png" alt="Milo"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span
+                            class="absolute top-4 left-4 px-4 py-1.5 bg-green-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">Ready
+                            for Adoption</span>
                         <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end">
-                            <div class="bg-black/50 backdrop-blur-md px-4 py-1 rounded-full text-white text-xs font-bold border border-white/20">
+                            <div
+                                class="bg-black/50 backdrop-blur-md px-4 py-1 rounded-full text-white text-xs font-bold border border-white/20">
                                 CT-001
                             </div>
                         </div>
@@ -172,15 +211,20 @@
                                 <span>Rescued: March 20, 2024</span>
                             </div>
                         </div>
-                        <a href="adoptionpage.html" class="block w-full py-3 bg-slate-100 dark:bg-zinc-700 text-slate-900 dark:text-white text-center rounded-xl font-bold hover:bg-primary hover:text-white transition-colors">Apply for Adoption</a>
+                        <a href="adoptionpage.html"
+                            class="block w-full py-3 bg-slate-100 dark:bg-zinc-700 text-slate-900 dark:text-white text-center rounded-xl font-bold hover:bg-primary hover:text-white transition-colors">Apply
+                            for Adoption</a>
                     </div>
                 </div>
 
                 <!-- Luna (Dog) -->
-                <div class="animal-card bg-white dark:bg-zinc-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-zinc-700 shadow-sm hover:shadow-xl transition-all group" data-category="dogs">
+                <div class="animal-card bg-white dark:bg-zinc-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-zinc-700 shadow-sm hover:shadow-xl transition-all group"
+                    data-category="dogs">
                     <div class="relative h-64 bg-slate-200 dark:bg-zinc-700 flex items-center justify-center">
                         <span class="material-symbols-outlined text-6xl text-slate-400">pets</span>
-                        <span class="absolute top-4 left-4 px-4 py-1.5 bg-orange-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">Under Treatment</span>
+                        <span
+                            class="absolute top-4 left-4 px-4 py-1.5 bg-orange-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">Under
+                            Treatment</span>
                     </div>
                     <div class="p-6">
                         <div class="flex justify-between items-start mb-4">
@@ -193,22 +237,28 @@
                                 <p class="font-bold text-primary">1 Year</p>
                             </div>
                         </div>
-                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-6 line-clamp-2">Luna was rescued from a roadside accident. Currently undergoing physical therapy at Hope Animal Clinic.</p>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-6 line-clamp-2">Luna was rescued from a
+                            roadside accident. Currently undergoing physical therapy at Hope Animal Clinic.</p>
                         <div class="space-y-3 mb-6">
                             <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
                                 <span class="material-symbols-outlined text-sm text-primary">location_on</span>
                                 <span>Hope Animal Clinic</span>
                             </div>
                         </div>
-                        <a href="donation.html" class="block w-full py-3 border-2 border-primary text-primary text-center rounded-xl font-bold hover:bg-primary hover:text-white transition-colors">Sponsor Medical Bills</a>
+                        <a href="donation.html"
+                            class="block w-full py-3 border-2 border-primary text-primary text-center rounded-xl font-bold hover:bg-primary hover:text-white transition-colors">Sponsor
+                            Medical Bills</a>
                     </div>
                 </div>
 
                 <!-- Nala (Cat) -->
-                <div class="animal-card bg-white dark:bg-zinc-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-zinc-700 shadow-sm hover:shadow-xl transition-all group" data-category="cats">
+                <div class="animal-card bg-white dark:bg-zinc-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-zinc-700 shadow-sm hover:shadow-xl transition-all group"
+                    data-category="cats">
                     <div class="relative h-64 bg-slate-200 dark:bg-zinc-700 flex items-center justify-center">
                         <span class="material-symbols-outlined text-6xl text-slate-400">pets</span>
-                        <span class="absolute top-4 left-4 px-4 py-1.5 bg-orange-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">Under Treatment</span>
+                        <span
+                            class="absolute top-4 left-4 px-4 py-1.5 bg-orange-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">Under
+                            Treatment</span>
                     </div>
                     <div class="p-6">
                         <div class="flex justify-between items-start mb-4">
@@ -221,22 +271,28 @@
                                 <p class="font-bold text-primary">6 Mos</p>
                             </div>
                         </div>
-                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-6 line-clamp-2">Recovering from malnutrition and skin infection. Responding well to medication.</p>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-6 line-clamp-2">Recovering from
+                            malnutrition and skin infection. Responding well to medication.</p>
                         <div class="space-y-3 mb-6">
                             <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
                                 <span class="material-symbols-outlined text-sm text-primary">location_on</span>
                                 <span>ACSP Main Shelter</span>
                             </div>
                         </div>
-                        <a href="donation.html" class="block w-full py-3 border-2 border-primary text-primary text-center rounded-xl font-bold hover:bg-primary hover:text-white transition-colors">Sponsor Care</a>
+                        <a href="donation.html"
+                            class="block w-full py-3 border-2 border-primary text-primary text-center rounded-xl font-bold hover:bg-primary hover:text-white transition-colors">Sponsor
+                            Care</a>
                     </div>
                 </div>
 
                 <!-- Sky (Bird) -->
-                <div class="animal-card bg-white dark:bg-zinc-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-zinc-700 shadow-sm hover:shadow-xl transition-all group" data-category="birds">
+                <div class="animal-card bg-white dark:bg-zinc-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-zinc-700 shadow-sm hover:shadow-xl transition-all group"
+                    data-category="birds">
                     <div class="relative h-64 bg-slate-200 dark:bg-zinc-700 flex items-center justify-center">
                         <span class="material-symbols-outlined text-6xl text-slate-400">air</span>
-                        <span class="absolute top-4 left-4 px-4 py-1.5 bg-green-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">Ready for Adoption</span>
+                        <span
+                            class="absolute top-4 left-4 px-4 py-1.5 bg-green-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">Ready
+                            for Adoption</span>
                     </div>
                     <div class="p-6">
                         <div class="flex justify-between items-start mb-4">
@@ -255,15 +311,20 @@
                                 <span>Winged Friends Aviary</span>
                             </div>
                         </div>
-                        <a href="adoptionpage.html" class="block w-full py-3 bg-slate-100 dark:bg-zinc-700 text-slate-900 dark:text-white text-center rounded-xl font-bold hover:bg-primary hover:text-white transition-colors">Apply for Adoption</a>
+                        <a href="adoptionpage.html"
+                            class="block w-full py-3 bg-slate-100 dark:bg-zinc-700 text-slate-900 dark:text-white text-center rounded-xl font-bold hover:bg-primary hover:text-white transition-colors">Apply
+                            for Adoption</a>
                     </div>
                 </div>
 
                 <!-- Thumper (Others) -->
-                <div class="animal-card bg-white dark:bg-zinc-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-zinc-700 shadow-sm hover:shadow-xl transition-all group" data-category="others">
+                <div class="animal-card bg-white dark:bg-zinc-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-zinc-700 shadow-sm hover:shadow-xl transition-all group"
+                    data-category="others">
                     <div class="relative h-64 bg-slate-200 dark:bg-zinc-700 flex items-center justify-center">
                         <span class="material-symbols-outlined text-6xl text-slate-400">psychology</span>
-                        <span class="absolute top-4 left-4 px-4 py-1.5 bg-green-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">Ready for Adoption</span>
+                        <span
+                            class="absolute top-4 left-4 px-4 py-1.5 bg-green-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">Ready
+                            for Adoption</span>
                     </div>
                     <div class="p-6">
                         <div class="flex justify-between items-start mb-4">
@@ -282,14 +343,17 @@
                                 <span>ACSP Main Shelter</span>
                             </div>
                         </div>
-                        <a href="adoptionpage.html" class="block w-full py-3 bg-slate-100 dark:bg-zinc-700 text-slate-900 dark:text-white text-center rounded-xl font-bold hover:bg-primary hover:text-white transition-colors">Apply for Adoption</a>
+                        <a href="adoptionpage.html"
+                            class="block w-full py-3 bg-slate-100 dark:bg-zinc-700 text-slate-900 dark:text-white text-center rounded-xl font-bold hover:bg-primary hover:text-white transition-colors">Apply
+                            for Adoption</a>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Status Legend Section -->
-        <section class="bg-white dark:bg-zinc-800 rounded-3xl p-8 border border-slate-100 dark:border-zinc-700 shadow-sm">
+        <section
+            class="bg-white dark:bg-zinc-800 rounded-3xl p-8 border border-slate-100 dark:border-zinc-700 shadow-sm">
             <h4 class="text-lg font-black mb-6 flex items-center gap-2">
                 <span class="material-symbols-outlined text-primary">info</span>
                 Understanding Inventory Status
@@ -299,28 +363,32 @@
                     <div class="w-3 h-3 rounded-full bg-green-500 mt-1.5 flex-shrink-0"></div>
                     <div>
                         <p class="text-sm font-bold">Ready for Adoption</p>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">Healthy, vaccinated, and seeking a forever home.</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Healthy, vaccinated, and seeking a forever
+                            home.</p>
                     </div>
                 </div>
                 <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-zinc-700/50">
                     <div class="w-3 h-3 rounded-full bg-orange-500 mt-1.5 flex-shrink-0"></div>
                     <div>
                         <p class="text-sm font-bold">Under Treatment</p>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">Currently receiving medical care or surgery.</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Currently receiving medical care or
+                            surgery.</p>
                     </div>
                 </div>
                 <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-zinc-700/50">
                     <div class="w-3 h-3 rounded-full bg-blue-500 mt-1.5 flex-shrink-0"></div>
                     <div>
                         <p class="text-sm font-bold">Rehabilitation</p>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">Recovering from trauma or physical injury.</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Recovering from trauma or physical injury.
+                        </p>
                     </div>
                 </div>
                 <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-zinc-700/50">
                     <div class="w-3 h-3 rounded-full bg-red-500 mt-1.5 flex-shrink-0"></div>
                     <div>
                         <p class="text-sm font-bold">Critical Care</p>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">In emergency medical condition requiring support.</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">In emergency medical condition requiring
+                            support.</p>
                     </div>
                 </div>
             </div>
@@ -360,4 +428,5 @@
         }
     </script>
 </body>
+
 </html>
