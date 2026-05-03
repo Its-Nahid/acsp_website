@@ -20,6 +20,7 @@ const components = {
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-animal" href="animal_listing.html">Animal</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="donation.html">Donation</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-adoption" href="adoptionpage.html">Adoption</a>
+                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-volunteer" href="volunteer.html">Volunteer</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-rescue" href="report.html">Rescue</a>
             </nav>
             <div class="flex items-center gap-3">
@@ -64,7 +65,7 @@ const components = {
                     <li><a class="hover:text-primary transition-colors" href="#">Medical Treatment</a></li>
                     <li><a class="hover:text-primary transition-colors" href="#">Emergency Rescue</a></li>
                     <li><a class="hover:text-primary transition-colors" href="#">Lost & Found</a></li>
-                    <li><a class="hover:text-primary transition-colors" href="#">Volunteer Program</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="volunteer.html">Volunteer Program</a></li>
                 </ul>
             </div>
             <div>
@@ -109,6 +110,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (animalLink) {
                 animalLink.classList.remove('text-gray-500');
                 animalLink.classList.add('text-primary');
+            }
+        }
+        if (currentPage === 'volunteer.html') {
+            const volunteerLink = document.getElementById('nav-volunteer');
+            if (volunteerLink) {
+                volunteerLink.classList.remove('text-gray-500');
+                volunteerLink.classList.add('text-primary');
             }
         }
     }
