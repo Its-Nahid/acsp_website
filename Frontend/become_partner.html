@@ -1,282 +1,160 @@
 <!doctype html>
-
 <html class="light" lang="en">
-  <head>
+<head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Become a Partner | ACSP</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
-      rel="stylesheet" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-      rel="stylesheet" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-      rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
     <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "on-tertiary": "#ffffff",
-              "on-secondary-fixed-variant": "#584400",
-              "surface-container-lowest": "#ffffff",
-              "surface-container-low": "#fcf9f6",
-              "on-surface-variant": "#51453a",
-              "secondary-container": "#ffe08d",
-              "on-primary-fixed-variant": "#7c3700",
-              "surface-container-high": "#f0edea",
-              "primary-container": "#ffdbc0",
-              "surface-container-highest": "#ebe8e5",
-              "surface-variant": "#f4e0d0",
-              "on-primary": "#ffffff",
-              "surface-tint": "#f98c06",
-              primary: "#f98c06",
-              "inverse-primary": "#ffb68e",
-              "surface-bright": "#ffffff",
-              "secondary-fixed": "#ffe08d",
-              "on-tertiary-fixed-variant": "#00522d",
-              "on-surface": "#1a140e",
-              "on-primary-container": "#321300",
-              "on-error-container": "#410009",
-              "tertiary-fixed-dim": "#77da9e",
-              "on-error": "#ffffff",
-              "inverse-on-surface": "#fcf0e4",
-              "on-primary-fixed": "#321300",
-              surface: "#fcf9f6",
-              error: "#e11d48",
-              "tertiary-container": "#93f7b8",
-              "secondary-fixed-dim": "#e9c44a",
-              outline: "#837569",
-              "inverse-surface": "#362f29",
-              "tertiary-fixed": "#93f7b8",
-              "on-background": "#1a140e",
-              "on-secondary-fixed": "#241a00",
-              "surface-container": "#f6f3f0",
-              "primary-fixed-dim": "#ffb68e",
-              tertiary: "#006d3e",
-              background: "#fcf9f6",
-              "primary-fixed": "#ffdbc0",
-              "on-secondary-container": "#241a00",
-              "on-tertiary-fixed": "#00210f",
-              "surface-dim": "#e5e2df",
-              secondary: "#745b00",
-              "on-tertiary-container": "#00210f",
-              "outline-variant": "#d4c4b5",
-              "on-secondary": "#ffffff",
-              "error-container": "#ffdad9",
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#f98c06",
+                        background: "#fcf9f6",
+                    },
+                },
             },
-            borderRadius: {
-              DEFAULT: "1rem",
-              lg: "2rem",
-              xl: "3rem",
-              full: "9999px",
-            },
-            fontFamily: {
-              headline: ["Inter"],
-              display: ["Inter"],
-              body: ["Inter"],
-              label: ["Inter"],
-            },
-          },
-        },
-      };
+        };
     </script>
-    <style>
-      .material-symbols-outlined {
-        font-variation-settings:
-          "FILL" 0,
-          "wght" 400,
-          "GRAD" 0,
-          "opsz" 24;
-      }
-      body {
-        font-family: "Inter", sans-serif;
-      }
-    </style>
-  </head>
-  <body class="bg-background text-on-surface selection:bg-primary-container">
-    <!-- TopNavBar -->
-    <!-- Navigation Placeholder -->
+</head>
+<body class="bg-[#fcf9f6] text-[#1a140e]">
     <div id="navbar-placeholder"></div>
     <main class="pt-32 pb-20 px-6 min-h-screen">
-      <div class="max-w-3xl mx-auto">
-        <!-- Hero Header -->
-        <div class="text-center mb-12">
-          <span
-            class="text-[0.75rem] font-black tracking-[0.2em] uppercase text-primary mb-4 block"
-            >Collaboration for Compassion</span
-          >
-          <h1
-            class="text-[3rem] font-black tracking-tighter leading-none text-on-surface mb-4">
-            Become a Partner
-          </h1>
-          <p
-            class="text-lg text-on-surface-variant max-w-xl mx-auto leading-relaxed">
-            Join our ecosystem of guardians. Together, we can scale impact and
-            ensure every animal finds a safe haven.
-          </p>
-        </div>
-        <!-- Form Container -->
-        <div
-          class="bg-surface-container-lowest rounded-xl shadow-xl p-8 md:p-12 border border-primary/5">
-          <form class="space-y-8">
-            <!-- Section: Core Information -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div class="col-span-full">
-                <label
-                  class="text-[0.75rem] font-black tracking-[0.2em] uppercase text-on-surface-variant mb-2 block"
-                  >Organization Name</label
-                >
-                <input
-                  class="w-full bg-surface-container-low border-2 border-transparent focus:border-primary/20 focus:ring-0 rounded-full px-6 py-4 transition-all placeholder:text-stone-400"
-                  placeholder="e.g. Hope For Paws"
-                  type="text" />
-              </div>
-              <div>
-                <label
-                  class="text-[0.75rem] font-black tracking-[0.2em] uppercase text-on-surface-variant mb-2 block"
-                  >Type of Organization</label
-                >
-                <select
-                  class="w-full bg-surface-container-low border-2 border-transparent focus:border-primary/20 focus:ring-0 rounded-full px-6 py-4 transition-all appearance-none">
-                  <option>NGO</option>
-                  <option>Shelter</option>
-                  <option>Veterinary Clinic</option>
-                  <option>Corporate Partner</option>
-                </select>
-              </div>
-              <div>
-                <label
-                  class="text-[0.75rem] font-black tracking-[0.2em] uppercase text-on-surface-variant mb-2 block"
-                  >Location/City</label
-                >
-                <input
-                  class="w-full bg-surface-container-low border-2 border-transparent focus:border-primary/20 focus:ring-0 rounded-full px-6 py-4 transition-all placeholder:text-stone-400"
-                  placeholder="City, Country"
-                  type="text" />
-              </div>
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-[0.75rem] font-black tracking-[0.2em] uppercase text-primary mb-4 block">Collaboration for Compassion</span>
+                <h1 class="text-[3rem] font-black tracking-tighter leading-none mb-4">Become a Partner</h1>
+                <p class="text-lg text-stone-600 max-w-xl mx-auto">Join our ecosystem of guardians. Together, we can scale impact and ensure every animal finds a safe haven.</p>
             </div>
-            <!-- Section: Contact Person -->
-            <div
-              class="space-y-6 pt-4 border-t border-surface-container-highest">
-              <h3 class="text-xl font-extrabold tracking-tight">
-                Primary Contact
-              </h3>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="col-span-full">
-                  <label
-                    class="text-[0.75rem] font-black tracking-[0.2em] uppercase text-on-surface-variant mb-2 block"
-                    >Name &amp; Role</label
-                  >
-                  <input
-                    class="w-full bg-surface-container-low border-2 border-transparent focus:border-primary/20 focus:ring-0 rounded-full px-6 py-4 transition-all placeholder:text-stone-400"
-                    placeholder="Full Name, Position"
-                    type="text" />
-                </div>
-                <div>
-                  <label
-                    class="text-[0.75rem] font-black tracking-[0.2em] uppercase text-on-surface-variant mb-2 block"
-                    >Email Address</label
-                  >
-                  <input
-                    class="w-full bg-surface-container-low border-2 border-transparent focus:border-primary/20 focus:ring-0 rounded-full px-6 py-4 transition-all placeholder:text-stone-400"
-                    placeholder="email@organization.org"
-                    type="email" />
-                </div>
-                <div>
-                  <label
-                    class="text-[0.75rem] font-black tracking-[0.2em] uppercase text-on-surface-variant mb-2 block"
-                    >Phone Number</label
-                  >
-                  <input
-                    class="w-full bg-surface-container-low border-2 border-transparent focus:border-primary/20 focus:ring-0 rounded-full px-6 py-4 transition-all placeholder:text-stone-400"
-                    placeholder="+1 (555) 000-0000"
-                    type="tel" />
-                </div>
-                <div class="col-span-full">
-                  <label
-                    class="text-[0.75rem] font-black tracking-[0.2em] uppercase text-on-surface-variant mb-2 block"
-                    >Website URL (Optional)</label
-                  >
-                  <input
-                    class="w-full bg-surface-container-low border-2 border-transparent focus:border-primary/20 focus:ring-0 rounded-full px-6 py-4 transition-all placeholder:text-stone-400"
-                    placeholder="https://www.yoursite.com"
-                    type="url" />
-                </div>
-              </div>
-            </div>
-            <!-- Section: Impact & Vision -->
-            <div
-              class="space-y-6 pt-4 border-t border-surface-container-highest">
-              <h3 class="text-xl font-extrabold tracking-tight">
-                Mission &amp; Synergy
-              </h3>
-              <div>
-                <label
-                  class="text-[0.75rem] font-black tracking-[0.2em] uppercase text-on-surface-variant mb-2 block"
-                  >Mission Statement</label
-                >
-                <textarea
-                  class="w-full bg-surface-container-low border-2 border-transparent focus:border-primary/20 focus:ring-0 rounded-xl px-6 py-4 transition-all placeholder:text-stone-400"
-                  placeholder="Tell us about your core purpose..."
-                  rows="3"></textarea>
-              </div>
-              <div>
-                <label
-                  class="text-[0.75rem] font-black tracking-[0.2em] uppercase text-on-surface-variant mb-2 block"
-                  >Why do you want to partner with ACSP?</label
-                >
-                <textarea
-                  class="w-full bg-surface-container-low border-2 border-transparent focus:border-primary/20 focus:ring-0 rounded-xl px-6 py-4 transition-all placeholder:text-stone-400"
-                  placeholder="How can we grow together?"
-                  rows="3"></textarea>
-              </div>
-            </div>
-            <!-- Dropzone -->
-            <div class="pt-4">
-              <label
-                class="text-[0.75rem] font-black tracking-[0.2em] uppercase text-on-surface-variant mb-2 block"
-                >Upload Logo / Certificate</label
-              >
-              <div
-                class="border-2 border-dashed border-outline-variant rounded-xl p-10 flex flex-col items-center justify-center bg-surface hover:bg-primary/5 transition-colors cursor-pointer group">
-                <span
-                  class="material-symbols-outlined text-4xl text-primary mb-2 group-hover:scale-110 transition-transform"
-                  >cloud_upload</span
-                >
-                <p class="text-sm font-medium text-on-surface-variant">
-                  Click or drag to upload files
-                </p>
-                <p class="text-xs text-stone-400 mt-1">
-                  PNG, JPG or PDF (max. 10MB)
-                </p>
-              </div>
-            </div>
-            <!-- Submit -->
-            <div class="pt-6">
-              <button
-                class="w-full bg-primary text-white py-5 rounded-full text-lg font-black tracking-tight shadow-xl shadow-primary/20 hover:-translate-y-1 active:scale-95 transition-all"
-                type="submit">
-                Submit Partnership Request
-              </button>
-              <p class="text-center text-xs text-stone-400 mt-6 px-10">
-                By submitting this application, you agree to our Partnership
-                Terms of Service and Privacy Policy. Our team typically responds
-                within 3-5 business days.
-              </p>
-            </div>
-          </form>
-        </div>
-      </div>
-    </main>
-    <!-- Footer Placeholder -->
-    <div id="footer-placeholder"></div>
 
+            <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-primary/5">
+                <form id="ngo-register-form" class="space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="col-span-full">
+                            <label class="text-[0.75rem] font-black uppercase text-stone-500 mb-2 block">Organization Name</label>
+                            <input name="name" required class="w-full bg-slate-50 border-none rounded-full px-6 py-4 focus:ring-2 focus:ring-primary" placeholder="e.g. Hope For Paws" />
+                        </div>
+                        <div>
+                            <label class="text-[0.75rem] font-black uppercase text-stone-500 mb-2 block">Registration ID</label>
+                            <input name="registrationId" class="w-full bg-slate-50 border-none rounded-full px-6 py-4 focus:ring-2 focus:ring-primary" placeholder="REG-XXXXXX" />
+                        </div>
+                        <div>
+                            <label class="text-[0.75rem] font-black uppercase text-stone-500 mb-2 block">Established Date</label>
+                            <input name="establishedDate" type="date" class="w-full bg-slate-50 border-none rounded-full px-6 py-4 focus:ring-2 focus:ring-primary" />
+                        </div>
+                    </div>
+
+                    <div class="space-y-6 pt-4 border-t border-slate-100">
+                        <h3 class="text-xl font-extrabold">Location Details</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="col-span-full">
+                                <input name="address" placeholder="Full Address" class="w-full bg-slate-50 border-none rounded-full px-6 py-4 focus:ring-2 focus:ring-primary" />
+                            </div>
+                            <input name="city" placeholder="City" class="w-full bg-slate-50 border-none rounded-full px-6 py-4 focus:ring-2 focus:ring-primary" />
+                            <input name="country" placeholder="Country" class="w-full bg-slate-50 border-none rounded-full px-6 py-4 focus:ring-2 focus:ring-primary" />
+                        </div>
+                    </div>
+
+                    <div class="space-y-6 pt-4 border-t border-slate-100">
+                        <h3 class="text-xl font-extrabold">Contact Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <input name="phone" placeholder="Phone Number" class="w-full bg-slate-50 border-none rounded-full px-6 py-4 focus:ring-2 focus:ring-primary" />
+                            <input name="email" placeholder="Email Address" class="w-full bg-slate-50 border-none rounded-full px-6 py-4 focus:ring-2 focus:ring-primary" />
+                            <div class="col-span-full">
+                                <input name="website" placeholder="Website URL (https://...)" class="w-full bg-slate-50 border-none rounded-full px-6 py-4 focus:ring-2 focus:ring-primary" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6 pt-4 border-t border-slate-100">
+                        <h3 class="text-xl font-extrabold">Services</h3>
+                        <input name="services" placeholder="Rescue, Medical, Adoption (comma separated)" class="w-full bg-slate-50 border-none rounded-full px-6 py-4 focus:ring-2 focus:ring-primary" />
+                    </div>
+
+                    <div class="space-y-6 pt-4 border-t border-slate-100">
+                        <h3 class="text-xl font-extrabold">Impact Statistics</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <input name="animalsRescued" type="number" placeholder="Rescued Count" class="w-full bg-slate-50 border-none rounded-full px-6 py-4 focus:ring-2 focus:ring-primary" />
+                            <input name="successfulAdoptions" type="number" placeholder="Adoptions Count" class="w-full bg-slate-50 border-none rounded-full px-6 py-4 focus:ring-2 focus:ring-primary" />
+                            <input name="activeVolunteers" type="number" placeholder="Volunteer Count" class="w-full bg-slate-50 border-none rounded-full px-6 py-4 focus:ring-2 focus:ring-primary" />
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <label class="text-[0.75rem] font-black uppercase text-stone-500 mb-2 block">Upload Gallery Photos (Max 10)</label>
+                        <input type="file" name="gallery" multiple class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20" />
+                    </div>
+
+                    <div class="pt-6">
+                        <button class="w-full bg-primary text-white py-5 rounded-full text-lg font-black tracking-tight shadow-xl shadow-primary/20 hover:-translate-y-1 transition-all" type="submit">Submit Partnership Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <div id="footer-placeholder"></div>
     <script src="components.js"></script>
-    <script src="script.js"></script>
-  </body>
+    <script>
+        document.getElementById('ngo-register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            btn.disabled = true;
+            btn.textContent = 'Registering...';
+
+            const formData = new FormData(e.target);
+            const payload = new FormData();
+            
+            payload.append('name', formData.get('name'));
+            payload.append('registrationId', formData.get('registrationId'));
+            payload.append('establishedDate', formData.get('establishedDate'));
+            
+            payload.append('location', JSON.stringify({
+                address: formData.get('address'),
+                city: formData.get('city'),
+                country: formData.get('country')
+            }));
+            
+            payload.append('contact', JSON.stringify({
+                phone: formData.get('phone'),
+                email: formData.get('email'),
+                website: formData.get('website')
+            }));
+            
+            const services = formData.get('services').split(',').map(s => s.trim()).filter(Boolean);
+            services.forEach(s => payload.append('services', s));
+            
+            payload.append('impact', JSON.stringify({
+                animalsRescued: parseInt(formData.get('animalsRescued')) || 0,
+                successfulAdoptions: parseInt(formData.get('successfulAdoptions')) || 0,
+                activeVolunteers: parseInt(formData.get('activeVolunteers')) || 0
+            }));
+
+            const files = formData.getAll('gallery');
+            files.forEach(file => payload.append('gallery', file));
+
+            try {
+                const response = await fetch('http://localhost:5000/api/ngo', {
+                    method: 'POST',
+                    body: payload
+                });
+                if (response.ok) {
+                    alert('NGO Registered Successfully!');
+                    window.location.href = 'directory.html';
+                } else {
+                    const err = await response.json();
+                    alert(err.message);
+                }
+            } catch (error) {
+                alert('Error connecting to server');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Submit Partnership Request';
+            }
+        });
+    </script>
+</body>
 </html>

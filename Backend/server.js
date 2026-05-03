@@ -13,6 +13,8 @@ const User = require("./models/user");
 const RescueReport = require("./models/RescueReport");
 const Donation = require("./models/Donation");
 const Adoption = require("./models/Adoption");
+const NGO = require("./models/NGO");
+const RescuedAnimal = require("./models/RescuedAnimal");
 const SSLCommerzPayment = require("sslcommerz-lts");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 console.log("Gemini API Key loaded:", process.env.GEMINI_API_KEY ? "Yes (Starts with " + process.env.GEMINI_API_KEY.substring(0, 7) + "...)" : "No");
@@ -25,6 +27,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads')); // serve uploaded photos
+app.use(express.static(path.join(__dirname, '../Frontend'))); // serve frontend files
 
 //Connect MongoDB
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/acspAuth")
@@ -330,6 +333,39 @@ app.get('/reports', async (req, res) => {
     }
 });
 
+// Rescue Management: Update Status
+app.put('/api/reports/:id/status', async (req, res) => {
+    try {
+        const { status, note, ngoId } = req.body;
+        const updateData = { status };
+        if (ngoId) updateData.assignedNGO = ngoId;
+
+        const report = await RescueReport.findByIdAndUpdate(
+            req.params.id,
+            { 
+                $set: updateData,
+                $push: { statusUpdates: { status, note } }
+            },
+            { new: true }
+        );
+
+        if (!report) return res.status(404).json({ message: "Report not found" });
+        res.json({ message: "Status updated successfully", report });
+    } catch (error) {
+        res.status(500).json({ message: "Server error while updating status" });
+    }
+});
+
+// Rescue Management: Get cases for a specific NGO
+app.get('/api/reports/ngo/:ngoId', async (req, res) => {
+    try {
+        const reports = await RescueReport.find({ assignedNGO: req.params.ngoId }).sort({ createdAt: -1 });
+        res.json(reports);
+    } catch (error) {
+        res.status(500).json({ message: "Server error while fetching NGO reports" });
+    }
+});
+
 // 10 Adoption Routes
 app.post('/adoption', upload.array('photos', 5), async (req, res) => {
     try {
@@ -550,6 +586,173 @@ app.post("/api/ai-chat", async (req, res) => {
             message: userMessage,
             error: error.message 
         });
+    }
+});
+
+// NGO Management Routes
+app.post('/api/ngo', upload.array('gallery', 10), async (req, res) => {
+    try {
+        const galleryPaths = req.files ? req.files.map(file => file.path) : [];
+        
+        // Parse complex objects if sent as strings (common with multipart/form-data)
+        const location = typeof req.body.location === 'string' ? JSON.parse(req.body.location) : req.body.location;
+        const contact = typeof req.body.contact === 'string' ? JSON.parse(req.body.contact) : req.body.contact;
+        const impact = typeof req.body.impact === 'string' ? JSON.parse(req.body.impact) : req.body.impact;
+        const services = Array.isArray(req.body.services) ? req.body.services : [req.body.services].filter(Boolean);
+
+        const newNGO = new NGO({
+            name: req.body.name,
+            registrationId: req.body.registrationId,
+            establishedDate: req.body.establishedDate,
+            location: location,
+            contact: contact,
+            services: services,
+            impact: impact,
+            gallery: galleryPaths
+        });
+
+        await newNGO.save();
+        res.status(201).json({ message: "NGO Profile created successfully!", ngo: newNGO });
+    } catch (error) {
+        console.error("NGO Create Error:", error);
+        res.status(500).json({ message: "Server error while creating NGO profile" });
+    }
+});
+
+app.get('/api/ngos', async (req, res) => {
+    try {
+        const ngos = await NGO.find().sort({ name: 1 });
+        res.json(ngos);
+    } catch (error) {
+        res.status(500).json({ message: "Server error while fetching NGOs" });
+    }
+});
+
+app.get('/api/ngo/:id', async (req, res) => {
+    try {
+        const ngo = await NGO.findById(req.params.id);
+        if (!ngo) return res.status(404).json({ message: "NGO not found" });
+        res.json(ngo);
+    } catch (error) {
+        res.status(500).json({ message: "Server error while fetching NGO details" });
+    }
+});
+
+// 🔟 Rescued Animal Inventory Routes
+// ... (existing routes)
+
+// 11. Donation Tracking Routes
+app.get('/api/donations', async (req, res) => {
+    try {
+        const { ngo, status } = req.query;
+        let query = {};
+        if (ngo) query.cause = ngo; // In the model, 'cause' is used for NGO/Cause
+        if (status) query.status = status;
+
+        const donations = await Donation.find(query).sort({ createdAt: -1 });
+        res.json(donations);
+    } catch (error) {
+        res.status(500).json({ message: "Server error while fetching donations" });
+    }
+});
+
+app.get('/api/donations/summary', async (req, res) => {
+    try {
+        const stats = await Donation.aggregate([
+            { $match: { status: 'VALID' } },
+            {
+                $group: {
+                    _id: null,
+                    totalFunds: { $sum: "$amount" },
+                    totalTransactions: { $sum: 1 }
+                }
+            }
+        ]);
+
+        const ngoDistribution = await Donation.aggregate([
+            { $match: { status: 'VALID' } },
+            {
+                $group: {
+                    _id: "$cause",
+                    total: { $sum: "$amount" },
+                    count: { $sum: 1 }
+                }
+            },
+            { $sort: { total: -1 } }
+        ]);
+
+        res.json({
+            summary: stats[0] || { totalFunds: 0, totalTransactions: 0 },
+            distribution: ngoDistribution
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Server error while fetching donation summary" });
+    }
+});
+
+// Start server
+app.post('/api/rescued-animals', upload.array('photos', 5), async (req, res) => {
+    try {
+        const photoPaths = req.files ? req.files.map(file => file.path) : [];
+        
+        const newAnimal = new RescuedAnimal({
+            animalId: req.body.animalId,
+            name: req.body.name,
+            category: req.body.category,
+            breed: req.body.breed,
+            species: req.body.species,
+            age: req.body.age,
+            rescueDate: req.body.rescueDate,
+            status: req.body.status,
+            currentLocation: req.body.currentLocation,
+            story: req.body.story,
+            photos: photoPaths,
+            assignedNGO: req.body.assignedNGO
+        });
+
+        await newAnimal.save();
+        res.status(201).json({ message: "Rescued animal added successfully!", animal: newAnimal });
+    } catch (error) {
+        console.error("Animal Create Error:", error);
+        res.status(500).json({ message: "Server error while adding rescued animal" });
+    }
+});
+
+app.get('/api/rescued-animals', async (req, res) => {
+    try {
+        const { category, status } = req.query;
+        let query = {};
+        if (category) query.category = category;
+        if (status) query.status = status;
+
+        const animals = await RescuedAnimal.find(query).sort({ rescueDate: -1 });
+        res.json(animals);
+    } catch (error) {
+        res.status(500).json({ message: "Server error while fetching rescued animals" });
+    }
+});
+
+app.get('/api/rescued-animals/:id', async (req, res) => {
+    try {
+        const animal = await RescuedAnimal.findById(req.params.id).populate('assignedNGO');
+        if (!animal) return res.status(404).json({ message: "Animal not found" });
+        res.json(animal);
+    } catch (error) {
+        res.status(500).json({ message: "Server error while fetching animal details" });
+    }
+});
+
+app.put('/api/rescued-animals/:id', async (req, res) => {
+    try {
+        const updatedAnimal = await RescuedAnimal.findByIdAndUpdate(
+            req.params.id,
+            { $set: req.body },
+            { new: true }
+        );
+        if (!updatedAnimal) return res.status(404).json({ message: "Animal not found" });
+        res.json({ message: "Animal updated successfully", animal: updatedAnimal });
+    } catch (error) {
+        res.status(500).json({ message: "Server error while updating animal" });
     }
 });
 
