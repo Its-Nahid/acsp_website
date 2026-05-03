@@ -6,12 +6,14 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>NGO Profile - ACSP</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
-            theme: {
+            theme: {//final updated theme
                 extend: {
                     colors: {
                         "primary": "#f98c06",
@@ -38,6 +40,7 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(249, 140, 6, 0.1);
         }
+
         .dark .glass-card {
             background: rgba(17, 33, 22, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -45,7 +48,8 @@
     </style>
 </head>
 
-<body class="font-display bg-background-light dark:bg-background-dark text-[#0e1b12] dark:text-white antialiased transition-colors duration-300">
+<body
+    class="font-display bg-background-light dark:bg-background-dark text-[#0e1b12] dark:text-white antialiased transition-colors duration-300">
     <div id="navbar-placeholder"></div>
 
     <main class="max-w-7xl mx-auto px-6 py-12">
@@ -58,17 +62,20 @@
         <!-- NGO Content (Hidden by default) -->
         <div id="ngo-content" class="hidden space-y-12 animate-in fade-in duration-700">
             <!-- Header Section -->
-            <section class="relative rounded-3xl overflow-hidden bg-white dark:bg-zinc-900 shadow-xl border border-slate-100 dark:border-zinc-800">
+            <section
+                class="relative rounded-3xl overflow-hidden bg-white dark:bg-zinc-900 shadow-xl border border-slate-100 dark:border-zinc-800">
                 <div class="h-48 bg-gradient-to-r from-orange-400 to-primary"></div>
                 <div class="px-8 pb-8">
                     <div class="flex flex-col md:flex-row gap-8 items-end -mt-12 relative z-10">
-                        <div class="size-32 md:size-40 rounded-3xl bg-white dark:bg-zinc-800 border-8 border-white dark:border-zinc-800 shadow-2xl flex items-center justify-center overflow-hidden">
+                        <div
+                            class="size-32 md:size-40 rounded-3xl bg-white dark:bg-zinc-800 border-8 border-white dark:border-zinc-800 shadow-2xl flex items-center justify-center overflow-hidden">
                             <span id="ngo-icon" class="material-symbols-outlined text-primary text-6xl">apartment</span>
                         </div>
                         <div class="flex-1 space-y-2">
                             <div class="flex items-center gap-3">
                                 <h1 id="ngo-name" class="text-3xl md:text-5xl font-black tracking-tight">NGO Name</h1>
-                                <span class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full uppercase tracking-widest">Verified</span>
+                                <span
+                                    class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full uppercase tracking-widest">Verified</span>
                             </div>
                             <div class="flex flex-wrap gap-6 text-slate-500 dark:text-slate-400 font-medium">
                                 <div class="flex items-center gap-2">
@@ -86,8 +93,11 @@
                             </div>
                         </div>
                         <div class="flex gap-4">
-                            <button class="px-8 py-4 bg-primary text-white font-bold rounded-full shadow-lg shadow-primary/20 hover:scale-105 transition-all">Support NGO</button>
-                            <button id="ngo-website-btn" class="size-14 bg-slate-100 dark:bg-zinc-800 rounded-full flex items-center justify-center hover:bg-primary/10 transition-colors">
+                            <button
+                                class="px-8 py-4 bg-primary text-white font-bold rounded-full shadow-lg shadow-primary/20 hover:scale-105 transition-all">Support
+                                NGO</button>
+                            <button id="ngo-website-btn"
+                                class="size-14 bg-slate-100 dark:bg-zinc-800 rounded-full flex items-center justify-center hover:bg-primary/10 transition-colors">
                                 <span class="material-symbols-outlined">language</span>
                             </button>
                         </div>
@@ -112,23 +122,26 @@
 
                     <!-- Impact Section -->
                     <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="bg-white dark:bg-zinc-900 p-6 rounded-3xl border border-slate-100 dark:border-zinc-800 text-center space-y-2">
+                        <div
+                            class="bg-white dark:bg-zinc-900 p-6 rounded-3xl border border-slate-100 dark:border-zinc-800 text-center space-y-2">
                             <span class="material-symbols-outlined text-primary text-4xl">favorite</span>
                             <h3 id="stat-rescued" class="text-3xl font-black">0</h3>
                             <p class="text-sm font-bold text-slate-500 uppercase">Animals Rescued</p>
                         </div>
-                        <div class="bg-white dark:bg-zinc-900 p-6 rounded-3xl border border-slate-100 dark:border-zinc-800 text-center space-y-2">
+                        <div
+                            class="bg-white dark:bg-zinc-900 p-6 rounded-3xl border border-slate-100 dark:border-zinc-800 text-center space-y-2">
                             <span class="material-symbols-outlined text-primary text-4xl">home</span>
                             <h3 id="stat-adopted" class="text-3xl font-black">0</h3>
                             <p class="text-sm font-bold text-slate-500 uppercase">Successful Adoptions</p>
                         </div>
-                        <div class="bg-white dark:bg-zinc-900 p-6 rounded-3xl border border-slate-100 dark:border-zinc-800 text-center space-y-2">
+                        <div
+                            class="bg-white dark:bg-zinc-900 p-6 rounded-3xl border border-slate-100 dark:border-zinc-800 text-center space-y-2">
                             <span class="material-symbols-outlined text-primary text-4xl">groups</span>
                             <h3 id="stat-volunteers" class="text-3xl font-black">0</h3>
                             <p class="text-sm font-bold text-slate-500 uppercase">Active Volunteers</p>
                         </div>
                     </section>
-                    
+
                     <!-- Animals Under Care Section -->
                     <section class="glass-card p-8 rounded-3xl">
                         <div class="flex items-center justify-between mb-6">
@@ -136,7 +149,8 @@
                                 <span class="material-symbols-outlined text-primary">pets</span>
                                 Animals Under Care
                             </h2>
-                            <a href="animal_listing.html" class="text-sm font-bold text-primary hover:underline">View All</a>
+                            <a href="animal_listing.html" class="text-sm font-bold text-primary hover:underline">View
+                                All</a>
                         </div>
                         <div id="ngo-animals" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Animals will be injected here -->
@@ -184,17 +198,23 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="w-full py-4 bg-white/10 hover:bg-white/20 rounded-2xl font-bold text-sm transition-colors">Send a Message</button>
+                        <button
+                            class="w-full py-4 bg-white/10 hover:bg-white/20 rounded-2xl font-bold text-sm transition-colors">Send
+                            a Message</button>
                     </section>
 
                     <!-- Support Card -->
                     <section class="bg-primary/10 border border-primary/20 p-8 rounded-3xl text-center space-y-4">
-                        <div class="size-16 bg-primary rounded-2xl mx-auto flex items-center justify-center text-white shadow-lg">
+                        <div
+                            class="size-16 bg-primary rounded-2xl mx-auto flex items-center justify-center text-white shadow-lg">
                             <span class="material-symbols-outlined text-3xl">volunteer_activism</span>
                         </div>
                         <h2 class="text-xl font-black">Help Us Grow</h2>
-                        <p class="text-sm text-slate-600 dark:text-slate-400">Your contribution goes directly towards medical bills and food for our rescues.</p>
-                        <a href="donation.html" class="block w-full py-3 bg-primary text-white font-bold rounded-xl shadow-md">Donate to This NGO</a>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Your contribution goes directly towards
+                            medical bills and food for our rescues.</p>
+                        <a href="donation.html"
+                            class="block w-full py-3 bg-primary text-white font-bold rounded-xl shadow-md">Donate to
+                            This NGO</a>
                     </section>
                 </div>
             </div>
@@ -218,10 +238,10 @@
             try {
                 const response = await fetch(`http://localhost:5000/api/ngo/${ngoId}`);
                 if (!response.ok) throw new Error('NGO not found');
-                
+
                 const ngo = await response.json();
                 renderNGO(ngo);
-                
+
                 // Fetch and render animals under this NGO's care
                 fetchNGOAnimals(ngoId);
             } catch (error) {
@@ -294,12 +314,12 @@
                 }
 
                 container.innerHTML = animals.map(animal => {
-                    const statusColor = animal.status === 'Ready for Adoption' ? 'bg-green-500' : 
-                                      animal.status === 'Under Treatment' ? 'bg-orange-500' : 
-                                      'bg-blue-500';
-                    
-                    const photo = (animal.photos && animal.photos.length > 0) 
-                        ? `http://localhost:5000/${animal.photos[0].replace(/\\/g, '/')}` 
+                    const statusColor = animal.status === 'Ready for Adoption' ? 'bg-green-500' :
+                        animal.status === 'Under Treatment' ? 'bg-orange-500' :
+                            'bg-blue-500';
+
+                    const photo = (animal.photos && animal.photos.length > 0)
+                        ? `http://localhost:5000/${animal.photos[0].replace(/\\/g, '/')}`
                         : 'https://via.placeholder.com/400x300?text=No+Photo';
 
                     return `
@@ -330,4 +350,5 @@
         }
     </script>
 </body>
+
 </html>

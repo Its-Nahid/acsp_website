@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html class="light" lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>ACSP - NGO Directory</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
-            theme: {
+            theme: {//ngo directory feature
                 extend: {
                     colors: {
                         "primary": "#f98c06",
@@ -23,7 +26,9 @@
     </script>
     <link href="css/style.css" rel="stylesheet" />
 </head>
-<body class="font-display bg-background-light dark:bg-background-dark text-[#0e1b12] dark:text-white antialiased transition-colors duration-300">
+
+<body
+    class="font-display bg-background-light dark:bg-background-dark text-[#0e1b12] dark:text-white antialiased transition-colors duration-300">
     <div id="navbar-placeholder"></div>
 
     <main class="flex-1 w-full max-w-[1200px] mx-auto px-6 py-12">
@@ -34,16 +39,19 @@
                     Find and support local animal welfare organizations across the country.
                 </p>
             </div>
-            <button onclick="window.location.href='become_partner.html'" class="flex items-center gap-2 px-6 py-3 bg-white dark:bg-white/5 border border-primary/20 rounded-full font-bold text-sm hover:border-primary transition-all group">
+            <button onclick="window.location.href='become_partner.html'"
+                class="flex items-center gap-2 px-6 py-3 bg-white dark:bg-white/5 border border-primary/20 rounded-full font-bold text-sm hover:border-primary transition-all group">
                 <span>Become a Partner</span>
-                <span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                <span
+                    class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
             </button>
         </div>
 
         <!-- NGO Grid -->
         <div id="ngo-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div class="col-span-full text-center py-20">
-                <div class="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mx-auto"></div>
+                <div class="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mx-auto">
+                </div>
                 <p class="mt-4 text-slate-500">Loading organizations...</p>
             </div>
         </div>
@@ -58,7 +66,7 @@
             try {
                 const response = await fetch('http://localhost:5000/api/ngos');
                 const ngos = await response.json();
-                
+
                 if (ngos.length === 0) {
                     grid.innerHTML = `<p class="col-span-full text-center text-slate-500 py-20">No NGOs found.</p>`;
                     return;
@@ -97,4 +105,5 @@
         });
     </script>
 </body>
+
 </html>
