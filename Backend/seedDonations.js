@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Donation = require('./models/Donation');
 
 const MONGODB_URI = "mongodb://localhost:27017/acspAuth";
-
+//donation handled
 const donations = [
     {
         transactionId: "REF1714480001",

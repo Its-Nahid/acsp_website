@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html class="light" lang="en">
+
 <head>
+    //ngo donation tracking-tight
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Donation Transparency - ACSP</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap"
+        rel="stylesheet" />
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -30,20 +34,26 @@
             background: linear-gradient(135deg, rgba(249, 140, 6, 0.1) 0%, rgba(249, 140, 6, 0.02) 100%);
             border: 1px solid rgba(249, 140, 6, 0.1);
         }
+
         .dark .stats-card {
             background: linear-gradient(135deg, rgba(249, 140, 6, 0.05) 0%, rgba(17, 33, 22, 0.5) 100%);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
     </style>
 </head>
-<body class="font-display bg-background-light dark:bg-background-dark text-[#0e1b12] dark:text-white antialiased transition-colors duration-300">
+
+<body
+    class="font-display bg-background-light dark:bg-background-dark text-[#0e1b12] dark:text-white antialiased transition-colors duration-300">
     <div id="navbar-placeholder"></div>
 
     <main class="max-w-7xl mx-auto px-6 py-12 space-y-12">
         <!-- Hero Section -->
         <section class="text-center space-y-4 py-10">
-            <h1 class="text-4xl md:text-6xl font-black tracking-tight bg-gradient-to-r from-orange-400 to-primary bg-clip-text text-transparent">Transparency Dashboard</h1>
-            <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto font-medium">Tracking every single donation received to ensure 100% accountability and trust. Your contributions save lives.</p>
+            <h1
+                class="text-4xl md:text-6xl font-black tracking-tight bg-gradient-to-r from-orange-400 to-primary bg-clip-text text-transparent">
+                Transparency Dashboard</h1>
+            <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto font-medium">Tracking every single donation
+                received to ensure 100% accountability and trust. Your contributions save lives.</p>
         </section>
 
         <!-- Summary Stats -->
@@ -73,7 +83,8 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- NGO Fund Distribution -->
             <div class="lg:col-span-1 space-y-6">
-                <div class="bg-white dark:bg-zinc-900 p-8 rounded-3xl border border-slate-100 dark:border-zinc-800 shadow-xl">
+                <div
+                    class="bg-white dark:bg-zinc-900 p-8 rounded-3xl border border-slate-100 dark:border-zinc-800 shadow-xl">
                     <h2 class="text-xl font-black mb-6 flex items-center gap-2">
                         <span class="material-symbols-outlined text-primary">pie_chart</span>
                         NGO Distribution
@@ -82,25 +93,29 @@
                         <!-- Distribution bars will be injected here -->
                     </div>
                 </div>
-                
+
                 <div class="bg-primary/10 border border-primary/20 p-8 rounded-3xl space-y-4">
                     <h3 class="font-bold flex items-center gap-2 text-primary">
                         <span class="material-symbols-outlined">info</span>
                         Audit Note
                     </h3>
-                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">All donations are processed via SSL Commerz. Funds are settled directly to NGO bank accounts within 48-72 hours of validation.</p>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">All donations are processed
+                        via SSL Commerz. Funds are settled directly to NGO bank accounts within 48-72 hours of
+                        validation.</p>
                 </div>
             </div>
 
             <!-- Recent Transactions Table -->
-            <div class="lg:col-span-2 bg-white dark:bg-zinc-900 rounded-3xl border border-slate-100 dark:border-zinc-800 shadow-xl overflow-hidden">
+            <div
+                class="lg:col-span-2 bg-white dark:bg-zinc-900 rounded-3xl border border-slate-100 dark:border-zinc-800 shadow-xl overflow-hidden">
                 <div class="p-8 border-b border-slate-100 dark:border-zinc-800 flex justify-between items-center">
                     <h2 class="text-xl font-black flex items-center gap-2">
                         <span class="material-symbols-outlined text-primary">history</span>
                         Recent Transactions
                     </h2>
                     <div class="flex gap-2">
-                        <select id="status-filter" class="bg-slate-50 dark:bg-zinc-800 border-none text-xs font-bold rounded-full px-4 py-2">
+                        <select id="status-filter"
+                            class="bg-slate-50 dark:bg-zinc-800 border-none text-xs font-bold rounded-full px-4 py-2">
                             <option value="">All Status</option>
                             <option value="VALID">Valid</option>
                             <option value="PENDING">Pending</option>
@@ -110,7 +125,8 @@
                 <div class="overflow-x-auto">
                     <table class="w-full text-left">
                         <thead>
-                            <tr class="bg-slate-50 dark:bg-zinc-800/50 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                            <tr
+                                class="bg-slate-50 dark:bg-zinc-800/50 text-[10px] font-black uppercase tracking-widest text-slate-400">
                                 <th class="px-8 py-4">Transaction ID</th>
                                 <th class="px-8 py-4">Donor</th>
                                 <th class="px-8 py-4">NGO / Cause</th>
@@ -145,7 +161,7 @@
             try {
                 const response = await fetch('http://localhost:5000/api/donations/summary');
                 const data = await response.json();
-                
+
                 document.getElementById('total-funds').textContent = `৳ ${data.summary.totalFunds.toLocaleString()}`;
                 document.getElementById('total-tx').textContent = data.summary.totalTransactions.toLocaleString();
                 document.getElementById('active-ngos').textContent = data.distribution.length;
@@ -198,10 +214,9 @@
                         <td class="px-8 py-5 font-bold text-primary">৳ ${tx.amount.toLocaleString()}</td>
                         <td class="px-8 py-5 text-slate-400 text-xs">${new Date(tx.createdAt).toLocaleDateString()}</td>
                         <td class="px-8 py-5">
-                            <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${
-                                tx.status === 'VALID' ? 'bg-green-100 text-green-700' : 
-                                tx.status === 'FAILED' ? 'bg-red-100 text-red-700' : 'bg-slate-100 text-slate-600'
-                            }">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${tx.status === 'VALID' ? 'bg-green-100 text-green-700' :
+                        tx.status === 'FAILED' ? 'bg-red-100 text-red-700' : 'bg-slate-100 text-slate-600'
+                    }">
                                 ${tx.status}
                             </span>
                         </td>
@@ -214,4 +229,5 @@
         }
     </script>
 </body>
+
 </html>
