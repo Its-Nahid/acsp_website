@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+//report allow
 const ReportSchema = new mongoose.Schema({
   fullName: String,
   phone: String,
