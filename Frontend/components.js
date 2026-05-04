@@ -16,8 +16,7 @@ const components = {
             <nav class="hidden lg:flex items-center bg-white dark:bg-zinc-800 px-8 py-3 rounded-full shadow-sm border border-gray-100 dark:border-zinc-700 gap-8">
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="login.html">User</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="ngo_directory.html">NGO</a>
-                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="directory.html">NGO</a>
-                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="#">Treatment</a>
+                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="contact_doctors.html">Treatment</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-animal" href="animal_listing.html">Animal</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="donation.html">Donation</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-adoption" href="adoptionpage.html">Adoption</a>
@@ -61,7 +60,7 @@ const components = {
             <div>
                 <h4 class="font-bold mb-6 dark:text-white">Categories</h4>
                 <ul class="flex flex-col gap-4 text-sm text-slate-500 dark:text-slate-400">
-                    <li><a class="hover:text-primary transition-colors" href="#">Medical Treatment</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="vet_directory.html">Medical Treatment</a></li>
                     <li><a class="hover:text-primary transition-colors" href="#">Emergency Rescue</a></li>
                     <li><a class="hover:text-primary transition-colors" href="#">Lost & Found</a></li>
                     <li><a class="hover:text-primary transition-colors" href="#">Volunteer Program</a></li>
@@ -109,6 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (animalLink) {
                 animalLink.classList.remove('text-gray-500');
                 animalLink.classList.add('text-primary');
+            }
+        }
 
         // Update Auth Buttons based on login status
         const authContainer = document.getElementById('auth-container');
