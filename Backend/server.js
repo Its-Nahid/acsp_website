@@ -487,6 +487,15 @@ app.get('/api/rescued-animals', async (req, res) => {
     }
 });
 
+app.get('/api/rescued-animals/ngo/:ngoId', async (req, res) => {
+    try {
+        const animals = await RescuedAnimal.find({ assignedNGO: req.params.ngoId }).sort({ rescueDate: -1 });
+        res.json(animals);
+    } catch (error) {
+        res.status(500).json({ message: "Server error while fetching NGO animals" });
+    }
+});
+
 app.get('/api/rescued-animals/:id', async (req, res) => {
     try {
         const animal = await RescuedAnimal.findById(req.params.id).populate('assignedNGO');

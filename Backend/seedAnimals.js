@@ -14,7 +14,8 @@ const animals = [
         rescueDate: new Date("2024-03-12"),
         status: "Ready for Adoption",
         currentLocation: "ACSP Main Shelter",
-        story: "A friendly Golden Retriever rescued from the streets, now healthy and ready for a home."
+        story: "A friendly Golden Retriever rescued from the streets, now healthy and ready for a home.",
+        assignedNGO: "69f8142679a7a5be1f0e3dde"
     },
     {
         animalId: "DG-002",
@@ -25,7 +26,8 @@ const animals = [
         rescueDate: new Date("2024-04-05"),
         status: "Under Treatment",
         currentLocation: "Hope Animal Clinic",
-        story: "Luna was found with a leg injury. She is recovering well under medical supervision."
+        story: "Luna was found with a leg injury. She is recovering well under medical supervision.",
+        assignedNGO: "69f8142679a7a5be1f0e3ddf"
     },
     {
         animalId: "DG-003",
