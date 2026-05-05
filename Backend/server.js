@@ -17,8 +17,8 @@ const Adoption = require("./models/Adoption");
 const NGO = require("./models/NGO");
 const RescuedAnimal = require("./models/RescuedAnimal");
 const SSLCommerzPayment = require("sslcommerz-lts");
-const { GoogleGenerativeAI } = require("@google/generative-ai");
-console.log("Gemini API Key loaded:", process.env.GEMINI_API_KEY ? "Yes (Starts with " + process.env.GEMINI_API_KEY.substring(0, 7) + "...)" : "No");
+const axios = require("axios");
+console.log("Groq API Key loaded:", process.env.GROQ_API_KEY ? "Yes" : "No");
 
 // Initialize Express
 const app = express();
@@ -555,12 +555,9 @@ app.post("/api/donate/cancel", async (req, res) => {
     res.redirect("http://localhost:5500/cancel.html");
 });
 
-// Gemini AI Setup
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "YOUR_GEMINI_API_KEY");
-const aiModel = genAI.getGenerativeModel({ 
-    model: "gemini-2.0-flash",
-    systemInstruction: "You are the ACSP AI Assistant, a helpful expert in animal care. You can answer basic questions about pet nutrition, grooming, and common minor symptoms. However, for any complex medical problems, emergencies, or serious symptoms (like severe bleeding, breathing difficulties, or sudden collapse), you MUST advise the user to consult a professional veterinarian or visit the nearest animal clinic immediately. Be concise and friendly."
-});
+// Groq AI Setup
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
+const SYSTEM_PROMPT = "You are the ACSP AI Assistant, a helpful expert in animal care. You can answer basic questions about pet nutrition, grooming, and common minor symptoms. However, for any complex medical problems, emergencies, or serious symptoms (like severe bleeding, breathing difficulties, or sudden collapse), you MUST advise the user to consult a professional veterinarian or visit the nearest animal clinic immediately. Be concise and friendly.";
 
 // AI Chat Route
 app.post("/api/ai-chat", async (req, res) => {
@@ -568,24 +565,32 @@ app.post("/api/ai-chat", async (req, res) => {
         const { message } = req.body;
         if (!message) return res.status(400).json({ message: "Message is required" });
 
-        const result = await aiModel.generateContent(message);
-        const response = await result.response;
-        const text = response.text();
+        const response = await axios.post(
+            "https://api.groq.com/openai/v1/chat/completions",
+            {
+                model: "llama-3.3-70b-versatile",
+                messages: [
+                    { role: "system", content: SYSTEM_PROMPT },
+                    { role: "user", content: message }
+                ],
+                temperature: 0.7,
+                max_tokens: 1024
+            },
+            {
+                headers: {
+                    "Authorization": `Bearer ${GROQ_API_KEY}`,
+                    "Content-Type": "application/json"
+                }
+            }
+        );
 
-        res.json({ reply: text });
+        const reply = response.data.choices[0].message.content;
+        res.json({ reply });
     } catch (error) {
-        console.error("Gemini Error:", error.message || error);
-        let userMessage = "AI Assistant is currently unavailable";
-        
-        if (error.message && error.message.includes("quota")) {
-            userMessage = "AI Assistant quota exhausted for today. Please try again later.";
-        } else if (error.message && error.message.includes("API key not valid")) {
-            userMessage = "Invalid API Key. Please check your .env file.";
-        }
-
+        console.error("Groq Error:", error.response ? error.response.data : error.message);
         res.status(500).json({ 
-            message: userMessage,
-            error: error.message 
+            message: "AI Assistant is currently unavailable",
+            error: error.response ? error.response.data.error.message : error.message 
         });
     }
 });

@@ -14,7 +14,6 @@ const components = {
                 <span class="text-2xl font-black tracking-tight text-[#1a1c23] dark:text-white">ACSP</span>
             </div>
             <nav class="hidden lg:flex items-center bg-white dark:bg-zinc-800 px-8 py-3 rounded-full shadow-sm border border-gray-100 dark:border-zinc-700 gap-8">
-                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="login.html">User</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="ngo_directory.html">NGO</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="contact_doctors.html">Treatment</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-animal" href="animal_listing.html">Animal</a>
