@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>NGO Profile - ACSP</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {//final updated theme
+                extend: {
+                    colors: {
+                        "primary": "#f98c06",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#112116",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <link href="css/style.css" rel="stylesheet" />
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(249, 140, 6, 0.1);
+        }
+
+        .dark .glass-card {
+            background: rgba(17, 33, 22, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+
+<body
+    class="font-display bg-background-light dark:bg-background-dark text-[#0e1b12] dark:text-white antialiased transition-colors duration-300">
+    <div id="navbar-placeholder"></div>
+
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        <!-- Loading State -->
+        <div id="loading" class="flex flex-col items-center justify-center py-20">
+            <div class="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+            <p class="mt-4 text-slate-500 font-medium">Loading NGO Profile...</p>
+        </div>
+
+        <!-- NGO Content (Hidden by default) -->
+        <div id="ngo-content" class="hidden space-y-12 animate-in fade-in duration-700">
+            <!-- Header Section -->
+            <section
+                class="relative rounded-3xl overflow-hidden bg-white dark:bg-zinc-900 shadow-xl border border-slate-100 dark:border-zinc-800">
+                <div class="h-48 bg-gradient-to-r from-orange-400 to-primary"></div>
+                <div class="px-8 pb-8">
+                    <div class="flex flex-col md:flex-row gap-8 items-end -mt-12 relative z-10">
+                        <div
+                            class="size-32 md:size-40 rounded-3xl bg-white dark:bg-zinc-800 border-8 border-white dark:border-zinc-800 shadow-2xl flex items-center justify-center overflow-hidden">
+                            <span id="ngo-icon" class="material-symbols-outlined text-primary text-6xl">apartment</span>
+                        </div>
+                        <div class="flex-1 space-y-2">
+                            <div class="flex items-center gap-3">
+                                <h1 id="ngo-name" class="text-3xl md:text-5xl font-black tracking-tight">NGO Name</h1>
+                                <span
+                                    class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full uppercase tracking-widest">Verified</span>
+                            </div>
+                            <div class="flex flex-wrap gap-6 text-slate-500 dark:text-slate-400 font-medium">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-primary">location_on</span>
+                                    <span id="ngo-location-summary">Location, Country</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-primary">calendar_today</span>
+                                    <span id="ngo-established">Est. 2020</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-primary">fingerprint</span>
+                                    <span id="ngo-reg-id">REG-123456</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <button id="support-ngo-btn"
+                                class="px-8 py-4 bg-primary text-white font-bold rounded-full shadow-lg shadow-primary/20 hover:scale-105 transition-all">Support
+                                NGO</button>
+                            <button id="ngo-website-btn"
+                                class="size-14 bg-slate-100 dark:bg-zinc-800 rounded-full flex items-center justify-center hover:bg-primary/10 transition-colors">
+                                <span class="material-symbols-outlined">language</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Left Column: Details & Impact -->
+                <div class="lg:col-span-2 space-y-8">
+                    <!-- Services Section -->
+                    <section class="glass-card p-8 rounded-3xl">
+                        <h2 class="text-2xl font-black mb-6 flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">handshake</span>
+                            Services Provided
+                        </h2>
+                        <div id="ngo-services" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Services will be injected here -->
+                        </div>
+                    </section>
+
+                    <!-- Impact Section -->
+                    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div
+                            class="bg-white dark:bg-zinc-900 p-6 rounded-3xl border border-slate-100 dark:border-zinc-800 text-center space-y-2">
+                            <span class="material-symbols-outlined text-primary text-4xl">favorite</span>
+                            <h3 id="stat-rescued" class="text-3xl font-black">0</h3>
+                            <p class="text-sm font-bold text-slate-500 uppercase">Animals Rescued</p>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-zinc-900 p-6 rounded-3xl border border-slate-100 dark:border-zinc-800 text-center space-y-2">
+                            <span class="material-symbols-outlined text-primary text-4xl">home</span>
+                            <h3 id="stat-adopted" class="text-3xl font-black">0</h3>
+                            <p class="text-sm font-bold text-slate-500 uppercase">Successful Adoptions</p>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-zinc-900 p-6 rounded-3xl border border-slate-100 dark:border-zinc-800 text-center space-y-2">
+                            <span class="material-symbols-outlined text-primary text-4xl">groups</span>
+                            <h3 id="stat-volunteers" class="text-3xl font-black">0</h3>
+                            <p class="text-sm font-bold text-slate-500 uppercase">Active Volunteers</p>
+                        </div>
+                    </section>
+
+                    <!-- Animals Under Care Section -->
+                    <section class="glass-card p-8 rounded-3xl">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-2xl font-black flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary">pets</span>
+                                Animals Under Care
+                            </h2>
+                            <a href="animal_listing.html" class="text-sm font-bold text-primary hover:underline">View
+                                All</a>
+                        </div>
+                        <div id="ngo-animals" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Animals will be injected here -->
+                            <p class="col-span-full text-slate-400 italic">Checking for animals under care...</p>
+                        </div>
+                    </section>
+
+                    <!-- Gallery Section -->
+                    <section class="glass-card p-8 rounded-3xl">
+                        <h2 class="text-2xl font-black mb-6 flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">imagesmode</span>
+                            Gallery & Documentation
+                        </h2>
+                        <div id="ngo-gallery" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <!-- Images will be injected here -->
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Column: Contact & Sidebar -->
+                <div class="space-y-8">
+                    <!-- Contact Card -->
+                    <section class="bg-slate-900 text-white p-8 rounded-3xl space-y-6">
+                        <h2 class="text-xl font-bold border-b border-white/10 pb-4">Contact Information</h2>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <span class="material-symbols-outlined text-primary">map</span>
+                                <div>
+                                    <p class="text-xs font-bold text-white/50 uppercase">Address</p>
+                                    <p id="ngo-address" class="text-sm font-medium">Loading...</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <span class="material-symbols-outlined text-primary">call</span>
+                                <div>
+                                    <p class="text-xs font-bold text-white/50 uppercase">Phone</p>
+                                    <p id="ngo-phone" class="text-sm font-medium">Loading...</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <span class="material-symbols-outlined text-primary">mail</span>
+                                <div>
+                                    <p class="text-xs font-bold text-white/50 uppercase">Email</p>
+                                    <p id="ngo-email" class="text-sm font-medium">Loading...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button
+                            class="w-full py-4 bg-white/10 hover:bg-white/20 rounded-2xl font-bold text-sm transition-colors">Send
+                            a Message</button>
+                    </section>
+
+                    <!-- Support Card -->
+                    <section class="bg-primary/10 border border-primary/20 p-8 rounded-3xl text-center space-y-4">
+                        <div
+                            class="size-16 bg-primary rounded-2xl mx-auto flex items-center justify-center text-white shadow-lg">
+                            <span class="material-symbols-outlined text-3xl">volunteer_activism</span>
+                        </div>
+                        <h2 class="text-xl font-black">Help Us Grow</h2>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Your contribution goes directly towards
+                            medical bills and food for our rescues.</p>
+                        <a id="donate-ngo-link" href="donation.html"
+                            class="block w-full py-3 bg-primary text-white font-bold rounded-xl shadow-md">Donate to
+                            This NGO</a>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const ngoId = urlParams.get('id');
+
+            if (!ngoId) {
+                // If no ID is provided, fetch all NGOs and show a picker or redirect to directory
+                window.location.href = 'ngo_directory.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:5000/api/ngo/${ngoId}`);
+                if (!response.ok) throw new Error('NGO not found');
+
+                const ngo = await response.json();
+                renderNGO(ngo);
+
+                // Fetch and render animals under this NGO's care
+                fetchNGOAnimals(ngoId);
+            } catch (error) {
+                console.error(error);
+                document.getElementById('loading').innerHTML = `
+                    <div class="text-center">
+                        <span class="material-symbols-outlined text-red-500 text-6xl">error</span>
+                        <p class="text-red-500 font-bold mt-4">Failed to load NGO profile.</p>
+                        <a href="ngo_directory.html" class="mt-4 inline-block text-primary font-bold underline">Go to Directory</a>
+                    </div>
+                `;
+            }
+        });
+
+        function renderNGO(ngo) {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('ngo-content').classList.remove('hidden');
+
+            // Set basic info
+            document.getElementById('ngo-name').textContent = ngo.name;
+            document.getElementById('ngo-location-summary').textContent = `${ngo.location.city}, ${ngo.location.country}`;
+            document.getElementById('ngo-established').textContent = `Est. ${new Date(ngo.establishedDate).getFullYear()}`;
+            document.getElementById('ngo-reg-id').textContent = ngo.registrationId || 'N/A';
+            document.getElementById('ngo-address').textContent = ngo.location.address;
+            document.getElementById('ngo-phone').textContent = ngo.contact.phone;
+            document.getElementById('ngo-email').textContent = ngo.contact.email;
+
+            if (ngo.contact.website) {
+                document.getElementById('ngo-website-btn').onclick = () => window.open(ngo.contact.website, '_blank');
+            } else {
+                document.getElementById('ngo-website-btn').classList.add('hidden');
+            }
+
+            // Update donation links with context
+            const donationUrl = `donation.html?cause=${encodeURIComponent(ngo.name)}`;
+            document.getElementById('support-ngo-btn').onclick = () => window.location.href = donationUrl;
+            document.getElementById('donate-ngo-link').href = donationUrl;
+
+            // Set Impact stats
+            document.getElementById('stat-rescued').textContent = ngo.impact.animalsRescued.toLocaleString();
+            document.getElementById('stat-adopted').textContent = ngo.impact.successfulAdoptions.toLocaleString();
+            document.getElementById('stat-volunteers').textContent = ngo.impact.activeVolunteers.toLocaleString();
+
+            // Render Services
+            const servicesContainer = document.getElementById('ngo-services');
+            servicesContainer.innerHTML = ngo.services.map(service => `
+                <div class="flex items-center gap-3 p-4 bg-white dark:bg-zinc-800 rounded-2xl border border-slate-100 dark:border-zinc-700">
+                    <span class="material-symbols-outlined text-primary">check_circle</span>
+                    <span class="font-bold text-sm">${service}</span>
+                </div>
+            `).join('');
+
+            // Render Gallery
+            const galleryContainer = document.getElementById('ngo-gallery');
+            if (ngo.gallery && ngo.gallery.length > 0) {
+                galleryContainer.innerHTML = ngo.gallery.map(path => `
+                    <div class="aspect-square rounded-2xl overflow-hidden shadow-sm group">
+                        <img src="http://localhost:5000/${path.replace(/\\/g, '/')}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                    </div>
+                `).join('');
+            } else {
+                galleryContainer.innerHTML = `<p class="col-span-full text-slate-400 italic">No photos available yet.</p>`;
+            }
+        }
+
+        async function fetchNGOAnimals(ngoId) {
+            const container = document.getElementById('ngo-animals');
+            try {
+                const response = await fetch(`http://localhost:5000/api/rescued-animals/ngo/${ngoId}`);
+                const animals = await response.json();
+
+                if (animals.length === 0) {
+                    container.innerHTML = `<p class="col-span-full text-slate-400 italic">No animals currently listed under this NGO's care.</p>`;
+                    return;
+                }
+
+                container.innerHTML = animals.map(animal => {
+                    const statusColor = animal.status === 'Ready for Adoption' ? 'bg-green-500' :
+                        animal.status === 'Under Treatment' ? 'bg-orange-500' :
+                            'bg-blue-500';
+
+                    const photo = (animal.photos && animal.photos.length > 0)
+                        ? `http://localhost:5000/${animal.photos[0].replace(/\\/g, '/')}`
+                        : 'https://via.placeholder.com/400x300?text=No+Photo';
+
+                    return `
+                        <div class="bg-white dark:bg-zinc-800 rounded-2xl overflow-hidden border border-slate-100 dark:border-zinc-700 shadow-sm hover:shadow-md transition-all">
+                            <div class="relative h-40">
+                                <img src="${photo}" alt="${animal.name}" class="w-full h-full object-cover">
+                                <span class="absolute top-3 left-3 px-3 py-1 ${statusColor} text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-md">
+                                    ${animal.status}
+                                </span>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-black text-lg">${animal.name}</h4>
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase">${animal.animalId}</span>
+                                </div>
+                                <div class="space-y-1 text-xs text-slate-500 dark:text-slate-400">
+                                    <p class="italic">${animal.breed || animal.species}</p>
+                                    <p class="font-medium">Age: ${animal.age}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error('Error fetching NGO animals:', error);
+                container.innerHTML = `<p class="col-span-full text-red-500 italic">Error loading animals.</p>`;
+            }
+        }
+    </script>
+</body>
+
+</html>
