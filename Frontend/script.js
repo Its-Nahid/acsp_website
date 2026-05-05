@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('ACSP Unified System Loaded');
-    //ngo dashboad function
+    //ngo dashboad function handle
     function showToast(message, type = 'success') {
         let container = document.getElementById('toast-container');
         if (!container) {

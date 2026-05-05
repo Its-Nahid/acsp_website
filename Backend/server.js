@@ -7,7 +7,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
-//server handled
+//server 
 const User = require("./models/user");
 const RescueReport = require("./models/RescueReport");
 const Donation = require("./models/Donation");
