@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Rescue Case Dashboard - ACSP</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f98c06",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#112116",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 transition-colors duration-300">
+    <div id="navbar-placeholder"></div>
+
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
+            <div>
+                <h1 class="text-4xl font-black tracking-tight text-slate-900 dark:text-white">Case Management</h1>
+                <p class="text-slate-500 dark:text-slate-400 mt-2">Manage animal rescue reports and track status updates.</p>
+            </div>
+            <div class="flex gap-4">
+                <div class="bg-white dark:bg-slate-800 p-1 rounded-full border border-slate-200 dark:border-slate-700 flex">
+                    <button class="px-6 py-2 rounded-full bg-primary text-white font-bold text-sm shadow-lg shadow-primary/20">Active Cases</button>
+                    <button class="px-6 py-2 rounded-full text-slate-500 font-bold text-sm">Archived</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-100 dark:border-slate-800 flex flex-col gap-1">
+                <span class="text-xs font-black text-slate-400 uppercase tracking-widest">Pending</span>
+                <span id="stat-pending" class="text-3xl font-black text-primary">0</span>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-100 dark:border-slate-800 flex flex-col gap-1">
+                <span class="text-xs font-black text-slate-400 uppercase tracking-widest">Accepted</span>
+                <span id="stat-accepted" class="text-3xl font-black text-blue-500">0</span>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-100 dark:border-slate-800 flex flex-col gap-1">
+                <span class="text-xs font-black text-slate-400 uppercase tracking-widest">In Treatment</span>
+                <span id="stat-treatment" class="text-3xl font-black text-purple-500">0</span>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-100 dark:border-slate-800 flex flex-col gap-1">
+                <span class="text-xs font-black text-slate-400 uppercase tracking-widest">Resolved</span>
+                <span id="stat-resolved" class="text-3xl font-black text-green-500">0</span>
+            </div>
+        </div>
+
+        <!-- Search & Filter Bar -->
+        <div class="bg-white dark:bg-slate-900 p-4 rounded-3xl border border-slate-100 dark:border-slate-800 mb-8 flex flex-col md:flex-row gap-4">
+            <div class="relative flex-1">
+                <span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-primary">search</span>
+                <input class="w-full pl-12 pr-4 h-12 bg-slate-50 dark:bg-slate-800 border-none rounded-2xl focus:ring-2 focus:ring-primary/20 text-sm" placeholder="Search by case ID, summary or location..." type="text" />
+            </div>
+            <select id="statusFilter" class="h-12 bg-slate-50 dark:bg-slate-800 border-none rounded-2xl px-6 text-sm font-bold focus:ring-2 focus:ring-primary/20">
+                <option value="all">All Statuses</option>
+                <option value="Pending">Pending</option>
+                <option value="Accepted">Accepted</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Under Treatment">Under Treatment</option>
+                <option value="Recovered">Recovered</option>
+            </select>
+        </div>
+
+        <!-- Cases Grid -->
+        <div id="casesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Loading -->
+            <div class="col-span-full py-20 text-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mx-auto"></div>
+                <p class="mt-4 text-slate-500">Fetching cases...</p>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => fetchCases());
+
+        async function fetchCases() {
+            const grid = document.getElementById('casesGrid');
+            try {
+                const response = await fetch('http://localhost:5000/reports');
+                const data = await response.json();
+                const reports = data.reports;
+
+                if (!reports || reports.length === 0) {
+                    grid.innerHTML = `<div class="col-span-full py-20 text-center text-slate-500 italic font-medium">No rescue cases found.</div>`;
+                    return;
+                }
+
+                // Update Stats
+                const counts = reports.reduce((acc, r) => {
+                    const s = r.status || 'Pending';
+                    acc[s] = (acc[s] || 0) + 1;
+                    return acc;
+                }, {});
+
+                document.getElementById('stat-pending').textContent = counts['Pending'] || 0;
+                document.getElementById('stat-accepted').textContent = counts['Accepted'] || 0;
+                document.getElementById('stat-treatment').textContent = (counts['In Progress'] || 0) + (counts['Under Treatment'] || 0);
+                document.getElementById('stat-resolved').textContent = (counts['Recovered'] || 0) + (counts['Adopted'] || 0);
+
+                grid.innerHTML = reports.map(report => renderCaseCard(report)).join('');
+            } catch (error) {
+                grid.innerHTML = `<div class="col-span-full py-20 text-center text-red-500">Error loading cases. Is the backend running?</div>`;
+            }
+        }
+
+        function renderCaseCard(report) {
+            const status = report.status || 'Pending';
+            const statusColors = {
+                'Pending': 'bg-amber-100 text-amber-700',
+                'Accepted': 'bg-blue-100 text-blue-700',
+                'In Progress': 'bg-indigo-100 text-indigo-700',
+                'Under Treatment': 'bg-purple-100 text-purple-700',
+                'Recovered': 'bg-green-100 text-green-700',
+                'Adopted': 'bg-emerald-100 text-emerald-700',
+                'Rejected': 'bg-slate-100 text-slate-700'
+            };
+
+            const imageUrl = report.photos && report.photos.length > 0
+                ? `http://localhost:5000/${report.photos[0].replace(/\\/g, '/')}`
+                : 'https://images.unsplash.com/photo-1548191265-cc70d3d45ba1?auto=format&fit=crop&q=80&w=800';
+
+            return `
+                <div class="group flex flex-col bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 overflow-hidden hover:shadow-2xl hover:shadow-primary/5 transition-all">
+                    <div class="relative h-48 w-full overflow-hidden">
+                        <img src="${imageUrl}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <div class="absolute top-4 left-4">
+                            <span class="px-3 py-1 ${statusColors[status] || 'bg-slate-100'} text-[10px] font-black rounded-full uppercase tracking-widest shadow-sm">${status}</span>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-4 flex flex-col flex-1">
+                        <div>
+                            <h3 class="text-lg font-black leading-tight group-hover:text-primary transition-colors">${report.caseSummary || 'New Rescue Request'}</h3>
+                            <div class="flex items-center gap-2 text-xs text-slate-500 mt-1 font-medium">
+                                <span class="material-symbols-outlined text-sm">location_on</span>
+                                <span class="truncate">${report.location || 'Location Pending'}</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl flex justify-between items-center">
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Animal</span>
+                                <span class="text-sm font-bold">${report.animalType || 'N/A'}</span>
+                            </div>
+                            <div class="flex flex-col text-right">
+                                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Urgency</span>
+                                <span class="text-sm font-bold text-red-500">${report.urgency || 'Low'}</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-auto pt-4 flex gap-3">
+                            <button onclick="window.location.href='case-details.html?id=${report._id}'" class="flex-1 py-3 bg-primary/10 text-primary font-bold rounded-xl text-sm hover:bg-primary hover:text-white transition-all">Manage Case</button>
+                            ${status === 'Pending' ? 
+                                `<button onclick="updateStatus('${report._id}', 'Accepted')" class="px-6 py-3 bg-primary text-white font-bold rounded-xl text-sm shadow-lg shadow-primary/20">Accept</button>` : ''
+                            }
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function updateStatus(id, status) {
+            try {
+                const response = await fetch(`http://localhost:5000/api/reports/${id}/status`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status })
+                });
+                if (response.ok) {
+                    fetchCases();
+                } else {
+                    alert('Failed to update status. Ensure backend is updated.');
+                }
+            } catch (error) {
+                alert('Error connecting to backend');
+            }
+        }
+    </script>
+</body>
+</html>

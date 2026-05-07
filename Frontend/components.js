@@ -14,18 +14,16 @@ const components = {
                 <span class="text-2xl font-black tracking-tight text-[#1a1c23] dark:text-white">ACSP</span>
             </div>
             <nav class="hidden lg:flex items-center bg-white dark:bg-zinc-800 px-8 py-3 rounded-full shadow-sm border border-gray-100 dark:border-zinc-700 gap-8">
-                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="login.html">User</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="ngo_directory.html">NGO</a>
-                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="#">Treatment</a>
+                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="contact_doctors.html">Treatment</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-animal" href="animal_listing.html">Animal</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="donation.html">Donation</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-adoption" href="adoptionpage.html">Adoption</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-volunteer" href="volunteer.html">Volunteer</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-rescue" href="report.html">Rescue</a>
             </nav>
-            <div class="flex items-center gap-3">
-                <a href="login.html" class="text-sm font-bold text-gray-700 dark:text-gray-300 px-4">Login</a>
-                <a href="signup.html" class="bg-primary text-white px-8 py-3 rounded-full text-sm font-bold shadow-lg shadow-primary/25 hover:scale-105 transition-all">Register</a>
+            <div class="flex items-center gap-3" id="auth-container">
+                <!-- Auth buttons injected by JS -->
             </div>
         </div>
     </header>
@@ -62,7 +60,7 @@ const components = {
             <div>
                 <h4 class="font-bold mb-6 dark:text-white">Categories</h4>
                 <ul class="flex flex-col gap-4 text-sm text-slate-500 dark:text-slate-400">
-                    <li><a class="hover:text-primary transition-colors" href="#">Medical Treatment</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="vet_directory.html">Medical Treatment</a></li>
                     <li><a class="hover:text-primary transition-colors" href="#">Emergency Rescue</a></li>
                     <li><a class="hover:text-primary transition-colors" href="#">Lost & Found</a></li>
                     <li><a class="hover:text-primary transition-colors" href="volunteer.html">Volunteer Program</a></li>
