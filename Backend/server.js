@@ -7,9 +7,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
-//server handled
-const nodemailer = require("nodemailer");
-
+//server 
 const User = require("./models/user");
 const RescueReport = require("./models/RescueReport");
 const Donation = require("./models/Donation");
@@ -737,6 +735,15 @@ app.get('/api/rescued-animals', async (req, res) => {
         res.json(animals);
     } catch (error) {
         res.status(500).json({ message: "Server error while fetching rescued animals" });
+    }
+});
+
+app.get('/api/rescued-animals/ngo/:ngoId', async (req, res) => {
+    try {
+        const animals = await RescuedAnimal.find({ assignedNGO: req.params.ngoId }).sort({ rescueDate: -1 });
+        res.json(animals);
+    } catch (error) {
+        res.status(500).json({ message: "Server error while fetching NGO animals" });
     }
 });
 

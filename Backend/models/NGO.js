@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-//ngo dashboard 
+//ngo dashboard handle
 const NGOSchema = new mongoose.Schema({
   name: { type: String, required: true },
   registrationId: { type: String },
