@@ -97,13 +97,54 @@
         </div>
     </main>
     <div id="footer-placeholder"></div>
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 z-[100] hidden bg-black/60 backdrop-blur-sm items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white dark:bg-zinc-900 rounded-[3rem] shadow-2xl w-full max-w-lg overflow-hidden transform scale-95 transition-all duration-300 flex flex-col items-center text-center p-12" id="modalContent">
+            <div class="size-24 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center text-green-500 mb-8 animate-bounce">
+                <span class="material-symbols-outlined text-5xl" style="font-variation-settings: 'FILL' 1">check_circle</span>
+            </div>
+            <h2 class="text-3xl font-black tracking-tight mb-4 text-slate-900 dark:text-white">Application Received!</h2>
+            <p class="text-stone-600 dark:text-stone-400 mb-10 leading-relaxed">Your request to become a partner has been successfully submitted. Our team will review your application and get back to you shortly.</p>
+            <div class="flex flex-col w-full gap-4">
+                <button onclick="window.location.href='ngo_directory.html'" class="w-full py-5 bg-primary text-white font-black rounded-full shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all">Go to NGO Directory</button>
+                <button onclick="closeModal()" class="w-full py-5 bg-stone-100 dark:bg-zinc-800 text-stone-600 dark:text-stone-300 font-bold rounded-full hover:bg-stone-200 transition-all">Close</button>
+            </div>
+        </div>
+    </div>
+
     <script src="components.js"></script>
     <script>
+        function showSuccessModal() {
+            const modal = document.getElementById('successModal');
+            const content = document.getElementById('modalContent');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                modal.classList.add('opacity-100');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('successModal');
+            const content = document.getElementById('modalContent');
+            modal.classList.remove('opacity-100');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                window.location.reload(); // Clear form and state
+            }, 300);
+        }
+
         document.getElementById('ngo-register-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btn = e.target.querySelector('button');
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.textContent;
             btn.disabled = true;
-            btn.textContent = 'Registering...';
+            btn.textContent = 'Processing...';
 
             const formData = new FormData(e.target);
             const payload = new FormData();
@@ -124,8 +165,11 @@
                 website: formData.get('website')
             }));
             
-            const services = formData.get('services').split(',').map(s => s.trim()).filter(Boolean);
-            services.forEach(s => payload.append('services', s));
+            const servicesValue = formData.get('services');
+            if (servicesValue) {
+                const services = servicesValue.split(',').map(s => s.trim()).filter(Boolean);
+                services.forEach(s => payload.append('services', s));
+            }
             
             payload.append('impact', JSON.stringify({
                 animalsRescued: parseInt(formData.get('animalsRescued')) || 0,
@@ -134,7 +178,9 @@
             }));
 
             const files = formData.getAll('gallery');
-            files.forEach(file => payload.append('gallery', file));
+            files.forEach(file => {
+                if (file.size > 0) payload.append('gallery', file);
+            });
 
             try {
                 const response = await fetch('http://localhost:5000/api/ngo', {
@@ -142,17 +188,17 @@
                     body: payload
                 });
                 if (response.ok) {
-                    alert('NGO Registered Successfully!');
-                    window.location.href = 'directory.html';
+                    showSuccessModal();
                 } else {
                     const err = await response.json();
-                    alert(err.message);
+                    alert(err.message || 'Registration failed');
                 }
             } catch (error) {
+                console.error('Submission Error:', error);
                 alert('Error connecting to server');
             } finally {
                 btn.disabled = false;
-                btn.textContent = 'Submit Partnership Request';
+                btn.textContent = originalText;
             }
         });
     </script>

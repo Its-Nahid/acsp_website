@@ -14,12 +14,64 @@ const components = {
                 <span class="text-2xl font-black tracking-tight text-[#1a1c23] dark:text-white">ACSP</span>
             </div>
             <nav class="hidden lg:flex items-center bg-white dark:bg-zinc-800 px-8 py-3 rounded-full shadow-sm border border-gray-100 dark:border-zinc-700 gap-8">
-                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="ngo_directory.html">NGO</a>
-                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="contact_doctors.html">Treatment</a>
-                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-animal" href="animal_listing.html">Animal</a>
+                <div class="relative group">
+                    <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors flex items-center gap-1 py-1 cursor-pointer" href="ngo_directory.html">
+                        NGO
+                        <span class="material-symbols-outlined text-[18px]">expand_more</span>
+                    </a>
+                    <div class="absolute left-0 top-full w-60 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-left -translate-y-2 group-hover:translate-y-0 z-50 pt-2">
+                        <div class="bg-white dark:bg-zinc-800 rounded-2xl shadow-2xl border border-gray-100 dark:border-zinc-700 overflow-hidden py-2">
+                            <a href="ngo-profile.html" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-primary/5 hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined text-lg">account_circle</span>
+                                NGO Profile
+                            </a>
+                            <a href="ngo%20animal_listing.html" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-primary/5 hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined text-lg">pets</span>
+                                Animal Listing
+                            </a>
+                            <a href="ngo%20donation-tracking.html" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-primary/5 hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined text-lg">payments</span>
+                                Donation Tracking
+                            </a>
+                            <a href="ngo%20case-details.html" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-primary/5 hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined text-lg">description</span>
+                                Case Details
+                            </a>
+                            <a href="volunteer.html" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-primary/5 hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined text-lg">volunteer_activism</span>
+                                Volunteer
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors flex items-center gap-1 py-1 cursor-pointer" href="contact_doctors.html">
+                        Treatment
+                        <span class="material-symbols-outlined text-[18px]">expand_more</span>
+                    </a>
+                    <div class="absolute left-0 top-full w-60 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-left -translate-y-2 group-hover:translate-y-0 z-50 pt-2">
+                        <div class="bg-white dark:bg-zinc-800 rounded-2xl shadow-2xl border border-gray-100 dark:border-zinc-700 overflow-hidden py-2">
+                            <a href="vet_directory.html" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-primary/5 hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined text-lg">medical_services</span>
+                                Vet Directory
+                            </a>
+                            <a href="contact_doctors.html" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-primary/5 hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined text-lg">medical_information</span>
+                                Contact Doctors
+                            </a>
+                            <a href="ai_chat.html" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-primary/5 hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined text-lg">smart_toy</span>
+                                AI Assistant
+                            </a>
+                            <a href="article.html" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-primary/5 hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined text-lg">menu_book</span>
+                                Animal Care Guide
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="donation.html">Donation</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-adoption" href="adoptionpage.html">Adoption</a>
-                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-volunteer" href="volunteer.html">Volunteer</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-rescue" href="report.html">Rescue</a>
             </nav>
             <div class="flex items-center gap-3" id="auth-container">
@@ -103,20 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 adoptionLink.classList.add('text-primary');
             }
         }
-        if (currentPage === 'animal_listing.html') {
-            const animalLink = document.getElementById('nav-animal');
-            if (animalLink) {
-                animalLink.classList.remove('text-gray-500');
-                animalLink.classList.add('text-primary');
-            }
-        }
-        if (currentPage === 'volunteer.html') {
-            const volunteerLink = document.getElementById('nav-volunteer');
-            if (volunteerLink) {
-                volunteerLink.classList.remove('text-gray-500');
-                volunteerLink.classList.add('text-primary');
-            }
-        }
+
     }
 
     // Inject Footer
@@ -124,4 +163,41 @@ document.addEventListener('DOMContentLoaded', () => {
     if (footerPlaceholder) {
         footerPlaceholder.innerHTML = components.footer;
     }
+
+    // Update Auth UI
+    updateAuthUI();
 });
+
+function updateAuthUI() {
+    const authContainer = document.getElementById('auth-container');
+    if (!authContainer) return;
+
+    const token = localStorage.getItem('token');
+    if (token) {
+        // User is logged in
+        authContainer.innerHTML = `
+            <div class="flex items-center gap-4">
+                <button onclick="handleLogout()" class="px-6 py-2.5 rounded-full bg-slate-100 dark:bg-zinc-800 text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-red-50 hover:text-red-600 transition-all border border-gray-100 dark:border-zinc-700">
+                    Logout
+                </button>
+                <div class="size-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary cursor-pointer hover:bg-primary hover:text-white transition-all shadow-sm">
+                    <span class="material-symbols-outlined text-xl">person</span>
+                </div>
+            </div>
+        `;
+    } else {
+        // User is logged out
+        authContainer.innerHTML = `
+            <div class="flex items-center gap-3">
+                <a href="login.html" class="px-6 py-2.5 text-sm font-bold text-gray-500 hover:text-primary transition-colors">Login</a>
+                <a href="signup.html" class="px-8 py-2.5 bg-primary text-white text-sm font-bold rounded-full shadow-lg shadow-primary/20 hover:-translate-y-0.5 transition-all">Sign Up</a>
+            </div>
+        `;
+    }
+}
+
+function handleLogout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    window.location.href = 'index.html';
+}

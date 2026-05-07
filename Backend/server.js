@@ -18,6 +18,7 @@ const Volunteer = require("./models/Volunteer");
 const VolunteerOpportunity = require("./models/VolunteerOpportunity");
 const SSLCommerzPayment = require("sslcommerz-lts");
 const axios = require("axios");
+const nodemailer = require("nodemailer");
 console.log("Groq API Key loaded:", process.env.GROQ_API_KEY ? "Yes" : "No");
 
 // Initialize Express
@@ -46,6 +47,11 @@ app.get("/", (req, res) => {
 app.post("/signup", async (req, res) => {
     try {
         const { name, email, password, role } = req.body;
+        
+        if (!name || !email || !password) {
+            return res.status(400).json({ message: "Name, email, and password are required" });
+        }
+
         let existingUser = await User.findOne({ email });
         
         if (existingUser && existingUser.isVerified !== false) {
@@ -142,10 +148,6 @@ app.post("/login", async (req, res) => {
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ message: "Invalid password" });
-
-        if (user.isVerified === false) {
-            return res.status(400).json({ message: "Please verify your email first. Sign up again to receive a new code." });
-        }
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || "mySecretKey", { expiresIn: "1d" });
 
@@ -534,25 +536,24 @@ app.post("/api/donate/success", async (req, res) => {
                 { transactionId: req.body.tran_id },
                 { status: 'VALID', valId: val_id, paymentMethod: response.card_type }
             );
-            // Replace with your frontend URL port (assuming 5500 Live Server defaults)
-            res.redirect("http://localhost:5500/success.html");
+            res.redirect("/success.html");
         } else {
             await Donation.findOneAndUpdate({ transactionId: req.body.tran_id }, { status: 'FAILED' });
-            res.redirect("http://localhost:5500/fail.html");
+            res.redirect("/fail.html");
         }
     } catch (e) {
-        res.redirect("http://localhost:5500/fail.html");
+        res.redirect("/fail.html");
     }
 });
 
 app.post("/api/donate/fail", async (req, res) => {
     await Donation.findOneAndUpdate({ transactionId: req.body.tran_id }, { status: 'FAILED' });
-    res.redirect("http://localhost:5500/fail.html");
+    res.redirect("/fail.html");
 });
 
 app.post("/api/donate/cancel", async (req, res) => {
     await Donation.findOneAndUpdate({ transactionId: req.body.tran_id }, { status: 'CANCELLED' });
-    res.redirect("http://localhost:5500/cancel.html");
+    res.redirect("/cancel.html");
 });
 
 // Groq AI Setup
