@@ -469,6 +469,34 @@ app.put('/admin/ngos/:id/status', async (req, res) => {
     }
 });
 
+// Admin NGO Profile Approval Routes
+app.get('/admin/ngo-requests', async (req, res) => {
+    try {
+        const ngos = await NGO.find({ status: 'pending' }).sort({ createdAt: -1 });
+        res.json({ ngos });
+    } catch (error) {
+        res.status(500).json({ message: "Server error fetching NGO requests" });
+    }
+});
+
+app.put('/admin/ngo-requests/:id/approve', async (req, res) => {
+    try {
+        const ngo = await NGO.findByIdAndUpdate(req.params.id, { status: 'active' }, { new: true });
+        res.json({ message: "NGO Approved successfully", ngo });
+    } catch (error) {
+        res.status(500).json({ message: "Error approving NGO" });
+    }
+});
+
+app.delete('/admin/ngo-requests/:id/reject', async (req, res) => {
+    try {
+        await NGO.findByIdAndDelete(req.params.id);
+        res.json({ message: "NGO Request rejected and deleted" });
+    } catch (error) {
+        res.status(500).json({ message: "Error rejecting NGO" });
+    }
+});
+
 // 9️⃣ SSL COMMERZ INTEGRATION
 const store_id = process.env.SSLCOMMERZ_STORE_ID || "fluff69d2431081877";
 const store_passwd = process.env.SSLCOMMERZ_STORE_PASSWORD || "fluff69d2431081877@ssl";
@@ -628,7 +656,7 @@ app.post('/api/ngo', upload.array('gallery', 10), async (req, res) => {
 
 app.get('/api/ngos', async (req, res) => {
     try {
-        const ngos = await NGO.find().sort({ name: 1 });
+        const ngos = await NGO.find({ status: 'active' }).sort({ name: 1 });
         res.json(ngos);
     } catch (error) {
         res.status(500).json({ message: "Server error while fetching NGOs" });

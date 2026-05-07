@@ -25,6 +25,11 @@ const NGOSchema = new mongoose.Schema({
     activeVolunteers: { type: Number, default: 0 }
   },
   gallery: [{ type: String }], // Array of photo paths/filenames
+  status: { 
+    type: String, 
+    enum: ['pending', 'active', 'rejected'], 
+    default: 'pending' 
+  },
   createdAt: { type: Date, default: Date.now }
 });
 

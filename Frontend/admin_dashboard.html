@@ -267,13 +267,13 @@
                 document.getElementById('count-adoptions').innerText = adoptionData.totalReports || 0;
                 document.getElementById('count-ngos').innerText = globalData.ngos.length || 0;
 
-                renderTable(currentTab);
+                await renderTable(currentTab);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
         }
 
-        function renderTable(tab) {
+        async function renderTable(tab) {
             const head = document.getElementById('table-head');
             const body = document.getElementById('table-body');
             head.innerHTML = '';
@@ -292,8 +292,14 @@
                 document.getElementById('table-title').innerText = 'Adoption Posts';
             } else if (tab === 'ngos') {
                 type = 'ngos';
-                data = globalData.ngos;
-                document.getElementById('table-title').innerText = 'Registered NGOs';
+                try {
+                    const res = await fetch(`${API_BASE}/admin/ngo-requests`);
+                    const json = await res.json();
+                    data = json.ngos || [];
+                } catch (e) {
+                    console.error("Error fetching NGO requests:", e);
+                }
+                document.getElementById('table-title').innerText = 'Pending Partner Requests';
             }
 
             if (type === 'rescues') {
@@ -365,7 +371,7 @@
             } else if (type === 'ngos') {
                 head.innerHTML = `
                     <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">NGO Name</th>
-                    <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">Email</th>
+                    <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">Reg ID</th>
                     <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">Status</th>
                     <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400 text-right">Actions</th>
                 `;
@@ -373,27 +379,27 @@
                 data.forEach(item => {
                     const row = document.createElement('tr');
                     row.className = 'group';
-                    const statusClass = item.ngoStatus === 'approved' ? 'bg-green-100 text-green-700' : (item.ngoStatus === 'declined' ? 'bg-red-100 text-red-700' : 'bg-orange-100 text-orange-700');
                     row.innerHTML = `
                         <td class="px-6 py-4 bg-stone-50/50 rounded-l-xl group-hover:bg-orange-50/30 transition-colors">
                             <div class="font-black text-on-surface">${item.name || 'Unnamed NGO'}</div>
+                            <div class="text-xs text-stone-400">${item.contact?.email || 'No email'}</div>
                         </td>
                         <td class="px-6 py-4 bg-stone-50/50 group-hover:bg-orange-50/30 transition-colors">
-                            <div class="font-bold">${item.email || 'N/A'}</div>
+                            <div class="font-bold">${item.registrationId || 'N/A'}</div>
                         </td>
                         <td class="px-6 py-4 bg-stone-50/50 group-hover:bg-orange-50/30 transition-colors">
-                            <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${statusClass}">${item.ngoStatus || 'pending'}</span>
+                            <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-orange-100 text-orange-700">${item.status || 'pending'}</span>
                         </td>
                         <td class="px-6 py-4 bg-stone-50/50 rounded-r-xl text-right group-hover:bg-orange-50/30 transition-colors">
                             <div class="flex justify-end gap-2">
-                                <button onclick="updateNGO('${item._id}', 'approved')" class="bg-green-500 text-white p-2 rounded-full hover:scale-110 shadow-md transition-all" title="Approve"><span class="material-symbols-outlined block text-sm">check</span></button>
-                                <button onclick="updateNGO('${item._id}', 'declined')" class="bg-red-500 text-white p-2 rounded-full hover:scale-110 shadow-md transition-all" title="Decline"><span class="material-symbols-outlined block text-sm">close</span></button>
+                                <button onclick="updateNGOStatus('${item._id}', 'approve')" class="bg-green-500 text-white p-2 rounded-full hover:scale-110 shadow-md transition-all" title="Approve"><span class="material-symbols-outlined block text-sm">check</span></button>
+                                <button onclick="updateNGOStatus('${item._id}', 'reject')" class="bg-red-500 text-white p-2 rounded-full hover:scale-110 shadow-md transition-all" title="Reject"><span class="material-symbols-outlined block text-sm">close</span></button>
                             </div>
                         </td>
                     `;
                     body.appendChild(row);
                 });
-                document.getElementById('data-count').innerText = `Showing ${data.length} NGOs`;
+                document.getElementById('data-count').innerText = `Showing ${data.length} NGO Requests`;
             } else {
                 body.innerHTML = '<tr><td colspan="4" class="text-center py-8 text-stone-400">No data available</td></tr>';
                 document.getElementById('data-count').innerText = `Showing 0 Records`;
@@ -408,7 +414,7 @@
             }
         }
 
-        function switchTab(tab) {
+        async function switchTab(tab) {
             currentTab = tab;
             // Update UI
             document.querySelectorAll('nav button').forEach(btn => {
@@ -424,7 +430,7 @@
             document.getElementById('current-tab-title').innerText = tab.charAt(0).toUpperCase() + tab.slice(1);
             
             // Re-render table based on the new tab
-            renderTable(tab);
+            await renderTable(tab);
         }
 
         async function deleteItem(type, id) {
@@ -443,22 +449,25 @@
             }
         }
 
-        async function updateNGO(id, status) {
-            if (!confirm(`Are you sure you want to mark this NGO as ${status}?`)) return;
+        async function updateNGOStatus(id, action) {
+            const confirmMsg = action === 'approve' ? 'approve this NGO?' : 'REJECT and DELETE this NGO application?';
+            if (!confirm(`Are you sure you want to ${confirmMsg}`)) return;
+            
             try {
-                const res = await fetch(`${API_BASE}/admin/ngos/${id}/status`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ status })
-                });
+                const method = action === 'approve' ? 'PUT' : 'DELETE';
+                const endpoint = action === 'approve' ? `admin/ngo-requests/${id}/approve` : `admin/ngo-requests/${id}/reject`;
+                
+                const res = await fetch(`${API_BASE}/${endpoint}`, { method });
+                
                 if (res.ok) {
-                    await fetchData(); // refresh data
+                    await switchTab('ngos'); // Refresh current tab
                 } else {
-                    alert('Failed to update NGO status.');
+                    const err = await res.json();
+                    alert(err.message || `Failed to ${action} NGO.`);
                 }
             } catch (err) {
                 console.error(err);
-                alert('Error updating NGO status.');
+                alert(`Error processing ${action} request.`);
             }
         }
 

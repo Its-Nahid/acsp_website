@@ -57,10 +57,6 @@ const components = {
                             </a>
                             <a href="contact_doctors.html" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-primary/5 hover:text-primary transition-colors">
                                 <span class="material-symbols-outlined text-lg">medical_information</span>
-                                Contact Doctors
-                            </a>
-                            <a href="ai_chat.html" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-primary/5 hover:text-primary transition-colors">
-                                <span class="material-symbols-outlined text-lg">smart_toy</span>
                                 AI Assistant
                             </a>
                             <a href="article.html" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-primary/5 hover:text-primary transition-colors">
@@ -72,7 +68,25 @@ const components = {
                 </div>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="donation.html">Donation</a>
                 <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-adoption" href="adoptionpage.html">Adoption</a>
-                <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors" id="nav-rescue" href="report.html">Rescue</a>
+                <div class="relative group">
+                    <a class="text-sm font-bold text-gray-500 hover:text-primary transition-colors flex items-center gap-1 py-1 cursor-pointer" id="nav-rescue" href="rescue.html">
+                        Rescue
+                        <span class="material-symbols-outlined text-[18px]">expand_more</span>
+                    </a>
+                    <div class="absolute left-0 top-full w-60 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-left -translate-y-2 group-hover:translate-y-0 z-50 pt-2">
+                        <div class="bg-white dark:bg-zinc-800 rounded-2xl shadow-2xl border border-gray-100 dark:border-zinc-700 overflow-hidden py-2">
+                            <a href="rescue.html" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-primary/5 hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined text-lg">dashboard</span>
+                                Rescue Hub
+                            </a>
+                            <a href="report.html" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-primary/5 hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined text-lg">emergency</span>
+                                Report Emergency
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div id="admin-link-placeholder"></div>
             </nav>
             <div class="flex items-center gap-3" id="auth-container">
                 <!-- Auth buttons injected by JS -->
@@ -135,6 +149,53 @@ const components = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+    // 🛡️ GATEKEEPER: Keep users at home if not logged in
+    const publicPages = ['index.html', 'login.html', 'signup.html', 'forgot-password.html', 'reset-password.html', ''];
+    const currentPage = window.location.pathname.split('/').pop();
+    const token = localStorage.getItem('token');
+
+    // 1. Function to show professional toast
+    window.showAccessDeniedToast = function() {
+        const existing = document.getElementById('access-denied-toast');
+        if (existing) existing.remove();
+
+        const toast = document.createElement('div');
+        toast.id = 'access-denied-toast';
+        toast.style.cssText = `
+            position: fixed; top: 24px; right: 24px; z-index: 10001;
+            padding: 1rem 1.5rem; border-radius: 1rem; color: white;
+            font-weight: 700; font-size: 0.875rem;
+            background: #ef4444; box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.2);
+            display: flex; align-items: center; gap: 10px;
+            animation: slideIn 0.5s ease-out forwards;
+        `;
+        toast.innerHTML = `<span class="material-symbols-outlined text-[20px]">lock_person</span> Access Restricted. Please Login.
+            <style>@keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }</style>`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 4000);
+    };
+
+    // 2. Direct access protection (Redirect to home if they land on a restricted page)
+    if (!publicPages.includes(currentPage) && !token) {
+        window.location.href = 'index.html';
+        return;
+    }
+
+    // 3. Link click protection
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('a');
+        if (!link) return;
+
+        const href = link.getAttribute('href');
+        if (!href || href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('tel:')) return;
+
+        const targetPage = href.split('/').pop();
+        if (!publicPages.includes(targetPage) && !token) {
+            e.preventDefault();
+            window.showAccessDeniedToast();
+        }
+    });
+
     // Inject Navbar
     const navPlaceholder = document.getElementById('navbar-placeholder');
     if (navPlaceholder) {
@@ -173,6 +234,22 @@ function updateAuthUI() {
     if (!authContainer) return;
 
     const token = localStorage.getItem('token');
+    const userRole = localStorage.getItem('role');
+    const adminPlaceholder = document.getElementById('admin-link-placeholder');
+    
+    if (adminPlaceholder) {
+        if (token && userRole === 'admin') {
+            adminPlaceholder.innerHTML = `
+                <a href="admin_dashboard.html" class="flex items-center gap-2 px-4 py-1.5 bg-orange-50 text-orange-600 text-xs font-black rounded-full border border-orange-100 hover:bg-orange-100 transition-all ml-2">
+                    <span class="material-symbols-outlined text-sm">dashboard</span>
+                    Admin Panel
+                </a>
+            `;
+        } else {
+            adminPlaceholder.innerHTML = '';
+        }
+    }
+
     if (token) {
         // User is logged in
         authContainer.innerHTML = `

@@ -1,35 +1,62 @@
 # Dependencies
 node_modules/
-
+**/node_modules/
 # Environment variables (Secrets)
 .env
-.env.*
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
 !.env.example
 
 # OS-generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
 Thumbs.db
 desktop.ini
 
 # Logs
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-logs/
-*.log
+lerna-debug.log*
 
 # IDE / Editor settings
 .vscode/
 .idea/
 *.swp
 *.swo
+*.sublime-project
+*.sublime-workspace
+.project
+.settings/
+.classpath
 
 # User-uploaded files
-Backend/uploads/
-uploads/
+**/uploads/*
+!**/uploads/.gitkeep
 
-# Build outputs (if any)
+# Build outputs
 dist/
 build/
+out/
+.next/
 bin/
 obj/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+.eslintcache
+.cache/
+.npm
+.temp/
+temp/

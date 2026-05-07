@@ -98,16 +98,16 @@
     </main>
     <div id="footer-placeholder"></div>
     <!-- Success Modal -->
-    <div id="successModal" class="fixed inset-0 z-[100] hidden bg-black/60 backdrop-blur-sm items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+    <div id="successModal" class="fixed inset-0 z-[100] hidden bg-slate-900/40 backdrop-blur-md items-center justify-center p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-white dark:bg-zinc-900 rounded-[3rem] shadow-2xl w-full max-w-lg overflow-hidden transform scale-95 transition-all duration-300 flex flex-col items-center text-center p-12" id="modalContent">
-            <div class="size-24 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center text-green-500 mb-8 animate-bounce">
-                <span class="material-symbols-outlined text-5xl" style="font-variation-settings: 'FILL' 1">check_circle</span>
+            <div class="size-24 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center text-primary mb-8 animate-pulse">
+                <span class="material-symbols-outlined text-5xl" style="font-variation-settings: 'FILL' 1">verified</span>
             </div>
-            <h2 class="text-3xl font-black tracking-tight mb-4 text-slate-900 dark:text-white">Application Received!</h2>
-            <p class="text-stone-600 dark:text-stone-400 mb-10 leading-relaxed">Your request to become a partner has been successfully submitted. Our team will review your application and get back to you shortly.</p>
+            <h2 class="text-3xl font-black tracking-tight mb-4 text-slate-900 dark:text-white">Application Under Process</h2>
+            <p class="text-stone-600 dark:text-stone-400 mb-10 leading-relaxed text-lg">Thank you for your interest! Your partnership request is now in our <span class="text-primary font-bold">manual review queue</span>. <br><br>Our administrators will verify your details soon. You will receive an update once your profile is approved.</p>
             <div class="flex flex-col w-full gap-4">
-                <button onclick="window.location.href='ngo_directory.html'" class="w-full py-5 bg-primary text-white font-black rounded-full shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all">Go to NGO Directory</button>
-                <button onclick="closeModal()" class="w-full py-5 bg-stone-100 dark:bg-zinc-800 text-stone-600 dark:text-stone-300 font-bold rounded-full hover:bg-stone-200 transition-all">Close</button>
+                <button onclick="window.location.href='index.html'" class="w-full py-5 bg-primary text-white font-black rounded-full shadow-lg shadow-primary/20 hover:-translate-y-1 active:scale-95 transition-all">Return to Home</button>
+                <button onclick="closeModal()" class="w-full py-5 bg-stone-100 dark:bg-zinc-800 text-stone-600 dark:text-stone-300 font-bold rounded-full hover:bg-stone-200 active:scale-95 transition-all">Submit Another</button>
             </div>
         </div>
     </div>
