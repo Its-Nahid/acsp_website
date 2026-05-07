@@ -228,7 +228,8 @@
                 if (response.ok) {
                     appendMessage('ai', data.reply);
                 } else {
-                    appendMessage('ai', data.message || "Something went wrong. Please try again.");
+                    const errorMsg = data.error ? `${data.message}: ${data.error}` : data.message;
+                    appendMessage('ai', errorMsg || "Something went wrong. Please try again.");
                 }
             } catch (error) {
                 document.getElementById(loadingId).remove();
