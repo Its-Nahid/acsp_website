@@ -622,10 +622,20 @@
             } else if (type === 'vets') {
                 item = globalData.vets.find(v => v._id === id);
                 if (!item) return;
+
+                let photoSrc = 'https://via.placeholder.com/150';
+                if (item.photo) {
+                    if (item.photo.startsWith('data:')) {
+                        photoSrc = item.photo;
+                    } else {
+                        photoSrc = item.photo.startsWith('http') ? item.photo : `${API_BASE}/${item.photo.startsWith('/') ? item.photo.substring(1) : item.photo}`;
+                    }
+                }
+
                 html = `
                     <div class="space-y-4">
                         <div class="flex gap-6 items-center mb-6">
-                            <img src="${item.photo ? '/' + item.photo : 'https://via.placeholder.com/150'}" class="w-32 h-32 rounded-2xl object-cover border-4 border-orange-50 shadow-lg">
+                            <img src="${photoSrc}" class="w-32 h-32 rounded-2xl object-cover border-4 border-orange-50 shadow-lg">
                             <div>
                                 <h3 class="text-2xl font-black">${item.name}</h3>
                                 <p class="text-orange-500 font-bold">${item.license}</p>

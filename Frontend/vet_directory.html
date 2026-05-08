@@ -155,10 +155,21 @@
                         return;
                     }
 
-                    grid.innerHTML = vets.map(vet => `
+                    grid.innerHTML = vets.map(vet => {
+                        let photoSrc = 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2070&auto=format&fit=crop';
+                        if (vet.photo) {
+                            if (vet.photo.startsWith('data:')) {
+                                photoSrc = vet.photo;
+                            } else {
+                                // Ensure local paths are correctly resolved with API_BASE
+                                photoSrc = vet.photo.startsWith('http') ? vet.photo : `${API_BASE}/${vet.photo.startsWith('/') ? vet.photo.substring(1) : vet.photo}`;
+                            }
+                        }
+
+                        return `
                         <div class="vet-card group flex flex-col bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all">
                             <div class="relative h-64 overflow-hidden">
-                                <img src="${vet.photo ? '/' + vet.photo : 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2070&auto=format&fit=crop'}"
+                                <img src="${photoSrc}"
                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                     alt="${vet.name}">
                                 <div class="absolute top-4 right-4 px-3 py-1 bg-green-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full">
@@ -201,7 +212,8 @@
                                 </div>
                             </div>
                         </div>
-                    `).join('');
+                        `;
+                    }).join('');
                 } catch (error) {
                     console.error('Error loading vets:', error);
                     grid.innerHTML = '<p class="col-span-full text-center text-red-500 py-10 font-bold">Failed to load directory. Please try again later.</p>';
