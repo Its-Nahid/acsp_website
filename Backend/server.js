@@ -19,6 +19,8 @@ const VolunteerOpportunity = require("./models/VolunteerOpportunity");
 const SSLCommerzPayment = require("sslcommerz-lts");
 const axios = require("axios");
 const nodemailer = require("nodemailer");
+const Vet = require("./models/Vet");
+
 console.log("Groq API Key loaded:", process.env.GROQ_API_KEY ? "Yes" : "No");
 
 // Initialize Express
@@ -854,6 +856,71 @@ app.get('/api/volunteers/summary', async (req, res) => {
         });
     } catch (error) {
         res.status(500).json({ message: "Server error while fetching volunteer summary" });
+    }
+});
+
+// 13. Veterinary Directory Routes
+
+// Submit Vet Application (Public)
+app.post('/api/vets', upload.single('photo'), async (req, res) => {
+    try {
+        const { email } = req.body;
+        
+        // Check for existing application
+        const existingVet = await Vet.findOne({ email });
+        if (existingVet) {
+            return res.status(400).json({ message: "An application with this email already exists." });
+        }
+
+        const vetData = req.body;
+        if (req.file) {
+            vetData.photo = req.file.path.replace(/\\/g, '/');
+        }
+        
+        // Handle specialization if it comes as a string or array
+        if (typeof vetData.specialization === 'string') {
+            vetData.specialization = [vetData.specialization];
+        }
+
+        const newVet = new Vet(vetData);
+        await newVet.save();
+        res.status(201).json({ message: "Application submitted successfully!", vet: newVet });
+    } catch (error) {
+        console.error('Vet submission error:', error);
+        res.status(500).json({ message: "Server error while submitting application" });
+    }
+});
+
+
+// Get Approved Vets (Public Directory)
+app.get('/api/vets', async (req, res) => {
+    try {
+        const vets = await Vet.find({ status: 'approved' }).sort({ createdAt: -1 });
+        res.json(vets);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching veterinarians" });
+    }
+});
+
+// Admin: Get All Vets (for Dashboard)
+app.get('/admin/vets', async (req, res) => {
+    try {
+        const vets = await Vet.find().sort({ createdAt: -1 });
+        res.json(vets);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching vets for admin" });
+    }
+});
+
+// Admin: Update Vet Status (Approve/Reject)
+app.put('/admin/vets/:id/status', async (req, res) => {
+    try {
+        const { status } = req.body;
+        const vet = await Vet.findByIdAndUpdate(req.params.id, { status }, { new: true });
+        if (!vet) return res.status(404).json({ message: "Vet not found" });
+        res.json({ message: `Vet status updated to ${status}`, vet });
+    } catch (error) {
+        res.status(500).json({ message: "Error updating vet status" });
     }
 });
 

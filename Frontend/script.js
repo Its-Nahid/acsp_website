@@ -1,6 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('ACSP Unified System Loaded');
+
+    // Automatic API Base detection
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const API_BASE = isLocal ? 'http://localhost:5000' : '';
+
     //ngo dashboad function handle
+
     function showToast(message, type = 'success') {
         let container = document.getElementById('toast-container');
         if (!container) {
@@ -68,7 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             try {
-                const response = await fetch('http://localhost:5000/report', {
+                const response = await fetch(`${API_BASE}/report`, {
+
                     method: 'POST',
                     body: formData
                 });
@@ -118,7 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.innerHTML = 'Processing...';
 
             try {
-                const response = await fetch('http://localhost:5000/signup', {
+                const response = await fetch(`${API_BASE}/signup`, {
+
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ name, email, password, role })
@@ -170,7 +178,8 @@ document.addEventListener('DOMContentLoaded', () => {
             verifyBtn.innerHTML = 'Verifying...';
 
             try {
-                const response = await fetch('http://localhost:5000/verify-signup', {
+                const response = await fetch(`${API_BASE}/verify-signup`, {
+
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: currentSignupEmail, code })
@@ -214,7 +223,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const password = document.getElementById('loginPassword').value;
 
             try {
-                const response = await fetch('http://localhost:5000/login', {
+                const response = await fetch(`${API_BASE}/login`, {
+
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
@@ -250,7 +260,8 @@ document.addEventListener('DOMContentLoaded', () => {
             sendCodeBtn.innerHTML = '<span>Sending...</span><span class="material-symbols-outlined text-xl">hourglass_empty</span>';
 
             try {
-                const response = await fetch('http://localhost:5000/forgot-password', {
+                const response = await fetch(`${API_BASE}/forgot-password`, {
+
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email })
@@ -296,7 +307,8 @@ document.addEventListener('DOMContentLoaded', () => {
             verifyCodeBtn.innerHTML = '<span>Verifying...</span><span class="material-symbols-outlined text-xl">hourglass_empty</span>';
 
             try {
-                const response = await fetch('http://localhost:5000/verify-reset-code', {
+                const response = await fetch(`${API_BASE}/verify-reset-code`, {
+
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, code })
@@ -330,7 +342,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 resendCodeBtn.textContent = 'Sending...';
 
                 try {
-                    const response = await fetch('http://localhost:5000/forgot-password', {
+                    const response = await fetch(`${API_BASE}/forgot-password`, {
+
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email })
@@ -385,7 +398,8 @@ document.addEventListener('DOMContentLoaded', () => {
             resetPasswordBtn.innerHTML = '<span>Resetting...</span><span class="material-symbols-outlined text-xl">hourglass_empty</span>';
 
             try {
-                const response = await fetch('http://localhost:5000/reset-password', {
+                const response = await fetch(`${API_BASE}/reset-password`, {
+
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ resetToken, newPassword })
@@ -535,7 +549,8 @@ document.addEventListener('DOMContentLoaded', () => {
             donateBtn.disabled = true;
 
             try {
-                const response = await fetch('http://localhost:5000/api/donate/init', {
+                const response = await fetch(`${API_BASE}/api/donate/init`, {
+
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ amount: finalAmount, donorName, phone, location, cause })

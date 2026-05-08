@@ -115,6 +115,11 @@
                 <span class="material-symbols-outlined">pets</span>
                 <span>Adoption Listings</span>
             </button>
+            <button onclick="switchTab('vets')" id="tab-vets" class="w-full flex items-center gap-4 text-stone-500 font-bold uppercase text-[12px] tracking-[0.2em] px-6 py-3 hover:bg-orange-50/50 transition-all duration-300">
+                <span class="material-symbols-outlined">medical_information</span>
+                <span>Vet Approvals</span>
+            </button>
+
         </div>
         <div class="px-4 pb-4">
             <button class="w-full bg-error text-white font-black py-4 rounded-full shadow-lg hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
@@ -194,6 +199,17 @@
                     <div class="text-[2.5rem] font-black leading-none mb-1" id="count-adoptions">0</div>
                     <div class="text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">Active Adoption Listings</div>
                 </div>
+                <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-primary/5">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-orange-100 rounded-2xl text-orange-600">
+                            <span class="material-symbols-outlined text-3xl">medical_services</span>
+                        </div>
+                        <span class="bg-orange-50 text-orange-600 text-[10px] font-black px-3 py-1 rounded-full tracking-widest uppercase">Specialists</span>
+                    </div>
+                    <div class="text-[2.5rem] font-black leading-none mb-1" id="count-vets">0</div>
+                    <div class="text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">Total Vet Applications</div>
+                </div>
+
             </div>
         </section>
 
@@ -243,29 +259,42 @@
     <script src="components.js"></script>
     <script src="script.js"></script>
     <script>
-        const API_BASE = 'http://localhost:5000';
+        // Automatic API Base detection
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const API_BASE = isLocal ? 'http://localhost:5000' : '';
+        
         let currentTab = 'dashboard';
-        let globalData = { rescues: [], adoptions: [], ngos: [] };
+        let globalData = { rescues: [], adoptions: [], ngos: [], vets: [] };
+
+
 
         async function fetchData() {
             try {
-                const [rescueRes, adoptionRes, ngoRes] = await Promise.all([
+                const [rescueRes, adoptionRes, ngoRes, vetRes] = await Promise.all([
                     fetch(`${API_BASE}/reports`),
                     fetch(`${API_BASE}/adoptions`),
-                    fetch(`${API_BASE}/admin/ngos`)
+                    fetch(`${API_BASE}/admin/ngo-requests`),
+                    fetch(`${API_BASE}/admin/vets`)
                 ]);
+
+                
+                // Note: I updated the paths to use /api/ where applicable to match server.js routes
 
                 const rescueData = await rescueRes.json();
                 const adoptionData = await adoptionRes.json();
                 const ngoData = await ngoRes.json();
+                const vetData = await vetRes.json();
 
-                globalData.rescues = rescueData.reports || [];
-                globalData.adoptions = adoptionData.adoptions || [];
-                globalData.ngos = ngoData.ngos || [];
+                globalData.rescues = rescueData.reports || rescueData || [];
+                globalData.adoptions = adoptionData.adoptions || adoptionData || [];
+                globalData.ngos = ngoData.ngos || ngoData || [];
+                globalData.vets = vetData.vets || vetData || [];
 
-                document.getElementById('count-rescues').innerText = rescueData.totalReports || 0;
-                document.getElementById('count-adoptions').innerText = adoptionData.totalReports || 0;
+                document.getElementById('count-rescues').innerText = rescueData.totalReports || globalData.rescues.length || 0;
+                document.getElementById('count-adoptions').innerText = adoptionData.totalReports || globalData.adoptions.length || 0;
                 document.getElementById('count-ngos').innerText = globalData.ngos.length || 0;
+                document.getElementById('count-vets').innerText = globalData.vets.length || 0;
+
 
                 await renderTable(currentTab);
             } catch (error) {
@@ -300,7 +329,12 @@
                     console.error("Error fetching NGO requests:", e);
                 }
                 document.getElementById('table-title').innerText = 'Pending Partner Requests';
+            } else if (tab === 'vets') {
+                type = 'vets';
+                data = globalData.vets;
+                document.getElementById('table-title').innerText = 'Veterinary Applications';
             }
+
 
             if (type === 'rescues') {
                 head.innerHTML = `
@@ -400,7 +434,42 @@
                     body.appendChild(row);
                 });
                 document.getElementById('data-count').innerText = `Showing ${data.length} NGO Requests`;
-            } else {
+            } else if (type === 'vets') {
+                head.innerHTML = `
+                    <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">Vet Info</th>
+                    <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">Clinic / Location</th>
+                    <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400">Status</th>
+                    <th class="px-6 pb-4 text-[12px] font-black uppercase tracking-[0.2em] text-stone-400 text-right">Actions</th>
+                `;
+
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.className = 'group';
+                    row.innerHTML = `
+                        <td class="px-6 py-4 bg-stone-50/50 rounded-l-xl group-hover:bg-orange-50/30 transition-colors">
+                            <div class="font-black text-on-surface">${item.name}</div>
+                            <div class="text-[10px] font-black uppercase text-stone-400">${item.license}</div>
+                        </td>
+                        <td class="px-6 py-4 bg-stone-50/50 group-hover:bg-orange-50/30 transition-colors">
+                            <div class="font-bold">${item.clinicName || 'Private Practice'}</div>
+                            <div class="text-xs text-stone-400">${item.location}</div>
+                        </td>
+                        <td class="px-6 py-4 bg-stone-50/50 group-hover:bg-orange-50/30 transition-colors">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${item.status === 'approved' ? 'bg-green-100 text-green-700' : item.status === 'rejected' ? 'bg-red-100 text-red-700' : 'bg-orange-100 text-orange-700'}">${item.status}</span>
+                        </td>
+                        <td class="px-6 py-4 bg-stone-50/50 rounded-r-xl text-right group-hover:bg-orange-50/30 transition-colors">
+                            <div class="flex justify-end gap-2">
+                                <button onclick="viewItem('vets', '${item._id}')" class="bg-blue-500 text-white p-2 rounded-full hover:scale-110 shadow-md transition-all" title="View Details"><span class="material-symbols-outlined block text-sm">visibility</span></button>
+                                <button onclick="updateVetStatus('${item._id}', 'approved')" class="bg-green-500 text-white p-2 rounded-full hover:scale-110 shadow-md transition-all" title="Approve"><span class="material-symbols-outlined block text-sm">check</span></button>
+                                <button onclick="updateVetStatus('${item._id}', 'rejected')" class="bg-red-500 text-white p-2 rounded-full hover:scale-110 shadow-md transition-all" title="Reject"><span class="material-symbols-outlined block text-sm">close</span></button>
+                            </div>
+                        </td>
+                    `;
+                    body.appendChild(row);
+                });
+                document.getElementById('data-count').innerText = `Showing ${data.length} Vet Applications`;
+            }
+ else {
                 body.innerHTML = '<tr><td colspan="4" class="text-center py-8 text-stone-400">No data available</td></tr>';
                 document.getElementById('data-count').innerText = `Showing 0 Records`;
             }
@@ -471,6 +540,26 @@
             }
         }
 
+        async function updateVetStatus(id, status) {
+            if (!confirm(`Are you sure you want to ${status} this veterinarian?`)) return;
+            try {
+                const res = await fetch(`${API_BASE}/admin/vets/${id}/status`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status })
+                });
+                if (res.ok) {
+                    await fetchData();
+                } else {
+                    alert('Failed to update status.');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error updating status.');
+            }
+        }
+
+
         function viewItem(type, id) {
             let item;
             let html = '';
@@ -526,7 +615,35 @@
                         </div>
                     </div>
                 `;
+            } else if (type === 'vets') {
+                item = globalData.vets.find(v => v._id === id);
+                if (!item) return;
+                html = `
+                    <div class="space-y-4">
+                        <div class="flex gap-6 items-center mb-6">
+                            <img src="${item.photo ? '/' + item.photo : 'https://via.placeholder.com/150'}" class="w-32 h-32 rounded-2xl object-cover border-4 border-orange-50 shadow-lg">
+                            <div>
+                                <h3 class="text-2xl font-black">${item.name}</h3>
+                                <p class="text-orange-500 font-bold">${item.license}</p>
+                                <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${item.status === 'approved' ? 'bg-green-100 text-green-700' : item.status === 'rejected' ? 'bg-red-100 text-red-700' : 'bg-orange-100 text-orange-700'}">${item.status}</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div><strong>Clinic:</strong> ${item.clinicName || 'N/A'}</div>
+                            <div><strong>Location:</strong> ${item.location}</div>
+                            <div><strong>Email:</strong> ${item.email}</div>
+                            <div><strong>Phone:</strong> ${item.phone}</div>
+                            <div><strong>Hours:</strong> ${item.workingHours}</div>
+                            <div><strong>Specializations:</strong> ${item.specialization?.join(', ') || 'N/A'}</div>
+                        </div>
+                        <div>
+                            <strong>Bio:</strong>
+                            <p class="mt-1 p-3 bg-gray-50 dark:bg-zinc-800 rounded-lg text-sm">${item.bio || 'No bio provided.'}</p>
+                        </div>
+                    </div>
+                `;
             }
+
 
             document.getElementById('modalBody').innerHTML = html;
             const modal = document.getElementById('viewModal');
