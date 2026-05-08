@@ -281,17 +281,38 @@ app.post("/reset-password", async (req, res) => {
 });
 
 // 7️⃣ Multer setup for photo uploads
-const storage = multer.diskStorage({
+const fs = require('fs');
+const uploadDir = 'uploads/';
+if (!fs.existsSync(uploadDir) && !process.env.VERCEL) {
+    fs.mkdirSync(uploadDir);
+}
+
+// Use memory storage for Vercel (Production) to support Base64, disk for Local
+const storage = process.env.VERCEL ? multer.memoryStorage() : multer.diskStorage({
     destination: (req, file, cb) => cb(null, 'uploads/'),
     filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
 });
-const upload = multer({ storage });
+
+const upload = multer({ 
+    storage,
+    limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit
+});
+
+
 
 // 8️⃣ Rescue Report Route
 app.post('/report', upload.array('photos', 5), async (req, res) => {
     try {
-        // Ensure req.files exists before mapping
-        const photoPaths = req.files ? req.files.map(file => file.path) : [];
+        let photoPaths = [];
+        if (req.files && req.files.length > 0) {
+            if (process.env.VERCEL) {
+                // Convert each buffer to Base64
+                photoPaths = req.files.map(file => `data:${file.mimetype};base64,${file.buffer.toString('base64')}`);
+            } else {
+                photoPaths = req.files.map(file => file.path.replace(/\\/g, '/'));
+            }
+        }
+
 
         const newReport = new RescueReport({
             fullName: req.body.fullName,
@@ -374,7 +395,15 @@ app.get('/api/reports/ngo/:ngoId', async (req, res) => {
 // 10 Adoption Routes
 app.post('/adoption', upload.array('photos', 5), async (req, res) => {
     try {
-        const photoPaths = req.files ? req.files.map(file => file.path) : [];
+        let photoPaths = [];
+        if (req.files && req.files.length > 0) {
+            if (process.env.VERCEL) {
+                photoPaths = req.files.map(file => `data:${file.mimetype};base64,${file.buffer.toString('base64')}`);
+            } else {
+                photoPaths = req.files.map(file => file.path.replace(/\\/g, '/'));
+            }
+        }
+
 
         let socialComp = [];
         if (req.body.socialCompatibility) {
@@ -629,7 +658,15 @@ app.post("/api/ai-chat", async (req, res) => {
 // NGO Management Routes
 app.post('/api/ngo', upload.array('gallery', 10), async (req, res) => {
     try {
-        const galleryPaths = req.files ? req.files.map(file => file.path) : [];
+        let galleryPaths = [];
+        if (req.files && req.files.length > 0) {
+            if (process.env.VERCEL) {
+                galleryPaths = req.files.map(file => `data:${file.mimetype};base64,${file.buffer.toString('base64')}`);
+            } else {
+                galleryPaths = req.files.map(file => file.path.replace(/\\/g, '/'));
+            }
+        }
+
 
         // Parse complex objects if sent as strings (common with multipart/form-data)
         const location = typeof req.body.location === 'string' ? JSON.parse(req.body.location) : req.body.location;
@@ -727,24 +764,21 @@ app.get('/api/donations/summary', async (req, res) => {
     }
 });
 
-// Start server
+// 11. Rescued Animal Management
 app.post('/api/rescued-animals', upload.array('photos', 5), async (req, res) => {
     try {
-        const photoPaths = req.files ? req.files.map(file => file.path) : [];
+        let photoPaths = [];
+        if (req.files && req.files.length > 0) {
+            if (process.env.VERCEL) {
+                photoPaths = req.files.map(file => `data:${file.mimetype};base64,${file.buffer.toString('base64')}`);
+            } else {
+                photoPaths = req.files.map(file => file.path.replace(/\\/g, '/'));
+            }
+        }
 
         const newAnimal = new RescuedAnimal({
-            animalId: req.body.animalId,
-            name: req.body.name,
-            category: req.body.category,
-            breed: req.body.breed,
-            species: req.body.species,
-            age: req.body.age,
-            rescueDate: req.body.rescueDate,
-            status: req.body.status,
-            currentLocation: req.body.currentLocation,
-            story: req.body.story,
-            photos: photoPaths,
-            assignedNGO: req.body.assignedNGO
+            ...req.body,
+            photos: photoPaths
         });
 
         await newAnimal.save();
@@ -754,6 +788,7 @@ app.post('/api/rescued-animals', upload.array('photos', 5), async (req, res) => 
         res.status(500).json({ message: "Server error while adding rescued animal" });
     }
 });
+
 
 app.get('/api/rescued-animals', async (req, res) => {
     try {
@@ -873,11 +908,17 @@ app.post('/api/vets', upload.single('photo'), async (req, res) => {
         }
 
         const vetData = req.body;
+        
+        // Handle photo storage based on environment
         if (req.file) {
-            vetData.photo = req.file.path.replace(/\\/g, '/');
+            if (process.env.VERCEL) {
+                const base64Image = req.file.buffer.toString('base64');
+                vetData.photo = `data:${req.file.mimetype};base64,${base64Image}`;
+            } else {
+                vetData.photo = req.file.path.replace(/\\/g, '/');
+            }
         }
         
-        // Handle specialization if it comes as a string or array
         if (typeof vetData.specialization === 'string') {
             vetData.specialization = [vetData.specialization];
         }
@@ -891,8 +932,31 @@ app.post('/api/vets', upload.single('photo'), async (req, res) => {
     }
 });
 
+// Adoption Posting
+app.post('/api/adoptions', upload.single('photo'), async (req, res) => {
+    try {
+        const adoptionData = req.body;
+        if (req.file) {
+            if (process.env.VERCEL) {
+                const base64Image = req.file.buffer.toString('base64');
+                adoptionData.photo = `data:${req.file.mimetype};base64,${base64Image}`;
+            } else {
+                adoptionData.photo = req.file.path.replace(/\\/g, '/');
+            }
+        }
+
+        const newAdoption = new Adoption(adoptionData);
+        await newAdoption.save();
+        res.status(201).json({ message: "Adoption post created successfully!", adoption: newAdoption });
+    } catch (error) {
+        console.error("Adoption error:", error);
+        res.status(500).json({ message: "Server error while creating adoption post" });
+    }
+});
+
 
 // Get Approved Vets (Public Directory)
+
 app.get('/api/vets', async (req, res) => {
     try {
         const vets = await Vet.find({ status: 'approved' }).sort({ createdAt: -1 });

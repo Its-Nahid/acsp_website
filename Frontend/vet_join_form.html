@@ -171,18 +171,28 @@
 
             try {
                 const response = await fetch(`${API_BASE}/api/vets`, { method: 'POST', body: formData });
+                
+                let result;
+                const contentType = response.headers.get("content-type");
+                if (contentType && contentType.includes("application/json")) {
+                    result = await response.json();
+                } else {
+                    const text = await response.text();
+                    console.error("Non-JSON response:", text);
+                    throw new Error("Server returned an unexpected response format.");
+                }
 
-                const result = await response.json();
                 if (response.ok) {
                     alert('Your application has been received! Our team will verify your credentials and get back to you shortly.');
                     window.location.href = 'vet_directory.html';
                 } else {
-                    alert('Error: ' + result.message);
+                    alert('Error: ' + (result.message || 'Something went wrong. Please check your data.'));
                 }
             } catch (error) {
                 console.error('Submission error:', error);
-                alert('Could not connect to server. Please try again.');
+                alert('Submission failed: ' + error.message);
             }
+
         });
 
         // Update upload label on file selection
