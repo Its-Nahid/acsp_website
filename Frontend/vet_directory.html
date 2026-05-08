@@ -71,23 +71,23 @@
         </section>
 
         <!-- Search & Filter Bar -->
-        <section class="px-6 mb-12 sticky top-24 z-40">
+        <section class="px-6 mb-12 fixed top-24 left-0 right-0 z-40 bg-background-light dark:bg-background-dark">
             <div class="max-w-7xl mx-auto">
                 <div
                     class="glass-card p-4 md:p-6 rounded-[2.5rem] shadow-xl shadow-primary/5 flex flex-col lg:flex-row gap-4 items-center">
                     <div class="relative flex-1 w-full">
                         <span
                             class="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-slate-400">search</span>
-                        <input type="text" placeholder="Search by doctor name or clinic..."
+                        <input type="text" id="searchName" placeholder="Search by doctor name or clinic..."
                             class="w-full pl-14 pr-6 py-4 bg-white dark:bg-slate-800 rounded-full border-none focus:ring-2 focus:ring-primary/20 shadow-sm text-sm">
                     </div>
                     <div class="relative flex-1 w-full">
                         <span
                             class="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-slate-400">location_on</span>
-                        <input type="text" placeholder="Location (e.g. Dhaka, Natore)"
+                        <input type="text" id="searchLocation" placeholder="Location (e.g. Dhaka, Natore)"
                             class="w-full pl-14 pr-6 py-4 bg-white dark:bg-slate-800 rounded-full border-none focus:ring-2 focus:ring-primary/20 shadow-sm text-sm">
                     </div>
-                    <button
+                    <button id="searchBtn"
                         class="w-full lg:w-auto px-10 py-4 bg-primary text-white font-black rounded-full hover:bg-orange-600 transition-all hover:shadow-lg hover:shadow-primary/20">
                         Search Now
                     </button>
@@ -121,198 +121,22 @@
         </section>
 
         <!-- Doctor Grid -->
-        <section class="px-6">
-            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
-                id="vet-grid">
-                <!-- Sample Card 1 -->
-                <div
-                    class="vet-card group flex flex-col bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2070&auto=format&fit=crop"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            alt="Doctor">
-                        <div
-                            class="absolute top-4 right-4 px-3 py-1 bg-green-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full">
-                            Available</div>
-                    </div>
-                    <div class="p-8 flex flex-col flex-1">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span
-                                class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-black rounded-full uppercase">Small
-                                Animal Specialist</span>
-                        </div>
-                        <h3 class="text-xl font-black mb-1">Dr. Rahat Hasan</h3>
-                        <p class="text-sm text-slate-500 mb-6 flex items-center gap-1">
-                            <span class="material-symbols-outlined text-sm">apartment</span>
-                            Central Pet Hospital
-                        </p>
-
-                        <div class="space-y-3 mb-8">
-                            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
-                                <span class="material-symbols-outlined text-primary text-lg">location_on</span>
-                                <span>Dhanmondi, Dhaka</span>
-                            </div>
-                            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
-                                <span class="material-symbols-outlined text-primary text-lg">schedule</span>
-                                <span>Sat - Thu, 10am - 8pm</span>
-                            </div>
-                        </div>
-
-                        <div class="mt-auto flex flex-col gap-3">
-                            <button
-                                class="w-full py-3.5 bg-primary text-white font-bold rounded-full flex items-center justify-center gap-2 hover:bg-orange-600 transition-all shadow-lg shadow-primary/20">
-                                <span class="material-symbols-outlined text-sm">call</span>
-                                Contact Now
-                            </button>
-                            <button
-                                class="w-full py-3.5 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold rounded-full text-sm hover:bg-slate-100 transition-all">
-                                View Profile
-                            </button>
-                        </div>
+        <section class="px-6 pt-32">
+            <div class="max-w-7xl mx-auto">
+                <div id="vet-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <!-- Cards will be dynamically inserted here -->
+                </div>
+                <div id="loading" class="text-center py-12">
+                    <div class="inline-flex items-center gap-3 text-slate-500">
+                        <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+                        Loading veterinarians...
                     </div>
                 </div>
-
-                <!-- Sample Card 2 -->
-                <div
-                    class="vet-card group flex flex-col bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1559839734-2b71f1536783?q=80&w=2070&auto=format&fit=crop"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            alt="Doctor">
-                        <div
-                            class="absolute top-4 right-4 px-3 py-1 bg-green-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full">
-                            Available</div>
-                    </div>
-                    <div class="p-8 flex flex-col flex-1">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span
-                                class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-black rounded-full uppercase">Feline
-                                Medicine Specialist</span>
-                        </div>
-                        <h3 class="text-xl font-black mb-1">Dr. Sarah Khan</h3>
-                        <p class="text-sm text-slate-500 mb-6 flex items-center gap-1">
-                            <span class="material-symbols-outlined text-sm">apartment</span>
-                            Elite Vet Care
-                        </p>
-
-                        <div class="space-y-3 mb-8">
-                            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
-                                <span class="material-symbols-outlined text-primary text-lg">location_on</span>
-                                <span>Gulshan 2, Dhaka</span>
-                            </div>
-                            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
-                                <span class="material-symbols-outlined text-primary text-lg">schedule</span>
-                                <span>Daily, 9am - 9pm</span>
-                            </div>
-                        </div>
-
-                        <div class="mt-auto flex flex-col gap-3">
-                            <button
-                                class="w-full py-3.5 bg-primary text-white font-bold rounded-full flex items-center justify-center gap-2 hover:bg-orange-600 transition-all shadow-lg shadow-primary/20">
-                                <span class="material-symbols-outlined text-sm">call</span>
-                                Contact Now
-                            </button>
-                            <button
-                                class="w-full py-3.5 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold rounded-full text-sm hover:bg-slate-100 transition-all">
-                                View Profile
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sample Card 3 -->
-                <div
-                    class="vet-card group flex flex-col bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?q=80&w=2070&auto=format&fit=crop"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            alt="Doctor">
-                        <div
-                            class="absolute top-4 right-4 px-3 py-1 bg-slate-400 text-white text-[10px] font-black uppercase tracking-widest rounded-full">
-                            Busy</div>
-                    </div>
-                    <div class="p-8 flex flex-col flex-1">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span
-                                class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-black rounded-full uppercase">Emergency
-                                Surgery</span>
-                        </div>
-                        <h3 class="text-xl font-black mb-1">Dr. Amit Sen</h3>
-                        <p class="text-sm text-slate-500 mb-6 flex items-center gap-1">
-                            <span class="material-symbols-outlined text-sm">apartment</span>
-                            Metro Animal Clinic
-                        </p>
-
-                        <div class="space-y-3 mb-8">
-                            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
-                                <span class="material-symbols-outlined text-primary text-lg">location_on</span>
-                                <span>Banani, Dhaka</span>
-                            </div>
-                            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
-                                <span class="material-symbols-outlined text-primary text-lg">schedule</span>
-                                <span>24/7 Emergency</span>
-                            </div>
-                        </div>
-
-                        <div class="mt-auto flex flex-col gap-3">
-                            <button
-                                class="w-full py-3.5 bg-primary text-white font-bold rounded-full flex items-center justify-center gap-2 hover:bg-orange-600 transition-all shadow-lg shadow-primary/20">
-                                <span class="material-symbols-outlined text-sm">call</span>
-                                Contact Now
-                            </button>
-                            <button
-                                class="w-full py-3.5 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold rounded-full text-sm hover:bg-slate-100 transition-all">
-                                View Profile
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sample Card 4 -->
-                <div
-                    class="vet-card group flex flex-col bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1599443015574-be5fe8a05783?q=80&w=2070&auto=format&fit=crop"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            alt="Doctor">
-                        <div
-                            class="absolute top-4 right-4 px-3 py-1 bg-green-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full">
-                            Available</div>
-                    </div>
-                    <div class="p-8 flex flex-col flex-1">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span
-                                class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-black rounded-full uppercase">Avian
-                                Specialist</span>
-                        </div>
-                        <h3 class="text-xl font-black mb-1">Dr. Nadia Islam</h3>
-                        <p class="text-sm text-slate-500 mb-6 flex items-center gap-1">
-                            <span class="material-symbols-outlined text-sm">apartment</span>
-                            Wildlife & Exotic Care
-                        </p>
-
-                        <div class="space-y-3 mb-8">
-                            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
-                                <span class="material-symbols-outlined text-primary text-lg">location_on</span>
-                                <span>Uttara, Dhaka</span>
-                            </div>
-                            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
-                                <span class="material-symbols-outlined text-primary text-lg">schedule</span>
-                                <span>Mon - Fri, 11am - 6pm</span>
-                            </div>
-                        </div>
-
-                        <div class="mt-auto flex flex-col gap-3">
-                            <button
-                                class="w-full py-3.5 bg-primary text-white font-bold rounded-full flex items-center justify-center gap-2 hover:bg-orange-600 transition-all shadow-lg shadow-primary/20">
-                                <span class="material-symbols-outlined text-sm">call</span>
-                                Contact Now
-                            </button>
-                            <button
-                                class="w-full py-3.5 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold rounded-full text-sm hover:bg-slate-100 transition-all">
-                                View Profile
-                            </button>
-                        </div>
+                <div id="no-results" class="text-center py-12 hidden">
+                    <div class="text-slate-500">
+                        <span class="material-symbols-outlined text-4xl mb-4 block">search_off</span>
+                        <p class="text-lg font-bold">No veterinarians found</p>
+                        <p class="text-sm">Try adjusting your search criteria</p>
                     </div>
                 </div>
             </div>
@@ -366,6 +190,127 @@
     <div id="footer-placeholder"></div>
 
     <script src="components.js"></script>
+    <script>
+        let allVets = [];
+
+        // Function to create vet card HTML
+        function createVetCard(vet) {
+            const photoUrl = vet.photo ? `/${vet.photo}` : 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2070&auto=format&fit=crop';
+            const clinicName = vet.clinicName || 'Private Practice';
+            const specializationText = vet.specialization.length > 0 ? vet.specialization[0].charAt(0).toUpperCase() + vet.specialization[0].slice(1) + ' Specialist' : 'General Practitioner';
+            
+            return `
+                <div class="vet-card group flex flex-col bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="${photoUrl}"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            alt="${vet.name}">
+                        <div class="absolute top-4 right-4 px-3 py-1 bg-green-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full">
+                            Available
+                        </div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-black rounded-full uppercase">${specializationText}</span>
+                        </div>
+                        <h3 class="text-xl font-black mb-1">${vet.name}</h3>
+                        <p class="text-sm text-slate-500 mb-6 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">apartment</span>
+                            ${clinicName}
+                        </p>
+
+                        <div class="space-y-3 mb-8">
+                            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
+                                <span class="material-symbols-outlined text-primary text-lg">location_on</span>
+                                <span>${vet.location}</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
+                                <span class="material-symbols-outlined text-primary text-lg">schedule</span>
+                                <span>${vet.workingHours}</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-auto flex flex-col gap-3">
+                            <a href="tel:${vet.phone}"
+                                class="w-full py-3.5 bg-primary text-white font-bold rounded-full flex items-center justify-center gap-2 hover:bg-orange-600 transition-all shadow-lg shadow-primary/20">
+                                <span class="material-symbols-outlined text-sm">call</span>
+                                Contact Now
+                            </a>
+                            <button onclick="viewVetProfile('${vet._id}')"
+                                class="w-full py-3.5 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold rounded-full text-sm hover:bg-slate-100 transition-all">
+                                View Profile
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to display vets
+        function displayVets(vets) {
+            const grid = document.getElementById('vet-grid');
+            const loading = document.getElementById('loading');
+            const noResults = document.getElementById('no-results');
+            
+            loading.classList.add('hidden');
+            
+            if (vets.length === 0) {
+                noResults.classList.remove('hidden');
+                grid.innerHTML = '';
+                return;
+            }
+            
+            noResults.classList.add('hidden');
+            grid.innerHTML = vets.map(vet => createVetCard(vet)).join('');
+        }
+
+        // Function to filter vets
+        function filterVets() {
+            const searchName = document.getElementById('searchName').value.toLowerCase();
+            const searchLocation = document.getElementById('searchLocation').value.toLowerCase();
+            
+            const filtered = allVets.filter(vet => {
+                const nameMatch = vet.name.toLowerCase().includes(searchName) || 
+                                (vet.clinicName && vet.clinicName.toLowerCase().includes(searchName));
+                const locationMatch = vet.location.toLowerCase().includes(searchLocation);
+                
+                return nameMatch && locationMatch;
+            });
+            
+            displayVets(filtered);
+        }
+
+        // Function to view vet profile (placeholder)
+        function viewVetProfile(vetId) {
+            // For now, just show an alert. In a real app, this would open a modal or navigate to a profile page
+            alert('Profile view functionality will be implemented soon!');
+        }
+
+        // Load vets on page load
+        async function loadVets() {
+            try {
+                const response = await fetch('/api/vets');
+                if (response.ok) {
+                    allVets = await response.json();
+                    displayVets(allVets);
+                } else {
+                    console.error('Failed to load vets');
+                    document.getElementById('loading').innerHTML = '<p class="text-slate-500">Failed to load veterinarians. Please try again later.</p>';
+                }
+            } catch (error) {
+                console.error('Error loading vets:', error);
+                document.getElementById('loading').innerHTML = '<p class="text-slate-500">Error loading veterinarians. Please check your connection.</p>';
+            }
+        }
+
+        // Event listeners
+        document.getElementById('searchBtn').addEventListener('click', filterVets);
+        document.getElementById('searchName').addEventListener('input', filterVets);
+        document.getElementById('searchLocation').addEventListener('input', filterVets);
+
+        // Load vets when page loads
+        document.addEventListener('DOMContentLoaded', loadVets);
+    </script>
 </body>
 
 </html>

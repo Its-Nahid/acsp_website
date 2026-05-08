@@ -204,9 +204,51 @@
 
     <script src="components.js"></script>
     <script>
-        document.getElementById('vetJoinForm').addEventListener('submit', (e) => {
+        document.getElementById('vetJoinForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            alert('Your application has been received! Our team will verify your BMVC registration and get back to you shortly.');
+            
+            const formData = new FormData();
+            formData.append('name', document.getElementById('vetName').value);
+            formData.append('email', document.getElementById('vetEmail').value);
+            formData.append('phone', document.getElementById('vetPhone').value);
+            formData.append('license', document.getElementById('vetLicense').value);
+            formData.append('clinicName', document.getElementById('clinicName').value);
+            formData.append('location', document.getElementById('vetLocation').value);
+            formData.append('workingHours', document.getElementById('workingHours').value);
+            formData.append('bio', document.getElementById('vetBio').value);
+            
+            // Get selected specializations
+            const specializations = Array.from(document.querySelectorAll('input[name="specialization"]:checked')).map(cb => cb.value);
+            specializations.forEach(spec => formData.append('specialization', spec));
+            
+            // Add photo if selected
+            const photoInput = document.getElementById('vetPhoto');
+            if (photoInput.files.length > 0) {
+                formData.append('photo', photoInput.files[0]);
+            }
+            
+            try {
+                const response = await fetch('/api/vets', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert('Your application has been received! Our team will verify your BMVC registration and get back to you shortly.');
+                    // Reset form
+                    document.getElementById('vetJoinForm').reset();
+                    // Reset file upload display
+                    const uploadBox = document.querySelector('div[class*="border-dashed"]');
+                    uploadBox.querySelector('p[class*="text-lg"]').innerText = 'Upload Professional Photo';
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                alert('An error occurred while submitting your application. Please try again.');
+            }
         });
         
         // Mock file upload trigger

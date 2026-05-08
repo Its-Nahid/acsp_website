@@ -16,9 +16,10 @@ const NGO = require("./models/NGO");
 const RescuedAnimal = require("./models/RescuedAnimal");
 const Volunteer = require("./models/Volunteer");
 const VolunteerOpportunity = require("./models/VolunteerOpportunity");
+const Vet = require("./models/Vet");
 const SSLCommerzPayment = require("sslcommerz-lts");
-const axios = require("axios");
-const nodemailer = require("nodemailer");
+// const axios = require("axios");
+// const nodemailer = require("nodemailer");
 console.log("Groq API Key loaded:", process.env.GROQ_API_KEY ? "Yes" : "No");
 
 // Initialize Express
@@ -80,36 +81,36 @@ app.post("/signup", async (req, res) => {
             await newUser.save();
         }
 
-        // Configure Nodemailer transporter
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
-            }
-        });
+        // // Configure Nodemailer transporter
+        // const transporter = nodemailer.createTransport({
+        //     service: "gmail",
+        //     auth: {
+        //         user: process.env.EMAIL_USER,
+        //         pass: process.env.EMAIL_PASS
+        //     }
+        // });
 
-        // Email content
-        const mailOptions = {
-            from: `"ACSP Team" <${process.env.EMAIL_USER}>`,
-            to: email,
-            subject: "ACSP - Verify Your Account",
-            html: `
-                <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px;">
-                    <h2 style="color: #f98c06; text-align: center;">Welcome to ACSP!</h2>
-                    <p>Hello ${name},</p>
-                    <p>Thank you for registering. Please use the 6-digit code below to verify your account:</p>
-                    <div style="text-align: center; margin: 30px 0;">
-                        <span style="font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #333; background: #f4f4f4; padding: 10px 20px; border-radius: 5px;">${signupCode}</span>
-                    </div>
-                    <p style="color: #555; font-size: 14px;">This code will expire in 15 minutes.</p>
-                </div>
-            `
-        };
+        // // Email content
+        // const mailOptions = {
+        //     from: `"ACSP Team" <${process.env.EMAIL_USER}>`,
+        //     to: email,
+        //     subject: "ACSP - Verify Your Account",
+        //     html: `
+        //         <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px;">
+        //             <h2 style="color: #f98c06; text-align: center;">Welcome to ACSP!</h2>
+        //             <p>Hello ${name},</p>
+        //             <p>Thank you for registering. Please use the 6-digit code below to verify your account:</p>
+        //             <div style="text-align: center; margin: 30px 0;">
+        //                 <span style="font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #333; background: #f4f4f4; padding: 10px 20px; border-radius: 5px;">${signupCode}</span>
+        //             </div>
+        //             <p style="color: #555; font-size: 14px;">This code will expire in 15 minutes.</p>
+        //         </div>
+        //     `
+        // };
 
-        await transporter.sendMail(mailOptions);
+        // await transporter.sendMail(mailOptions);
 
-        res.status(201).json({ message: "Verification code sent to your email", requireVerification: true });
+        res.status(201).json({ message: "Account created successfully", requireVerification: false });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Server error" });
@@ -173,41 +174,41 @@ app.post("/forgot-password", async (req, res) => {
         user.resetCodeExpiry = resetCodeExpiry;
         await user.save();
 
-        // Configure Nodemailer transporter
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
-            }
-        });
+        // // Configure Nodemailer transporter
+        // const transporter = nodemailer.createTransport({
+        //     service: "gmail",
+        //     auth: {
+        //         user: process.env.EMAIL_USER,
+        //         pass: process.env.EMAIL_PASS
+        //     }
+        // });
 
-        // Email content
-        const mailOptions = {
-            from: `"ACSP Team" <${process.env.EMAIL_USER}>`,
-            to: email,
-            subject: "ACSP - Password Reset Code",
-            html: `
-                <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px;">
-                    <h2 style="color: #f98c06; text-align: center;">ACSP Password Reset</h2>
-                    <p>Hello ${user.name},</p>
-                    <p>We received a request to reset your password. Here is your 6-digit verification code:</p>
-                    <div style="text-align: center; margin: 30px 0;">
-                        <span style="font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #333; background: #f4f4f4; padding: 10px 20px; border-radius: 5px;">${resetCode}</span>
-                    </div>
-                    <p style="color: #555; font-size: 14px;">This code will expire in 15 minutes.</p>
-                    <p style="color: #555; font-size: 14px;">If you didn't request this password reset, please ignore this email or contact support if you have concerns.</p>
-                    <br>
-                    <p>Best regards,<br>The ACSP Team</p>
-                </div>
-            `
-        };
+        // // Email content
+        // const mailOptions = {
+        //     from: `"ACSP Team" <${process.env.EMAIL_USER}>`,
+        //     to: email,
+        //     subject: "ACSP - Password Reset Code",
+        //     html: `
+        //         <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px;">
+        //         <h2 style="color: #f98c06; text-align: center;">ACSP Password Reset</h2>
+        //         <p>Hello ${user.name},</p>
+        //         <p>We received a request to reset your password. Here is your 6-digit verification code:</p>
+        //         <div style="text-align: center; margin: 30px 0;">
+        //             <span style="font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #333; background: #f4f4f4; padding: 10px 20px; border-radius: 5px;">${resetCode}</span>
+        //         </div>
+        //         <p style="color: #555; font-size: 14px;">This code will expire in 15 minutes.</p>
+        //         <p style="color: #555; font-size: 14px;">If you didn't request this password reset, please ignore this email or contact support if you have concerns.</p>
+        //         <br>
+        //         <p>Best regards,<br>The ACSP Team</p>
+        //     </div>
+        //     `
+        // };
 
-        // Send email
-        await transporter.sendMail(mailOptions);
-        console.log(`Reset email sent successfully to ${email}`);
+        // // Send email
+        // await transporter.sendMail(mailOptions);
+        // console.log(`Reset email sent successfully to ${email}`);
 
-        res.json({ message: "Reset code sent to your email" });
+        res.json({ message: "Reset code generated (email disabled for demo)" });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Server error" });
@@ -557,44 +558,44 @@ app.post("/api/donate/cancel", async (req, res) => {
 });
 
 // Groq AI Setup
-const GROQ_API_KEY = process.env.GROQ_API_KEY;
-const SYSTEM_PROMPT = "You are the ACSP AI Assistant, a helpful expert in animal care. You can answer basic questions about pet nutrition, grooming, and common minor symptoms. However, for any complex medical problems, emergencies, or serious symptoms (like severe bleeding, breathing difficulties, or sudden collapse), you MUST advise the user to consult a professional veterinarian or visit the nearest animal clinic immediately. Be concise and friendly.";
+// const GROQ_API_KEY = process.env.GROQ_API_KEY;
+// const SYSTEM_PROMPT = "You are the ACSP AI Assistant, a helpful expert in animal care. You can answer basic questions about pet nutrition, grooming, and common minor symptoms. However, for any complex medical problems, emergencies, or serious symptoms (like severe bleeding, breathing difficulties, or sudden collapse), you MUST advise the user to consult a professional veterinarian or visit the nearest animal clinic immediately. Be concise and friendly.";
 
 // AI Chat Route
-app.post("/api/ai-chat", async (req, res) => {
-    try {
-        const { message } = req.body;
-        if (!message) return res.status(400).json({ message: "Message is required" });
+// app.post("/api/ai-chat", async (req, res) => {
+//     try {
+//         const { message } = req.body;
+//         if (!message) return res.status(400).json({ message: "Message is required" });
 
-        const response = await axios.post(
-            "https://api.groq.com/openai/v1/chat/completions",
-            {
-                model: "llama-3.3-70b-versatile",
-                messages: [
-                    { role: "system", content: SYSTEM_PROMPT },
-                    { role: "user", content: message }
-                ],
-                temperature: 0.7,
-                max_tokens: 1024
-            },
-            {
-                headers: {
-                    "Authorization": `Bearer ${GROQ_API_KEY}`,
-                    "Content-Type": "application/json"
-                }
-            }
-        );
+//         const response = await axios.post(
+//             "https://api.groq.com/openai/v1/chat/completions",
+//             {
+//                 model: "llama-3.3-70b-versatile",
+//                 messages: [
+//                     { role: "system", content: SYSTEM_PROMPT },
+//                     { role: "user", content: message }
+//                 ],
+//                 temperature: 0.7,
+//                 max_tokens: 1024
+//             },
+//             {
+//                 headers: {
+//                     "Authorization": `Bearer ${GROQ_API_KEY}`,
+//                     "Content-Type": "application/json"
+//                 }
+//             }
+//         );
 
-        const reply = response.data.choices[0].message.content;
-        res.json({ reply });
-    } catch (error) {
-        console.error("Groq Error:", error.response ? error.response.data : error.message);
-        res.status(500).json({ 
-            message: "AI Assistant is currently unavailable",
-            error: error.response ? error.response.data.error.message : error.message 
-        });
-    }
-});
+//         const reply = response.data.choices[0].message.content;
+//         res.json({ reply });
+//     } catch (error) {
+//         console.error("Groq Error:", error.response ? error.response.data : error.message);
+//         res.status(500).json({ 
+//             message: "AI Assistant is currently unavailable",
+//             error: error.response ? error.response.data.error.message : error.message 
+//         });
+//     }
+// });
 
 // NGO Management Routes
 app.post('/api/ngo', upload.array('gallery', 10), async (req, res) => {
@@ -826,6 +827,95 @@ app.get('/api/volunteers/summary', async (req, res) => {
         });
     } catch (error) {
         res.status(500).json({ message: "Server error while fetching volunteer summary" });
+    }
+});
+
+// 13. Vet Registration Routes
+app.post('/api/vets', upload.single('photo'), async (req, res) => {
+    try {
+        const { name, email, phone, license, clinicName, location, specialization, workingHours, bio } = req.body;
+        
+        // Check if vet already exists
+        const existingVet = await Vet.findOne({ email });
+        if (existingVet) {
+            return res.status(400).json({ message: "Vet with this email already exists" });
+        }
+
+        const photoPath = req.file ? req.file.path : null;
+
+        const newVet = new Vet({
+            name,
+            email,
+            phone,
+            license,
+            clinicName,
+            location,
+            specialization: Array.isArray(specialization) ? specialization : [specialization].filter(Boolean),
+            workingHours,
+            bio,
+            photo: photoPath
+        });
+
+        await newVet.save();
+        res.status(201).json({ message: "Vet application submitted successfully!", vet: newVet });
+    } catch (error) {
+        console.error("Vet Create Error:", error);
+        res.status(500).json({ message: "Server error while submitting vet application" });
+    }
+});
+
+app.get('/api/vets', async (req, res) => {
+    try {
+        const { specialization, location } = req.query;
+        let query = { status: "approved" }; // Only show approved vets
+        
+        if (specialization) {
+            query.specialization = { $in: [specialization] };
+        }
+        
+        if (location) {
+            query.location = { $regex: location, $options: 'i' };
+        }
+
+        const vets = await Vet.find(query).sort({ createdAt: -1 });
+        res.json(vets);
+    } catch (error) {
+        res.status(500).json({ message: "Server error while fetching vets" });
+    }
+});
+
+app.get('/api/vets/:id', async (req, res) => {
+    try {
+        const vet = await Vet.findById(req.params.id);
+        if (!vet) return res.status(404).json({ message: "Vet not found" });
+        res.json(vet);
+    } catch (error) {
+        res.status(500).json({ message: "Server error while fetching vet details" });
+    }
+});
+
+// Admin routes for vet management
+app.get('/admin/vets', async (req, res) => {
+    try {
+        const vets = await Vet.find().sort({ createdAt: -1 });
+        res.json(vets);
+    } catch (error) {
+        res.status(500).json({ message: "Server error while fetching vets" });
+    }
+});
+
+app.put('/admin/vets/:id/status', async (req, res) => {
+    try {
+        const { status } = req.body;
+        const updatedVet = await Vet.findByIdAndUpdate(
+            req.params.id,
+            { status },
+            { new: true }
+        );
+        if (!updatedVet) return res.status(404).json({ message: "Vet not found" });
+        res.json({ message: "Vet status updated successfully", vet: updatedVet });
+    } catch (error) {
+        res.status(500).json({ message: "Server error while updating vet status" });
     }
 });
 
