@@ -268,22 +268,26 @@
 
 
 
+        async function fetchJSON(url) {
+            const response = await fetch(url);
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
+                return await response.json();
+            } else {
+                const text = await response.text();
+                console.error(`Non-JSON response from ${url}:`, text);
+                throw new Error(`Invalid response from ${url}. Check server logs.`);
+            }
+        }
+
         async function fetchData() {
             try {
-                const [rescueRes, adoptionRes, ngoRes, vetRes] = await Promise.all([
-                    fetch(`${API_BASE}/reports`),
-                    fetch(`${API_BASE}/adoptions`),
-                    fetch(`${API_BASE}/admin/ngo-requests`),
-                    fetch(`${API_BASE}/admin/vets`)
+                const [rescueData, adoptionData, ngoData, vetData] = await Promise.all([
+                    fetchJSON(`${API_BASE}/reports`),
+                    fetchJSON(`${API_BASE}/adoptions`),
+                    fetchJSON(`${API_BASE}/admin/ngo-requests`),
+                    fetchJSON(`${API_BASE}/admin/vets`)
                 ]);
-
-                
-                // Note: I updated the paths to use /api/ where applicable to match server.js routes
-
-                const rescueData = await rescueRes.json();
-                const adoptionData = await adoptionRes.json();
-                const ngoData = await ngoRes.json();
-                const vetData = await vetRes.json();
 
                 globalData.rescues = rescueData.reports || rescueData || [];
                 globalData.adoptions = adoptionData.adoptions || adoptionData || [];
