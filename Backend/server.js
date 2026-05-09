@@ -26,6 +26,17 @@ const Vet = require("./models/Vet");
 console.log("Groq API Key loaded:", process.env.GROQ_API_KEY ? "Yes" : "No");
 
 // Cloudinary Configuration
+console.log("Cloudinary Config:", {
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME ? "Loaded" : "Missing",
+    api_key: process.env.CLOUDINARY_API_KEY ? "Loaded" : "Missing",
+    api_secret: process.env.CLOUDINARY_API_SECRET ? "Loaded" : "Missing"
+});
+
+console.log("Email Config:", {
+    user: process.env.EMAIL_USER ? "Loaded" : "Missing",
+    pass: process.env.EMAIL_PASS ? "Loaded" : "Missing"
+});
+
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
