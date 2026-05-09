@@ -8,8 +8,8 @@ const components = {
     <header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b px-6 lg:px-20 py-4 border-primary/10">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div class="flex items-center gap-4 cursor-pointer" onclick="window.location.href='index.html'">
-                <div class="bg-primary p-2 rounded-xl text-white shadow-lg shadow-primary/20">
-                    <span class="material-symbols-outlined text-2xl">pets</span>
+                <div class="shadow-lg shadow-primary/20 overflow-hidden rounded-xl">
+                    <img src="assets/logo.png" class="size-10 object-cover" alt="ACSP Logo">
                 </div>
                 <span class="text-2xl font-black tracking-tight text-[#1a1c23] dark:text-white">ACSP</span>
             </div>
@@ -99,8 +99,8 @@ const components = {
         <div class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
             <div class="flex flex-col gap-4">
                 <div class="flex items-center gap-2">
-                    <div class="p-1.5 bg-primary rounded-full text-white">
-                        <span class="material-symbols-outlined text-xl">pets</span>
+                    <div class="rounded-full shadow-sm overflow-hidden border border-primary/20">
+                        <img src="assets/logo.png" class="size-8 object-cover" alt="ACSP Logo">
                     </div>
                     <h2 class="text-lg font-black dark:text-white">ACSP</h2>
                 </div>

@@ -158,11 +158,11 @@
                     grid.innerHTML = vets.map(vet => {
                         let photoSrc = 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2070&auto=format&fit=crop';
                         if (vet.photo) {
-                            if (vet.photo.startsWith('data:')) {
-                                photoSrc = vet.photo;
+                            const photoPath = vet.photo.replace(/\\/g, '/');
+                            if (photoPath.startsWith('data:')) {
+                                photoSrc = photoPath;
                             } else {
-                                // Ensure local paths are correctly resolved with API_BASE
-                                photoSrc = vet.photo.startsWith('http') ? vet.photo : `${API_BASE}/${vet.photo.startsWith('/') ? vet.photo.substring(1) : vet.photo}`;
+                                photoSrc = photoPath.startsWith('http') ? photoPath : `${API_BASE}/${photoPath.startsWith('/') ? photoPath.substring(1) : photoPath}`;
                             }
                         }
 

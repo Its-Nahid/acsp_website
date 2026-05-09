@@ -297,11 +297,14 @@
             // Render Gallery
             const galleryContainer = document.getElementById('ngo-gallery');
             if (ngo.gallery && ngo.gallery.length > 0) {
-                galleryContainer.innerHTML = ngo.gallery.map(path => `
+                galleryContainer.innerHTML = ngo.gallery.map(path => {
+                    const imgPath = path.replace(/\\/g, '/');
+                    const fullSrc = imgPath.startsWith('http') ? imgPath : `http://localhost:5000/${imgPath}`;
+                    return `
                     <div class="aspect-square rounded-2xl overflow-hidden shadow-sm group">
-                        <img src="http://localhost:5000/${path.replace(/\\/g, '/')}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                        <img src="${fullSrc}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                     </div>
-                `).join('');
+                `}).join('');
             } else {
                 galleryContainer.innerHTML = `<p class="col-span-full text-slate-400 italic">No photos available yet.</p>`;
             }
@@ -323,8 +326,9 @@
                         animal.status === 'Under Treatment' ? 'bg-orange-500' :
                             'bg-blue-500';
 
-                    const photo = (animal.photos && animal.photos.length > 0)
-                        ? `http://localhost:5000/${animal.photos[0].replace(/\\/g, '/')}`
+                    const photoPath = (animal.photos && animal.photos.length > 0) ? animal.photos[0].replace(/\\/g, '/') : null;
+                    const photo = photoPath 
+                        ? (photoPath.startsWith('http') ? photoPath : `http://localhost:5000/${photoPath}`)
                         : 'https://via.placeholder.com/400x300?text=No+Photo';
 
                     return `

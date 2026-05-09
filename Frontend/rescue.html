@@ -190,10 +190,10 @@
       function renderReports(reports) {
         reportsGrid.innerHTML = reports
           .map((report) => {
-            const imageUrl =
-              report.photos && report.photos.length > 0
-                ? `http://localhost:5000/${report.photos[0]}`
-                : "https://via.placeholder.com/400x300?text=No+Photo";
+            const firstPhoto = report.photos && report.photos.length > 0 ? report.photos[0] : null;
+            const imageUrl = firstPhoto 
+              ? (firstPhoto.startsWith('http') ? firstPhoto : `http://localhost:5000/${firstPhoto}`)
+              : "https://via.placeholder.com/400x300?text=No+Photo";
 
             const urgencyVal = (report.urgency || "low").toLowerCase();
             const urgencyClass =

@@ -430,6 +430,7 @@
                         </td>
                         <td class="px-6 py-4 bg-stone-50/50 rounded-r-xl text-right group-hover:bg-orange-50/30 transition-colors">
                             <div class="flex justify-end gap-2">
+                                <button onclick="viewItem('${type}', '${item._id}')" class="bg-[#f98c06] text-white p-2 rounded-full hover:scale-110 shadow-md transition-all" title="View Details"><span class="material-symbols-outlined block text-sm">visibility</span></button>
                                 <button onclick="updateNGOStatus('${item._id}', 'approve')" class="bg-green-500 text-white p-2 rounded-full hover:scale-110 shadow-md transition-all" title="Approve"><span class="material-symbols-outlined block text-sm">check</span></button>
                                 <button onclick="updateNGOStatus('${item._id}', 'reject')" class="bg-red-500 text-white p-2 rounded-full hover:scale-110 shadow-md transition-all" title="Reject"><span class="material-symbols-outlined block text-sm">close</span></button>
                             </div>
@@ -581,6 +582,20 @@
                             <div><strong>Urgency:</strong> <span class="px-2 py-1 rounded-full text-xs font-bold ${getUrgencyClass(item.urgency)}">${item.urgency || 'Normal'}</span></div>
                             <div><strong>Location:</strong> ${item.location || 'Unknown'}</div>
                         </div>
+                        
+                        ${item.photos && item.photos.length > 0 ? `
+                        <div>
+                            <strong>Photos:</strong>
+                            <div class="grid grid-cols-2 gap-4 mt-2">
+                                ${item.photos.map(p => {
+                                    const pUrl = p.replace(/\\/g, '/');
+                                    const src = pUrl.startsWith('http') ? pUrl : `${API_BASE}/${pUrl.startsWith('/') ? pUrl.substring(1) : pUrl}`;
+                                    return `<img src="${src}" class="rounded-xl w-full h-40 object-cover border border-gray-100 shadow-sm">`;
+                                }).join('')}
+                            </div>
+                        </div>
+                        ` : ''}
+
                         <div>
                             <strong>Summary:</strong>
                             <p class="mt-1 p-3 bg-gray-50 dark:bg-zinc-800 rounded-lg text-sm">${item.caseSummary || 'No summary provided.'}</p>
@@ -609,6 +624,20 @@
                             <div><strong>Phone:</strong> ${item.phone || 'No phone'}</div>
                             <div class="col-span-2"><strong>Location:</strong> ${item.location || 'Unknown'}</div>
                         </div>
+
+                        ${item.photos && item.photos.length > 0 ? `
+                        <div>
+                            <strong>Photos:</strong>
+                            <div class="grid grid-cols-2 gap-4 mt-2">
+                                ${item.photos.map(p => {
+                                    const pUrl = p.replace(/\\/g, '/');
+                                    const src = pUrl.startsWith('http') ? pUrl : `${API_BASE}/${pUrl.startsWith('/') ? pUrl.substring(1) : pUrl}`;
+                                    return `<img src="${src}" class="rounded-xl w-full h-40 object-cover border border-gray-100 shadow-sm">`;
+                                }).join('')}
+                            </div>
+                        </div>
+                        ` : ''}
+
                         <div>
                             <strong>Headline:</strong>
                             <p class="mt-1 p-3 bg-gray-50 dark:bg-zinc-800 rounded-lg text-sm font-bold">${item.headline || 'No headline provided.'}</p>
@@ -625,10 +654,11 @@
 
                 let photoSrc = 'https://via.placeholder.com/150';
                 if (item.photo) {
-                    if (item.photo.startsWith('data:')) {
-                        photoSrc = item.photo;
+                    const photoPath = item.photo.replace(/\\/g, '/');
+                    if (photoPath.startsWith('data:')) {
+                        photoSrc = photoPath;
                     } else {
-                        photoSrc = item.photo.startsWith('http') ? item.photo : `${API_BASE}/${item.photo.startsWith('/') ? item.photo.substring(1) : item.photo}`;
+                        photoSrc = photoPath.startsWith('http') ? photoPath : `${API_BASE}/${photoPath.startsWith('/') ? photoPath.substring(1) : photoPath}`;
                     }
                 }
 
@@ -653,6 +683,44 @@
                         <div>
                             <strong>Bio:</strong>
                             <p class="mt-1 p-3 bg-gray-50 dark:bg-zinc-800 rounded-lg text-sm">${item.bio || 'No bio provided.'}</p>
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'ngos') {
+                item = globalData.ngos.find(n => n._id === id);
+                if (!item) return;
+
+                html = `
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div><strong>NGO Name:</strong> ${item.name || 'Unnamed NGO'}</div>
+                            <div><strong>Reg ID:</strong> ${item.registrationId || 'N/A'}</div>
+                            <div><strong>Established:</strong> ${item.establishedDate || 'N/A'}</div>
+                            <div><strong>Email:</strong> ${item.contact?.email || 'N/A'}</div>
+                            <div><strong>Phone:</strong> ${item.contact?.phone || 'N/A'}</div>
+                            <div><strong>Location:</strong> ${item.location?.city || 'Unknown'}, ${item.location?.country || 'Unknown'}</div>
+                        </div>
+
+                        ${item.gallery && item.gallery.length > 0 ? `
+                        <div>
+                            <strong>Gallery:</strong>
+                            <div class="grid grid-cols-2 gap-4 mt-2">
+                                ${item.gallery.map(g => {
+                                    const gUrl = g.replace(/\\/g, '/');
+                                    const src = gUrl.startsWith('http') ? gUrl : `${API_BASE}/${gUrl.startsWith('/') ? gUrl.substring(1) : gUrl}`;
+                                    return `<img src="${src}" class="rounded-xl w-full h-40 object-cover border border-gray-100 shadow-sm">`;
+                                }).join('')}
+                            </div>
+                        </div>
+                        ` : ''}
+
+                        <div>
+                            <strong>Impact:</strong>
+                            <div class="mt-1 p-3 bg-gray-50 dark:bg-zinc-800 rounded-lg text-sm">
+                                <div>Animals Rescued: ${item.impact?.animalsRescued || 0}</div>
+                                <div>Successful Adoptions: ${item.impact?.successfulAdoptions || 0}</div>
+                                <div>Volunteers: ${item.impact?.volunteers || 0}</div>
+                            </div>
                         </div>
                     </div>
                 `;

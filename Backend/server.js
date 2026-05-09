@@ -6,6 +6,8 @@ const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const path = require("path");
 //server 
 const User = require("./models/user");
@@ -22,6 +24,13 @@ const nodemailer = require("nodemailer");
 const Vet = require("./models/Vet");
 
 console.log("Groq API Key loaded:", process.env.GROQ_API_KEY ? "Yes" : "No");
+
+// Cloudinary Configuration
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 // Initialize Express
 const app = express();
@@ -280,21 +289,18 @@ app.post("/reset-password", async (req, res) => {
     }
 });
 
-// 7️⃣ Multer setup for photo uploads
-const fs = require('fs');
-const uploadDir = 'uploads/';
-if (!fs.existsSync(uploadDir) && !process.env.VERCEL) {
-    fs.mkdirSync(uploadDir);
-}
-
-// Use memory storage for Vercel (Production) to support Base64, disk for Local
-const storage = process.env.VERCEL ? multer.memoryStorage() : multer.diskStorage({
-    destination: (req, file, cb) => cb(null, 'uploads/'),
-    filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
+// 7️⃣ Cloudinary Storage setup for photo uploads
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'acsp_uploads',
+        allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
+        transformation: [{ width: 1000, height: 1000, crop: 'limit' }]
+    },
 });
 
 const upload = multer({ 
-    storage,
+    storage: storage,
     limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit
 });
 
@@ -305,12 +311,7 @@ app.post('/report', upload.array('photos', 5), async (req, res) => {
     try {
         let photoPaths = [];
         if (req.files && req.files.length > 0) {
-            if (process.env.VERCEL) {
-                // Convert each buffer to Base64
-                photoPaths = req.files.map(file => `data:${file.mimetype};base64,${file.buffer.toString('base64')}`);
-            } else {
-                photoPaths = req.files.map(file => file.path.replace(/\\/g, '/'));
-            }
+            photoPaths = req.files.map(file => file.path); // Cloudinary returns the URL in file.path
         }
 
 
@@ -397,11 +398,7 @@ app.post('/adoption', upload.array('photos', 5), async (req, res) => {
     try {
         let photoPaths = [];
         if (req.files && req.files.length > 0) {
-            if (process.env.VERCEL) {
-                photoPaths = req.files.map(file => `data:${file.mimetype};base64,${file.buffer.toString('base64')}`);
-            } else {
-                photoPaths = req.files.map(file => file.path.replace(/\\/g, '/'));
-            }
+            photoPaths = req.files.map(file => file.path);
         }
 
 
@@ -660,11 +657,7 @@ app.post('/api/ngo', upload.array('gallery', 10), async (req, res) => {
     try {
         let galleryPaths = [];
         if (req.files && req.files.length > 0) {
-            if (process.env.VERCEL) {
-                galleryPaths = req.files.map(file => `data:${file.mimetype};base64,${file.buffer.toString('base64')}`);
-            } else {
-                galleryPaths = req.files.map(file => file.path.replace(/\\/g, '/'));
-            }
+            galleryPaths = req.files.map(file => file.path);
         }
 
 
@@ -769,11 +762,7 @@ app.post('/api/rescued-animals', upload.array('photos', 5), async (req, res) => 
     try {
         let photoPaths = [];
         if (req.files && req.files.length > 0) {
-            if (process.env.VERCEL) {
-                photoPaths = req.files.map(file => `data:${file.mimetype};base64,${file.buffer.toString('base64')}`);
-            } else {
-                photoPaths = req.files.map(file => file.path.replace(/\\/g, '/'));
-            }
+            photoPaths = req.files.map(file => file.path);
         }
 
         const newAnimal = new RescuedAnimal({
@@ -909,14 +898,9 @@ app.post('/api/vets', upload.single('photo'), async (req, res) => {
 
         const vetData = req.body;
         
-        // Handle photo storage based on environment
+        // Handle photo storage with Cloudinary
         if (req.file) {
-            if (process.env.VERCEL) {
-                const base64Image = req.file.buffer.toString('base64');
-                vetData.photo = `data:${req.file.mimetype};base64,${base64Image}`;
-            } else {
-                vetData.photo = req.file.path.replace(/\\/g, '/');
-            }
+            vetData.photo = req.file.path;
         }
         
         if (typeof vetData.specialization === 'string') {
@@ -937,12 +921,7 @@ app.post('/api/adoptions', upload.single('photo'), async (req, res) => {
     try {
         const adoptionData = req.body;
         if (req.file) {
-            if (process.env.VERCEL) {
-                const base64Image = req.file.buffer.toString('base64');
-                adoptionData.photo = `data:${req.file.mimetype};base64,${base64Image}`;
-            } else {
-                adoptionData.photo = req.file.path.replace(/\\/g, '/');
-            }
+            adoptionData.photos = [req.file.path];
         }
 
         const newAdoption = new Adoption(adoptionData);
