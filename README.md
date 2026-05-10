@@ -13,25 +13,28 @@ ACSP enables users to report animals in need, upload photos, and interact with a
 
 ## 🏗 Project Structure
 
-- **/Backend**: Node.js and Express server handling API requests and database interactions.
+- **/Backend**: Node.js and Express server handling all API requests and database interactions.
   - `server.js`: Main entry point for the backend.
-  - `models/`: Mongoose schemas for User, RescueReport, and Donation.
-  - `uploads/`: Directory for storing uploaded photos.
-- `/Frontend`: Client-side files.
-  - `index.html`: Main landing page with navigation and emergency contacts.
+  - `models/`: Mongoose schemas — `user.js`, `RescueReport.js`, `report.js`, `Adoption.js`, `Donation.js`, `NGO.js`, `Vet.js`, `Volunteer.js`, `VolunteerOpportunity.js`, `RescuedAnimal.js`
+  - `uploads/`: Directory for locally stored uploaded photos (migrated to Cloudinary).
+- **/Frontend**: All client-side HTML, JS, and CSS files.
+  - `index.html`: Main landing page with statistics, hero section, and emergency contacts.
   - `login.html` & `signup.html`: User authentication pages.
-  - `ai_chat.html`: Interactive AI Assistant powered by Gemini 2.0 Flash.
-  - `admin_dashboard.html`: Data-driven dashboard for platform management.
-  - `report.html`: Rescue reporting form with photo upload support.
-  - `directory.html`: NGO partner directory with location-based filtering.
+  - `forgot-password.html`, `reset-password.html`, `check_mail.html`: Password recovery flow.
+  - `ai_chat.html`: Interactive AI Assistant powered by Groq (Llama 3 70B).
+  - `admin_dashboard.html`: Data-driven dashboard for platform-wide management.
+  - `report.html` & `rescue.html` & `rescue-dashboard.html`: Rescue reporting, info, and management.
+  - `adoptionpage.html` & `adoption_form.html`: Pet adoption gallery and listing submission.
+  - `ngo_directory.html` & `ngo-profile.html`: NGO partner directory and profile pages.
+  - `ngo animal_listing.html` & `ngo case-details.html`: NGO-specific rescue listings and case views.
+  - `ngo donation-tracking.html`: NGO financial donation tracking dashboard.
   - `become_partner.html`: Application form for NGOs to join the platform.
-  - `donations/donation.html`: Dynamic SSL Commerz payment form with cause selection.
-  - `donations/success.html`, `donations/fail.html`, `donations/cancel.html`: Payment gateway resolution redirects.
-  - `adoptionpage.html`: Dynamic pet adoption gallery with filtering and pagination.
-  - `adoption_form.html`: Interactive multi-photo listing form for pets.
-  - `components.js`: Shared component library for unified UI headers/footers.
-  - `rescuse.html`: Information related to rescue operations.
-  - `forgot-password.html`: Placeholder for password recovery.
+  - `donation.html`, `success.html`, `fail.html`, `cancel.html`: SSLCommerz payment flow pages.
+  - `vet_directory.html` & `vet_join_form.html`: Verified vet directory and vet application form.
+  - `volunteer.html`: Volunteer registration and opportunity browsing.
+  - `article.html` & `updated_article.html`: Educational articles for pet owners.
+  - `contact_doctors.html`: Medical specialist contact directory.
+  - `components.js`: Shared component library for unified UI (headers, footers, navigation).
   - `script.js`: Unified JavaScript for frontend logic and API integration.
   - `css/`: Stylesheets.
 
@@ -40,54 +43,73 @@ ACSP enables users to report animals in need, upload photos, and interact with a
 ### 1. User Authentication
 
 - **Signup & Login:** Secure registration and login with encrypted passwords (`bcryptjs`) and JWT-based session management.
-- **Frontend Integration:** Connected forms using `fetch` API for smooth interaction.
+- **Password Recovery:** Full forgot/reset password flow via Nodemailer OTP email verification (`forgot-password.html`, `check_mail.html`, `reset-password.html`).
 - **State Management:** Authentication status stored in `localStorage` for session persistence.
 
 ### 2. Rescue Reporting System
 
-- **Report Submission:** Capture details such as animal type, category, urgency, and location.
-- **Photo Uploads:** Support up to 5 images per report using `multer`; stored in `Backend/uploads/`.
-- **Database Storage:** Reports saved in MongoDB (`acspAuth` database).
-- **Confirmation:** Dynamic success modal confirms report submission.
+- **Report Submission:** Capture animal type, category, urgency level, and location details via `report.html`.
+- **Rescue Dashboard:** Dedicated rescue management dashboard (`rescue-dashboard.html`) for tracking active cases.
+- **Photo Uploads:** Multi-image upload support via Cloudinary (migrated from local Multer storage).
+- **Database Storage:** Reports saved in MongoDB Atlas using the `RescueReport` and `RescuedAnimal` Mongoose models.
 
-### 3. Frontend Logic & UI
+### 3. NGO Partner Ecosystem
 
-- **Unified JavaScript:** `script.js` manages forms, uploads, and dynamic UI updates.
-- **Dynamic Feedback:** Toast notifications for success/error messaging.
-- **Modern UI:** Tailwind CSS combined with Google Material Symbols for responsive design.
+- **NGO Directory:** Fully searchable public directory of NGO partners (`ngo_directory.html`).
+- **NGO Profiles:** Dynamic NGO profile pages with editable information (`ngo-profile.html`).
+- **NGO Animal Listings:** NGOs can list their rescued animals for public visibility (`ngo animal_listing.html`).
+- **Donation Tracking:** NGOs can track real-time incoming donations (`ngo donation-tracking.html`).
+- **Partner Registration:** Application form for new NGOs to join the platform (`become_partner.html`).
 
 ### 4. Secure Donation Gateway
 
-- **SSL Commerz Integration:** Integrated `sslcommerz-lts` for handling secure payment processing and initialization.
-- **Dynamic Cause Selection:** Donors can visually select specific animal causes or NGO partners via interactive UI cards linked to database tags.
-- **Smart Payment Inputs:** Preset donation amount buttons feature elegant override mechanics when custom financial inputs are typed.
-- **Database Tracking:** Every transaction persistently stores contextual donor information (Name, Phone, Location, Transaction ID, Status) into the updated MongoDB ecosystem.
+- **SSLCommerz Integration:** Integrated `sslcommerz-lts` for secure payment processing with cause selection.
+- **Dynamic Cause Selection:** Donors select specific animal causes or NGO partners via interactive UI cards.
+- **Database Tracking:** Every transaction stores donor info (Name, Phone, Location, Transaction ID, Status) in MongoDB.
+- **Payment Redirects:** Dedicated success, fail, and cancel pages for complete payment flow handling.
 
 ### 5. Pet Adoption Marketplace
 
-- **Dynamic Gallery:** Real-time data fetching from MongoDB to display pet listings with status badges (Vaccinated, Neutered).
-- **Listing Submission:** Sophisticated form for posting pets including multi-photo uploads (max 5) and health/personality profiling.
-- **UI Consistency:** Leverages a custom shared component system (`components.js`) for a unified experience across the portal.
-- **Success Experience:** Beautiful, animated success modal with refresh protection for stable form submissions.
+- **Dynamic Gallery:** Real-time pet listings from MongoDB with status badges (Vaccinated, Neutered).
+- **Listing Submission:** Multi-photo adoption listing form with health and personality profiling (`adoption_form.html`).
+- **UI Consistency:** Shared `components.js` system for a unified experience across the portal.
 
-### 6. AI Chat Assistant
+### 6. Volunteer Management
 
-- **Gemini AI Integration:** Integrated Google Gemini 2.0 Flash for a smart, interactive pet care assistant.
-- **Contextual Knowledge:** Programmed to provide expert advice on pet nutrition, symptoms, and emergency guidance.
-- **Security:** API keys are managed via backend environment variables for safety.
+- **Volunteer Registration:** Users can sign up as volunteers through `volunteer.html`.
+- **Volunteer Opportunities:** Backend API and Mongoose model (`VolunteerOpportunity.js`) to manage postings.
 
-### 7. Admin Dashboard
+### 7. Vet & Medical Directory
 
-- **Real-time Analytics:** Dashboard overview showing total rescues, adoptions, and NGOs.
-- **Management Interface:** Tabbed system for viewing and managing rescue reports and adoption listings.
-- **Data Integration:** Dynamically fetches live data from MongoDB to provide up-to-date platform metrics.
+- **Vet Directory:** Searchable directory of verified veterinarians (`vet_directory.html`) with application tracking.
+- **Vet Join Form:** Vets can apply to be listed on the platform (`vet_join_form.html`).
+- **Contact Doctors:** Specialist medical contact directory (`contact_doctors.html`).
+
+### 8. AI Chat Assistant
+
+- **Groq Llama 3 Integration:** AI-powered pet care assistant using the Groq API (Llama 3 70B) for expert advice on nutrition, symptoms, and emergencies.
+
+### 9. Educational Articles
+
+- **Article System:** Published educational articles for pet owners and the general public (`article.html`, `updated_article.html`).
+
+### 10. Admin Dashboard
+
+- **Real-time Analytics:** Overview of total rescues, adoptions, donations, and NGOs.
+- **Platform Management:** Admin controls for user, NGO, and rescue case management.
+
+### 11. Cloud Storage & Deployment
+
+- **Cloudinary Integration:** Scalable cloud image hosting for all user-uploaded photos.
+- **Vercel Deployment:** Platform deployed on Vercel with serverless function routing via `vercel.json`.
+- **Email Notifications:** Nodemailer for OTP-based password recovery and email verification.
 
 ---
 
-## 🔧 Pending / In Progress
+## 🔧 Pending / Future Work
 
-- Backend logic for **forgot-password** functionality.
-- Database integration for the **NGO Directory** (currently static frontend).
+- **Analytics Dashboard**: Creating visual charts for rescue and donation metrics.
+- **Treatment Module**: Tracking animal medical history.
 
 ---
 
@@ -96,11 +118,12 @@ ACSP enables users to report animals in need, upload photos, and interact with a
 | Layer        | Technology                                |
 | ------------ | ----------------------------------------- |
 | Backend      | Node.js, Express.js                       |
-| Database     | MongoDB, Mongoose                         |
-| File Uploads | Multer                                    |
-| Auth         | JWT, BcryptJS                             |
+| Database     | MongoDB Atlas, Mongoose                   |
+| File Uploads | Multer, Cloudinary                        |
+| Auth         | JWT, BcryptJS, Nodemailer                 |
 | Frontend     | HTML5, CSS3 (Tailwind), JavaScript (ES6+) |
-| Misc         | CORS, Fetch API, SSL Commerz, Gemini AI   |
+| Deployment   | Vercel (Serverless)                       |
+| Misc         | SSL Commerz, Groq (Llama 3 AI)            |
 
 ---
 
@@ -116,24 +139,108 @@ ACSP enables users to report animals in need, upload photos, and interact with a
 
 ---
 
+## 👥 Meet the Team
+
+<table>
+  <tr>
+    <td align="center" width="25%" valign="top" style="border: 1px solid #e1e4e8; border-radius: 8px; padding: 12px;">
+      <a href="https://github.com/Its-Nahid">
+        <img src="Frontend/assets/4025-punchy-animal-crossing.png" width="100px;" alt="Nahid"/>
+        <br />
+        <b>Naimur Rahman Nahid</b>
+      </a>
+      <br />
+      <i>Project Lead & Full-Stack Architect</i>
+      <br />
+      <hr style="border: 0; border-top: 1px solid #e1e4e8; margin: 8px 0;" />
+      <div style="font-size: 13px; color: gray; text-align: left;">
+        <b>Core Systems:</b> Adoption Page Backend, Rescue Page Backend, Admin Dashboard, SSLCommerz Donations, User Login & Logout System, JWT Authentication Backend, Nodemailer Engine, Groq AI, Cloudinary Image Compression, Vercel Serverless Deployment, Dynamic Component System, MongoDB Atlas Architecture
+        <hr style="border: 0; border-top: 1px solid #e1e4e8; margin: 6px 0;" />
+        <b>Leadership:</b> Orchestrated the entire development lifecycle, managed Git version control, established the foundational UI/UX framework with Tailwind CSS, implemented frontend-backend data flows, and led system-wide bug fixing and deployment troubleshooting & testing.
+      </div>
+    </td>
+    <td align="center" width="25%" valign="top" style="border: 1px solid #e1e4e8; border-radius: 8px; padding: 12px;">
+      <img src="Frontend/assets/1921-isabelle-animal-crossing.png" width="100px;" alt="Hawarih Hawa"/>
+      <br />
+      <b>Hawarih Hawa</b>
+      <br />
+      <i>Backend Developer & NGO Systems Lead</i>
+      <br />
+      <hr style="border: 0; border-top: 1px solid #e1e4e8; margin: 8px 0;" />
+      <div style="font-size: 13px; color: gray; text-align: left;">
+        <b>Core Contributions:</b> Login Page UI, Rescue Reporting Form, NGO Database Schema & APIs, NGO Profile Management, NGO Partner Registration, Volunteer Backend API & Logic, Volunteer Coordination System, Donation Tracking Backend, NGO Animal Rescue Listings, NGO Rescue Case Assignment, Educational Articles System
+        <hr style="border: 0; border-top: 1px solid #e1e4e8; margin: 6px 0;" />
+        <b>Impact:</b> Played a pivotal role as the backbone of the entire NGO ecosystem. Designed and engineered all backend systems for NGO operations — from partner registration and donation tracking to volunteer coordination, animal rescue case management, and educational content publishing.
+      </div>
+    </td>
+    <td align="center" width="25%" valign="top" style="border: 1px solid #e1e4e8; border-radius: 8px; padding: 12px;">
+      <img src="Frontend/assets/6369-isabelle-animal-crossing.png" width="100px;" alt="Rafia Raha"/>
+      <br />
+      <b>Rafia Raha</b>
+      <br />
+      <i>Auth Flows & UI Improvements</i>
+      <br />
+      <hr style="border: 0; border-top: 1px solid #e1e4e8; margin: 8px 0;" />
+      <div style="font-size: 13px; color: gray; text-align: left;">
+        <b>Core Contributions:</b> Forgot Password & Recover Password UI, Secure Email Verification UI, Pet Adoption Marketplace UI, 'Become a Partner' Onboarding Portal, Public NGO Directory, General UI Enhancements, Responsive Layout & Cross-device Testing
+        <hr style="border: 0; border-top: 1px solid #e1e4e8; margin: 6px 0;" />
+        <b>Impact:</b> Designed and implemented the critical user flows for secure password recovery and email verification. Masterminded the seamless partner onboarding experience and greatly improved the visual consistency and responsiveness of the platform.
+      </div>
+    </td>
+    <td align="center" width="25%" valign="top" style="border: 1px solid #e1e4e8; border-radius: 8px; padding: 12px;">
+      <img src="Frontend/assets/7247-animal-crossing-cat.png" width="100px;" alt="Fokrul Islam"/>
+      <br />
+      <b>Fokrul Islam</b>
+      <br />
+      <i>Frontend & UI Components</i>
+      <br />
+      <hr style="border: 0; border-top: 1px solid #e1e4e8; margin: 8px 0;" />
+      <div style="font-size: 13px; color: gray; text-align: left;">
+        <b>Core Contributions:</b> Signup Page UI, Pet Adoption Listing Form, Real-time Home Page Statistics, AI Chat Interface Design, Vet Directory Architecture & Filters, Medical Contacts UI, Volunteer Form UI, Component Styling & Animations
+        <hr style="border: 0; border-top: 1px solid #e1e4e8; margin: 6px 0;" />
+        <b>Impact:</b> Bridged the gap between complex backend AI data and user experience by building highly interactive frontend components. Ensured that users can easily navigate the Vet Directory and seamlessly interact with the Groq-powered AI Chat.
+      </div>
+    </td>
+  </tr>
+</table>
+
+---
+
 ## 🐛 Known Issues
 
-- Forgot-password feature not yet implemented.
-- NGO Directory is currently static and needs backend integration for partner management.
-- File upload limit per report is capped at 5 images.
+- Cloudinary free tier has a monthly bandwidth/storage limit; heavy usage may require a plan upgrade.
+- AI Chat (Groq API free tier) may hit rate limits during peak usage — responses may slow down or temporarily fail.
+- NGO profile image updates currently require a page refresh to reflect changes.
+- SSLCommerz is configured for sandbox/test mode; switching to production requires a merchant account upgrade.
+- Some older browser versions may not fully support the CSS animations used in hero and modal sections.
 
-## 🧠 What I Learned
+---
 
-- **Full-stack integration:** Connecting Node.js backend with MongoDB and a dynamic frontend.
-- **Payment Verification:** Synchronizing webhooks, backend REST states, and external payment APIs seamlessly via SSL Commerz.
-- **Authentication & Security:** Implementing JWT-based sessions and secure password storage.
-- **File uploads:** Handling images with `multer` and storing them reliably in the backend.
-- **Frontend-Backend interaction:** Using `fetch` API for asynchronous form submissions.
-- **Modern UI design:** Utilizing Tailwind CSS for responsive and clean design patterns.
+## 🧠 What We Learned
 
-## 👨‍💻 Author
+- **Full-stack integration:** Connecting a Node.js/Express backend with MongoDB Atlas and a dynamic multi-page frontend.
+- **Payment Verification:** Synchronizing SSLCommerz webhooks, backend REST state management, and redirect handling for secure transactions.
+- **Authentication & Security:** Implementing JWT-based sessions, bcrypt password hashing, and OTP email recovery via Nodemailer.
+- **Cloud Storage:** Migrating from local Multer file storage to Cloudinary for scalable, CDN-backed image hosting.
+- **AI Integration:** Connecting the Groq API (Llama 3 70B) to a real-time chat interface with context-aware system prompting.
+- **Serverless Deployment:** Configuring Vercel's `vercel.json` routing to bridge a multi-page frontend with a Node.js serverless backend.
+- **Team Collaboration:** Managing a multi-member project with Git branching, code reviews, and feature-based task delegation.
 
-**Nahid**  
-GitHub: [https://github.com/Its-Nahid](https://github.com/Its-Nahid)
+---
+
+## 👤 Author
+
+**Naimur Rahman Nahid**
+- 🔗 GitHub: [@Its-Nahid](https://github.com/Its-Nahid)
+- 🏫 University Project — Animal Care & Support Platform (ACSP)
+- 📌 Role: Project Lead, Full-Stack Architect, Backend Engineer, Deployment Lead
+
+---
+
+## 📄 License
+
+This project was developed as a university academic project. All rights reserved by the development team.
+
+---
 
 ⭐ If you find this project useful, consider **starring the repository** to support development.
