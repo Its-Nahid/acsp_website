@@ -35,14 +35,13 @@ acsp_website-1/
 ## Detailed File Descriptions
 
 ### Backend
+
 1. **`models/Project.js`**: Defines the data structure (Title, Goal, Status, AI-Summary).
 2. **`routes/projectRoutes.js`**: Handles endpoints like `GET /api/projects` and `POST /api/projects`.
 3. **`controllers/projectController.js`**: Contains the logic for calculating funding percentages and interfacing with the Gemini AI for summary generation.
 
 ### Frontend
+
 1. **`projects.html`**: Uses a grid layout (Tailwind CSS) to show project cards with real-time progress bars.
 2. **`project-details.html`**: A rich media page showing the project's journey, milestones, and a direct "Donate Now" button linked to the project's funding goal.
 3. **`js/projects.js`**: Manages the lifecycle of the projects page, including loading states and dynamic filtering.
-
----
-*Created by Antigravity AI - 2026-04-26*
