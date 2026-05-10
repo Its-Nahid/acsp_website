@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join as a Volunteer - ACSP</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#f98c06",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#112116",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-[#f6f8f6] dark:bg-[#112116] text-slate-900 dark:text-white min-h-screen font-['Inter']">
+
+    <div id="navbar-placeholder"></div>
+
+    <main class="max-w-4xl mx-auto px-6 py-16 lg:py-24">
+        <!-- Header -->
+        <div class="text-center mb-16 space-y-4">
+            <div
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 text-orange-600 font-bold text-xs uppercase tracking-widest border border-orange-100">
+                <span class="material-symbols-outlined text-sm">volunteer_activism</span>
+                Be a Hero
+            </div>
+            <h1 class="text-5xl md:text-6xl font-black tracking-tight text-slate-900 dark:text-white">
+                Join the <span class="text-primary italic">Movement</span>
+            </h1>
+            <p class="text-slate-500 dark:text-slate-400 text-lg max-w-xl mx-auto">
+                Your time and skills can save lives. Apply now to join our community of passionate animal advocates.
+            </p>
+        </div>
+
+        <!-- Form Card -->
+        <form id="volunteerForm"
+            class="bg-white dark:bg-zinc-800 rounded-[3rem] p-8 md:p-16 shadow-2xl shadow-orange-500/5 border border-slate-100 dark:border-zinc-700/50 space-y-16">
+
+            <!-- Section 1 -->
+            <div class="space-y-10">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-orange-500 text-white flex items-center justify-center shadow-lg shadow-orange-500/20">
+                        <span class="material-symbols-outlined">person</span>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-black text-slate-900 dark:text-white">Personal Information</h3>
+                        <p class="text-sm text-slate-400">Tell us who you are.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-3">
+                        <label class="text-sm font-bold text-slate-700 dark:text-slate-300 ml-2">Full Name</label>
+                        <input type="text" required
+                            class="w-full px-8 py-5 bg-slate-50 dark:bg-zinc-900/50 rounded-2xl border-none focus:ring-4 focus:ring-primary/10 transition-all placeholder:text-slate-400"
+                            placeholder="e.g. John Doe">
+                    </div>
+                    <div class="space-y-3">
+                        <label class="text-sm font-bold text-slate-700 dark:text-slate-300 ml-2">Email Address</label>
+                        <input type="email" required
+                            class="w-full px-8 py-5 bg-slate-50 dark:bg-zinc-900/50 rounded-2xl border-none focus:ring-4 focus:ring-primary/10 transition-all placeholder:text-slate-400"
+                            placeholder="john@example.com">
+                    </div>
+                    <div class="space-y-3">
+                        <label class="text-sm font-bold text-slate-700 dark:text-slate-300 ml-2">Phone Number</label>
+                        <input type="tel" required
+                            class="w-full px-8 py-5 bg-slate-50 dark:bg-zinc-900/50 rounded-2xl border-none focus:ring-4 focus:ring-primary/10 transition-all placeholder:text-slate-400"
+                            placeholder="+880 1XXX XXXXXX">
+                    </div>
+                    <div class="space-y-3">
+                        <label class="text-sm font-bold text-slate-700 dark:text-slate-300 ml-2">Age</label>
+                        <input type="number" required
+                            class="w-full px-8 py-5 bg-slate-50 dark:bg-zinc-900/50 rounded-2xl border-none focus:ring-4 focus:ring-primary/10 transition-all placeholder:text-slate-400"
+                            placeholder="24">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="space-y-10">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-primary text-white flex items-center justify-center shadow-lg shadow-orange-500/20">
+                        <span class="material-symbols-outlined">psychology</span>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-black text-slate-900 dark:text-white">Interests & Skills</h3>
+                        <p class="text-sm text-slate-400">How would you like to contribute?</p>
+                    </div>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <label class="relative group cursor-pointer">
+                            <input type="checkbox" class="peer hidden" name="interests" value="rescue">
+                            <div
+                                class="p-6 rounded-3xl bg-slate-50 dark:bg-zinc-900/50 border-2 border-transparent peer-checked:border-primary peer-checked:bg-orange-50/50 dark:peer-checked:bg-primary/5 transition-all text-center">
+                                <span
+                                    class="material-symbols-outlined text-3xl text-slate-400 group-hover:text-primary transition-colors mb-2">emergency</span>
+                                <p class="text-sm font-bold text-slate-600 dark:text-slate-300">Rescue</p>
+                            </div>
+                        </label>
+                        <label class="relative group cursor-pointer">
+                            <input type="checkbox" class="peer hidden" name="interests" value="shelter">
+                            <div
+                                class="p-6 rounded-3xl bg-slate-50 dark:bg-zinc-900/50 border-2 border-transparent peer-checked:border-primary peer-checked:bg-orange-50/50 dark:peer-checked:bg-primary/5 transition-all text-center">
+                                <span
+                                    class="material-symbols-outlined text-3xl text-slate-400 group-hover:text-primary transition-colors mb-2">home</span>
+                                <p class="text-sm font-bold text-slate-600 dark:text-slate-300">Shelter</p>
+                            </div>
+                        </label>
+                        <label class="relative group cursor-pointer">
+                            <input type="checkbox" class="peer hidden" name="interests" value="photography">
+                            <div
+                                class="p-6 rounded-3xl bg-slate-50 dark:bg-zinc-900/50 border-2 border-transparent peer-checked:border-primary peer-checked:bg-orange-50/50 dark:peer-checked:bg-primary/5 transition-all text-center">
+                                <span
+                                    class="material-symbols-outlined text-3xl text-slate-400 group-hover:text-primary transition-colors mb-2">photo_camera</span>
+                                <p class="text-sm font-bold text-slate-600 dark:text-slate-300">Photography</p>
+                            </div>
+                        </label>
+                        <label class="relative group cursor-pointer">
+                            <input type="checkbox" class="peer hidden" name="interests" value="it">
+                            <div
+                                class="p-6 rounded-3xl bg-slate-50 dark:bg-zinc-900/50 border-2 border-transparent peer-checked:border-primary peer-checked:bg-orange-50/50 dark:peer-checked:bg-primary/5 transition-all text-center">
+                                <span
+                                    class="material-symbols-outlined text-3xl text-slate-400 group-hover:text-primary transition-colors mb-2">terminal</span>
+                                <p class="text-sm font-bold text-slate-600 dark:text-slate-300">IT Support</p>
+                            </div>
+                        </label>
+                        <label class="relative group cursor-pointer">
+                            <input type="checkbox" class="peer hidden" name="interests" value="social">
+                            <div
+                                class="p-6 rounded-3xl bg-slate-50 dark:bg-zinc-900/50 border-2 border-transparent peer-checked:border-primary peer-checked:bg-orange-50/50 dark:peer-checked:bg-primary/5 transition-all text-center">
+                                <span
+                                    class="material-symbols-outlined text-3xl text-slate-400 group-hover:text-primary transition-colors mb-2">share</span>
+                                <p class="text-sm font-bold text-slate-600 dark:text-slate-300">Social Media</p>
+                            </div>
+                        </label>
+                        <label class="relative group cursor-pointer">
+                            <input type="checkbox" class="peer hidden" name="interests" value="other">
+                            <div
+                                class="p-6 rounded-3xl bg-slate-50 dark:bg-zinc-900/50 border-2 border-transparent peer-checked:border-primary peer-checked:bg-orange-50/50 dark:peer-checked:bg-primary/5 transition-all text-center">
+                                <span
+                                    class="material-symbols-outlined text-3xl text-slate-400 group-hover:text-primary transition-colors mb-2">add_circle</span>
+                                <p class="text-sm font-bold text-slate-600 dark:text-slate-300">Other</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-3">
+                            <label
+                                class="text-sm font-bold text-slate-700 dark:text-slate-300 ml-2">Availability</label>
+                            <select
+                                class="w-full px-8 py-5 bg-slate-50 dark:bg-zinc-900/50 rounded-2xl border-none focus:ring-4 focus:ring-primary/10 transition-all appearance-none">
+                                <option>Weekends only</option>
+                                <option>Weekdays only</option>
+                                <option>Flexible / Remote</option>
+                                <option>Event-based</option>
+                            </select>
+                        </div>
+                        <div class="space-y-3">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300 ml-2">Any medical
+                                training?</label>
+                            <div class="flex gap-8 pt-4 ml-2">
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="radio" name="medical"
+                                        class="w-5 h-5 text-primary border-slate-200 focus:ring-primary/20">
+                                    <span class="text-sm font-bold">Yes</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="radio" name="medical"
+                                        class="w-5 h-5 text-primary border-slate-200 focus:ring-primary/20" checked>
+                                    <span class="text-sm font-bold">No</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="space-y-10">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-primary text-white flex items-center justify-center shadow-lg shadow-orange-500/20">
+                        <span class="material-symbols-outlined">heart_plus</span>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-black text-slate-900 dark:text-white">Final Details</h3>
+                        <p class="text-sm text-slate-400">Share your motivation with us.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="space-y-3">
+                        <label class="text-sm font-bold text-slate-700 dark:text-slate-300 ml-2">Why do you want to
+                            join?</label>
+                        <textarea rows="4"
+                            class="w-full px-8 py-6 bg-slate-50 dark:bg-zinc-900/50 rounded-3xl border-none focus:ring-4 focus:ring-primary/10 transition-all resize-none"
+                            placeholder="Share your passion for animal welfare..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8">
+                <button type="submit"
+                    class="w-full py-6 bg-primary text-white rounded-3xl font-black text-xl hover:scale-[1.02] active:scale-[0.98] transition-all shadow-2xl shadow-orange-500/30">
+                    SUBMIT APPLICATION
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <!-- Success Feedback -->
+    <div id="successMessage"
+        class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/40 backdrop-blur-md hidden">
+        <div
+            class="bg-white dark:bg-zinc-800 p-12 rounded-[3rem] max-w-md w-full text-center space-y-8 shadow-2xl border border-white/20">
+            <div
+                class="w-24 h-24 bg-orange-50 text-primary rounded-full flex items-center justify-center mx-auto text-5xl">
+                <span class="material-symbols-outlined text-6xl">verified</span>
+            </div>
+            <div class="space-y-3">
+                <h2 class="text-3xl font-black">Success!</h2>
+                <p class="text-slate-500 dark:text-slate-400">Your application has been received. Our team will reach
+                    out to you within 48 hours.</p>
+            </div>
+            <button onclick="window.location.href='index.html'"
+                class="w-full py-5 bg-slate-900 text-white rounded-2xl font-bold hover:bg-slate-800 transition-colors">
+                Back to Home
+            </button>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="components.js"></script>
+    <script>
+        document.getElementById('volunteerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            document.getElementById('successMessage').classList.remove('hidden');
+        });
+    </script>
+</body>
+
+</html>
