@@ -155,50 +155,48 @@ ACSP enables users to report animals in need, upload photos, and interact with a
       <hr style="border: 0; border-top: 1px solid #e1e4e8; margin: 8px 0;" />
       <div style="font-size: 13px; color: gray; text-align: left;">
         <b>Core Systems:</b> Adoption Page Backend, Rescue Page Backend, Admin Dashboard, SSLCommerz Donations, User Login & Logout System, JWT Authentication Backend, Nodemailer Engine, Groq AI, Cloudinary Image Compression, Vercel Serverless Deployment, Dynamic Component System, MongoDB Atlas Architecture
-        <hr style="border: 0; border-top: 1px solid #e1e4e8; margin: 6px 0;" />
-        <b>Leadership:</b> Orchestrated the entire development lifecycle, managed Git version control, established the foundational UI/UX framework with Tailwind CSS, implemented frontend-backend data flows, and led system-wide bug fixing and deployment troubleshooting & testing.
       </div>
     </td>
     <td align="center" width="25%" valign="top" style="border: 1px solid #e1e4e8; border-radius: 8px; padding: 12px;">
-      <img src="Frontend/assets/1921-isabelle-animal-crossing.png" width="100px;" alt="Hawarih Hawa"/>
-      <br />
-      <b>Hawarih Hawa</b>
+      <a href="https://github.com/hawarihCSE">
+        <img src="Frontend/assets/1921-isabelle-animal-crossing.png" width="100px;" alt="Hawarih Hawa"/>
+        <br />
+        <b>Hawarih Hawa</b>
+      </a>
       <br />
       <i>Backend Developer & NGO Systems Lead</i>
       <br />
       <hr style="border: 0; border-top: 1px solid #e1e4e8; margin: 8px 0;" />
       <div style="font-size: 13px; color: gray; text-align: left;">
         <b>Core Contributions:</b> Login Page UI, Rescue Reporting Form, NGO Database Schema & APIs, NGO Profile Management, NGO Partner Registration, Volunteer Backend API & Logic, Volunteer Coordination System, Donation Tracking Backend, NGO Animal Rescue Listings, NGO Rescue Case Assignment, Educational Articles System
-        <hr style="border: 0; border-top: 1px solid #e1e4e8; margin: 6px 0;" />
-        <b>Impact:</b> Played a pivotal role as the backbone of the entire NGO ecosystem. Designed and engineered all backend systems for NGO operations — from partner registration and donation tracking to volunteer coordination, animal rescue case management, and educational content publishing.
       </div>
     </td>
     <td align="center" width="25%" valign="top" style="border: 1px solid #e1e4e8; border-radius: 8px; padding: 12px;">
-      <img src="Frontend/assets/6369-isabelle-animal-crossing.png" width="100px;" alt="Rafia Raha"/>
-      <br />
-      <b>Rafia Raha</b>
+      <a href="https://github.com/Rafia-cloud-star">
+        <img src="Frontend/assets/6369-isabelle-animal-crossing.png" width="100px;" alt="Rafia Raha"/>
+        <br />
+        <b>Rafia Raha</b>
+      </a>
       <br />
       <i>Auth Flows & UI Improvements</i>
       <br />
       <hr style="border: 0; border-top: 1px solid #e1e4e8; margin: 8px 0;" />
       <div style="font-size: 13px; color: gray; text-align: left;">
         <b>Core Contributions:</b> Forgot Password & Recover Password UI, Secure Email Verification UI, Pet Adoption Marketplace UI, 'Become a Partner' Onboarding Portal, Public NGO Directory, General UI Enhancements, Responsive Layout & Cross-device Testing
-        <hr style="border: 0; border-top: 1px solid #e1e4e8; margin: 6px 0;" />
-        <b>Impact:</b> Designed and implemented the critical user flows for secure password recovery and email verification. Masterminded the seamless partner onboarding experience and greatly improved the visual consistency and responsiveness of the platform.
       </div>
     </td>
     <td align="center" width="25%" valign="top" style="border: 1px solid #e1e4e8; border-radius: 8px; padding: 12px;">
-      <img src="Frontend/assets/7247-animal-crossing-cat.png" width="100px;" alt="Fokrul Islam"/>
-      <br />
-      <b>Fokrul Islam</b>
+      <a href="https://github.com/its-fokrul">
+        <img src="Frontend/assets/7247-animal-crossing-cat.png" width="100px;" alt="Fokrul Islam"/>
+        <br />
+        <b>Fokrul Islam</b>
+      </a>
       <br />
       <i>Frontend & UI Components</i>
       <br />
       <hr style="border: 0; border-top: 1px solid #e1e4e8; margin: 8px 0;" />
       <div style="font-size: 13px; color: gray; text-align: left;">
         <b>Core Contributions:</b> Signup Page UI, Pet Adoption Listing Form, Real-time Home Page Statistics, AI Chat Interface Design, Vet Directory Architecture & Filters, Medical Contacts UI, Volunteer Form UI, Component Styling & Animations
-        <hr style="border: 0; border-top: 1px solid #e1e4e8; margin: 6px 0;" />
-        <b>Impact:</b> Bridged the gap between complex backend AI data and user experience by building highly interactive frontend components. Ensured that users can easily navigate the Vet Directory and seamlessly interact with the Groq-powered AI Chat.
       </div>
     </td>
   </tr>
@@ -231,6 +229,7 @@ ACSP enables users to report animals in need, upload photos, and interact with a
 ## 👤 Author
 
 **Naimur Rahman Nahid**
+
 - 🔗 GitHub: [@Its-Nahid](https://github.com/Its-Nahid)
 - 🏫 University Project — Animal Care & Support Platform (ACSP)
 - 📌 Role: Project Lead, Full-Stack Architect, Backend Engineer, Deployment Lead
