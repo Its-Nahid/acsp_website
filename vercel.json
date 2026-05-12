@@ -16,7 +16,7 @@
       "dest": "Backend/uploads/$1"
     },
     {
-      "src": "/(signup|login|forgot-password|verify-signup|verify-reset-code|reset-password|report|reports|api|adoptions|admin|ngo|volunteer|success|fail|cancel)(.*)",
+      "src": "/(signup|login|forgot-password|verify-signup|verify-reset-code|reset-password|report|reports|api|adoption|adoptions|admin|ngo|volunteer|success|fail|cancel)(.*)",
       "dest": "Backend/server.js"
     },
 
