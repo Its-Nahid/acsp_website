@@ -236,7 +236,7 @@
             }
 
             try {
-                const response = await fetch(`http://localhost:5000/api/ngo/${ngoId}`);
+                const response = await fetch(`${window.API_BASE}/api/ngo/${ngoId}`);
                 if (!response.ok) throw new Error('NGO not found');
 
                 const ngo = await response.json();
@@ -299,7 +299,7 @@
             if (ngo.gallery && ngo.gallery.length > 0) {
                 galleryContainer.innerHTML = ngo.gallery.map(path => {
                     const imgPath = path.replace(/\\/g, '/');
-                    const fullSrc = imgPath.startsWith('http') ? imgPath : `http://localhost:5000/${imgPath}`;
+                    const fullSrc = imgPath.startsWith('http') ? imgPath : `${window.API_BASE}/${imgPath}`;
                     return `
                     <div class="aspect-square rounded-2xl overflow-hidden shadow-sm group">
                         <img src="${fullSrc}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
@@ -313,7 +313,7 @@
         async function fetchNGOAnimals(ngoId) {
             const container = document.getElementById('ngo-animals');
             try {
-                const response = await fetch(`http://localhost:5000/api/rescued-animals/ngo/${ngoId}`);
+                const response = await fetch(`${window.API_BASE}/api/rescued-animals/ngo/${ngoId}`);
                 const animals = await response.json();
 
                 if (animals.length === 0) {
@@ -328,7 +328,7 @@
 
                     const photoPath = (animal.photos && animal.photos.length > 0) ? animal.photos[0].replace(/\\/g, '/') : null;
                     const photo = photoPath 
-                        ? (photoPath.startsWith('http') ? photoPath : `http://localhost:5000/${photoPath}`)
+                        ? (photoPath.startsWith('http') ? photoPath : `${window.API_BASE}/${photoPath}`)
                         : 'https://via.placeholder.com/400x300?text=No+Photo';
 
                     return `

@@ -3,6 +3,8 @@
  * This script injects the common Navbar and Footer into pages.
  */
 
+window.API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 'http://localhost:5000' : '';
+
 const components = {
     navbar: `
     <header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b px-6 lg:px-20 py-4 border-primary/10">

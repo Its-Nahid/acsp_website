@@ -193,7 +193,7 @@
             try {
                 // In a real scenario, you might need a specific GET /api/reports/:id endpoint
                 // For now, we'll fetch all and find the match, or assume the backend supports it
-                const response = await fetch(`http://localhost:5000/reports`);
+                const response = await fetch(`${window.API_BASE}/reports`);
                 const data = await response.json();
                 const report = data.reports.find(r => r._id === caseId);
 
@@ -243,7 +243,7 @@
             if (report.photos && report.photos.length > 0) {
                 gallery.innerHTML = report.photos.map(p => `
                     <div class="rounded-3xl overflow-hidden shadow-lg aspect-video bg-slate-100">
-                        <img src="http://localhost:5000/${p.replace(/\\/g, '/')}" class="w-full h-full object-cover" />
+                        <img src=`${window.API_BASE}/${p.replace(/\\/g, '/')}` class="w-full h-full object-cover" />
                     </div>
                 `).join('');
             } else {
@@ -256,7 +256,7 @@
                 const note = document.getElementById('updateNote').value;
 
                 try {
-                    const res = await fetch(`http://localhost:5000/api/reports/${report._id}/status`, {
+                    const res = await fetch(`${window.API_BASE}/api/reports/${report._id}/status`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ status: newStatus, note })

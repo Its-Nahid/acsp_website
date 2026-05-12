@@ -547,7 +547,7 @@
         }
 
         try {
-          const response = await fetch('http://localhost:5000/adoption', {
+          const response = await fetch(`${window.API_BASE}/adoption`, {
             method: 'POST',
             body: formData
           });

@@ -158,7 +158,7 @@
 
         async function fetchSummary() {
             try {
-                const response = await fetch('http://localhost:5000/api/donations/summary');
+                const response = await fetch(`${window.API_BASE}/api/donations/summary`);
                 const data = await response.json();
 
                 document.getElementById('total-funds').textContent = `৳ ${data.summary.totalFunds.toLocaleString()}`;
@@ -189,7 +189,7 @@
             container.innerHTML = `<tr><td colspan="6" class="text-center py-10 text-slate-400 italic">Loading transactions...</td></tr>`;
 
             try {
-                const url = status ? `http://localhost:5000/api/donations?status=${status}` : 'http://localhost:5000/api/donations';
+                const url = status ? `${window.API_BASE}/api/donations?status=${status}` : `${window.API_BASE}/api/donations`;
                 const response = await fetch(url);
                 const donations = await response.json();
 

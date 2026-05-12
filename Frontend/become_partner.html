@@ -183,7 +183,7 @@
             });
 
             try {
-                const response = await fetch('http://localhost:5000/api/ngo', {
+                const response = await fetch(`${window.API_BASE}/api/ngo`, {
                     method: 'POST',
                     body: payload
                 });

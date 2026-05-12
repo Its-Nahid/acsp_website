@@ -545,15 +545,19 @@ app.post("/api/donate/init", async (req, res) => {
     const { amount, donorName, phone, location, cause } = req.body;
     const tran_id = "REF" + Date.now();
 
+    const protocol = req.headers['x-forwarded-proto'] || req.protocol;
+    const host = req.headers['host'];
+    const baseUrl = `${protocol}://${host}`;
+
     const data = {
         total_amount: amount || 2000,
         currency: "BDT",
         tran_id: tran_id, // unique for each payment
 
-        success_url: `http://localhost:5000/api/donate/success`,
-        fail_url: `http://localhost:5000/api/donate/fail`,
-        cancel_url: `http://localhost:5000/api/donate/cancel`,
-        ipn_url: `http://localhost:5000/api/donate/ipn`,
+        success_url: `${baseUrl}/api/donate/success`,
+        fail_url: `${baseUrl}/api/donate/fail`,
+        cancel_url: `${baseUrl}/api/donate/cancel`,
+        ipn_url: `${baseUrl}/api/donate/ipn`,
 
         shipping_method: "No",
         product_name: cause || "Donation",

@@ -155,7 +155,7 @@
 
           console.log("Fetching reports from backend...");
           const response = await fetch(
-            `http://localhost:5000/reports?page=${page}`,
+            `${window.API_BASE}/reports?page=${page}`,
           );
           const data = await response.json();
           console.log("Received data:", data);
@@ -192,7 +192,7 @@
           .map((report) => {
             const firstPhoto = report.photos && report.photos.length > 0 ? report.photos[0] : null;
             const imageUrl = firstPhoto 
-              ? (firstPhoto.startsWith('http') ? firstPhoto : `http://localhost:5000/${firstPhoto}`)
+              ? (firstPhoto.startsWith('http') ? firstPhoto : `${window.API_BASE}/${firstPhoto}`)
               : "https://via.placeholder.com/400x300?text=No+Photo";
 
             const urgencyVal = (report.urgency || "low").toLowerCase();
