@@ -16,7 +16,7 @@ ACSP enables users to report animals in need, upload photos, and interact with a
 - **/Backend**: Node.js and Express server handling all API requests and database interactions.
   - `server.js`: Main entry point for the backend.
   - `models/`: Mongoose schemas — `user.js`, `RescueReport.js`, `report.js`, `Adoption.js`, `Donation.js`, `NGO.js`, `Vet.js`, `Volunteer.js`, `VolunteerOpportunity.js`, `RescuedAnimal.js`
-  - `uploads/`: Directory for locally stored uploaded photos (migrated to Cloudinary).
+
 - **/Frontend**: All client-side HTML, JS, and CSS files.
   - `index.html`: Main landing page with statistics, hero section, and emergency contacts.
   - `login.html` & `signup.html`: User authentication pages.

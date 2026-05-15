@@ -28,7 +28,7 @@ acsp_website-1/
 │   │   └── projects.js             # API fetching and DOM manipulation logic
 │   └── components.js               # [UPDATE] To include project links in navigation
 │
-└── uploads/
+
     └── projects/                   # Storage for project-specific media
 ```
 
